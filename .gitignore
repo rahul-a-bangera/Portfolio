@@ -1,0 +1,28 @@
+# Root .gitignore
+
+# Backend
+PortfolioBackend/bin/
+PortfolioBackend/obj/
+PortfolioBackend/.vs/
+PortfolioBackend/*.user
+PortfolioBackend/*.suo
+
+# Frontend
+PortfolioFrontend/node_modules/
+PortfolioFrontend/dist/
+PortfolioFrontend/.angular/cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

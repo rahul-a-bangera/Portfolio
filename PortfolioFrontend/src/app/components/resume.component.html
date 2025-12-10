@@ -1,0 +1,132 @@
+<section id="resume" class="resume-container">
+  <div class="resume-header">
+    <h1 class="resume-title">My Resume</h1>
+    <p class="resume-subtitle">Experience, Skills & Education</p>
+  </div>
+
+  <mat-tab-group>
+    <!-- Summary Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>description</mat-icon>
+        Summary
+      </ng-template>
+      <div class="tab-content" *ngIf="resumeData">
+        <h2 class="section-title">
+          <mat-icon>person</mat-icon>
+          Professional Summary
+        </h2>
+        <p>{{ resumeData.summary }}</p>
+        <button mat-raised-button color="primary">
+          <mat-icon>download</mat-icon>
+          Download CV
+        </button>
+      </div>
+    </mat-tab>
+
+    <!-- Skills Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>star</mat-icon>
+        Skills
+      </ng-template>
+      <div class="tab-content" *ngIf="resumeData">
+        <h2 class="section-title">
+          <mat-icon>verified</mat-icon>
+          Technical Skills
+        </h2>
+        <div class="skill-grid">
+          <div class="skill-badge" *ngFor="let skill of resumeData.skills">
+            {{ skill }}
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Tools Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>build</mat-icon>
+        Tools
+      </ng-template>
+      <div class="tab-content" *ngIf="resumeData">
+        <h2 class="section-title">
+          <mat-icon>construction</mat-icon>
+          Tools & Technologies
+        </h2>
+        <mat-list>
+          <mat-list-item *ngFor="let tool of resumeData.tools">
+            <mat-icon matListItemIcon>code</mat-icon>
+            <span matListItemTitle class="item-title">{{ tool }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+
+    <!-- Experience Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>work</mat-icon>
+        Experience
+      </ng-template>
+      <div class="tab-content" *ngIf="resumeData">
+        <h2 class="section-title">
+          <mat-icon>business_center</mat-icon>
+          Work Experience
+        </h2>
+        <div class="timeline">
+          <div
+            class="timeline-item"
+            *ngFor="let company of resumeData.companies"
+          >
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title class="item-title">{{
+                  company.position
+                }}</mat-card-title>
+                <mat-card-subtitle class="item-subtitle">{{
+                  company.companyName
+                }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <p class="item-description">
+                  {{ company.startDate }} - {{ company.endDate }}
+                </p>
+                <p class="item-description">{{ company.description }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Education Tab -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>school</mat-icon>
+        Education
+      </ng-template>
+      <div class="tab-content" *ngIf="resumeData">
+        <h2 class="section-title">
+          <mat-icon>graduation</mat-icon>
+          Education
+        </h2>
+        <mat-list>
+          <mat-list-item
+            *ngFor="let edu of resumeData.education"
+            class="education-item"
+          >
+            <mat-icon matListItemIcon>school</mat-icon>
+            <div matListItemTitle class="item-title">{{ edu.degree }}</div>
+            <div matListItemLine class="item-subtitle">
+              {{ edu.institution }}
+            </div>
+            <div matListItemLine class="item-description">
+              {{ edu.field }} - {{ edu.graduationYear }}
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</section>

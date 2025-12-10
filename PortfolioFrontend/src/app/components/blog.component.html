@@ -1,0 +1,55 @@
+<section id="blog" class="blog-container">
+  <div class="blog-header">
+    <h1 class="blog-title">My Blog</h1>
+    <p class="blog-subtitle">
+      Thoughts, ideas, and insights about web development
+    </p>
+  </div>
+
+  <div class="filter-section">
+    <button mat-button class="filter-chip active">All</button>
+    <button mat-button class="filter-chip">Angular</button>
+    <button mat-button class="filter-chip">.NET</button>
+    <button mat-button class="filter-chip">Web Design</button>
+    <button mat-button class="filter-chip">Performance</button>
+  </div>
+
+  <div class="blog-grid">
+    <mat-card *ngFor="let post of blogPosts" class="blog-card">
+      <div class="card-image">📝</div>
+      <div class="card-header">
+        <span class="card-category">{{ post.category || "Web" }}</span>
+        <h3 class="card-title">{{ post.title }}</h3>
+        <p class="card-date">{{ post.createdDate | date : "MMM dd, yyyy" }}</p>
+      </div>
+      <div class="card-content">
+        <p class="card-description">{{ post.summary }}</p>
+        <div class="post-tags" *ngIf="post.tags">
+          <span class="tag" *ngFor="let tag of post.tags">{{ tag }}</span>
+        </div>
+        <p class="read-time">
+          <mat-icon>schedule</mat-icon>
+          5 min read
+        </p>
+      </div>
+      <div class="card-footer">
+        <button mat-button class="read-more-btn" (click)="viewBlog(post.slug)">
+          <span>Read More</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <span class="author-name">By {{ post.author }}</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <div *ngIf="blogPosts.length === 0" class="no-posts">
+    <mat-icon>article</mat-icon>
+    <p>No blog posts available yet.</p>
+  </div>
+
+  <div class="pagination">
+    <button mat-button class="pagination-btn active">1</button>
+    <button mat-button class="pagination-btn">2</button>
+    <button mat-button class="pagination-btn">3</button>
+  </div>
+</section>

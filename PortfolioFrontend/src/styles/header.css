@@ -1,0 +1,63 @@
+/* Header Component Styles */
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid white;
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    gap: 8px;
+  }
+
+  .nav-menu a {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+}
