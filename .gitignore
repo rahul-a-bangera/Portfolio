@@ -1,29 +1,78 @@
 # Root .gitignore
 
-# Backend
+# Backend - .NET / Visual Studio
 PortfolioBackend/bin/
 PortfolioBackend/obj/
 PortfolioBackend/.vs/
 PortfolioBackend/*.user
 PortfolioBackend/*.suo
+PortfolioBackend/*.sln.docstates
+PortfolioBackend/.vscode/
+*.csproj.user
+*.csproj.filters
+*.vcxproj.user
+*.ncb
+*.sdf
+*.opensdf
 
-# Frontend
+# Frontend - Angular / Node
 PortfolioFrontend/node_modules/
 PortfolioFrontend/dist/
 PortfolioFrontend/.angular/cache/
+PortfolioFrontend/.npm/
+PortfolioFrontend/package-lock.json
+PortfolioFrontend/yarn.lock
 
-# IDE
-.vs/
+# IDE - General
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.sublime-workspace
+*.sublime-project
+
+# IDE - Visual Studio
+.vs/
+.vscode/extensions/
+.vscode/settings.json
+*.VC.db
+*.VC.VC.opendb
 
 # OS
 .DS_Store
 Thumbs.db
+*.lnk
+desktop.ini
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+coverage/
+.next/
+out/
+
+# Dependencies lock files (optional - uncomment if not using in repo)
+# package-lock.json
+# yarn.lock
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
