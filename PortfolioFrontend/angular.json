@@ -39,12 +39,15 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "portfolio-frontend:build"
+          },
           "configurations": {
             "production": {
-              "browserTarget": "portfolio-frontend:build:production"
+              "buildTarget": "portfolio-frontend:build:production"
             },
             "development": {
-              "browserTarget": "portfolio-frontend:build:development"
+              "buildTarget": "portfolio-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
