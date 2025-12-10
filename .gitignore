@@ -13,6 +13,7 @@ PortfolioFrontend/dist/
 PortfolioFrontend/.angular/cache/
 
 # IDE
+.vs/
 .vscode/
 .idea/
 *.swp
