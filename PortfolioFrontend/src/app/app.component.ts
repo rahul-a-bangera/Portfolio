@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header.component';
 import { HomeComponent } from './components/home.component';
 import { ResumeComponent } from './components/resume.component';
@@ -12,7 +11,6 @@ import { ContactComponent } from './components/contact.component';
   standalone: true,
   imports: [
     CommonModule,
-    HttpClientModule,
     HeaderComponent,
     HomeComponent,
     ResumeComponent,
