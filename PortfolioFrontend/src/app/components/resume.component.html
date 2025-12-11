@@ -11,16 +11,32 @@
         <mat-icon>description</mat-icon>
         Summary
       </ng-template>
-      <div class="tab-content" *ngIf="resumeData">
-        <h2 class="section-title">
-          <mat-icon>person</mat-icon>
-          Professional Summary
-        </h2>
-        <p>{{ resumeData.summary }}</p>
-        <button mat-raised-button color="primary">
-          <mat-icon>download</mat-icon>
-          Download CV
-        </button>
+      <div class="tab-content">
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              <mat-icon>person</mat-icon>
+              Professional Summary
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="card-text">
+              Software Engineer with 4+ years of experience working with .NET technologies, including C#, .NET Core, VB.NET, WinForms, 
+              and SQL, along with hands-on exposure to microservices, payment integrations, and Azure cloud services.
+            </p>
+            <p class="card-text">
+              Skilled in building and maintaining applications in the retail, financial, and accounting domains. Strong in problem-solving, 
+              debugging, and delivering reliable solutions under tight timelines. Known for clear communication, effective collaboration, 
+              and a continuous drive to learn and adopt new technologies.
+            </p>
+            <div class="card-actions">
+              <button mat-raised-button class="action-button" (click)="downloadCV()">
+                <mat-icon>download</mat-icon>
+                Download CV
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-tab>
 
@@ -30,16 +46,38 @@
         <mat-icon>star</mat-icon>
         Skills
       </ng-template>
-      <div class="tab-content" *ngIf="resumeData">
-        <h2 class="section-title">
-          <mat-icon>verified</mat-icon>
-          Technical Skills
-        </h2>
-        <div class="skill-grid">
-          <div class="skill-badge" *ngFor="let skill of resumeData.skills">
-            {{ skill }}
-          </div>
-        </div>
+      <div class="tab-content">
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              <mat-icon>verified</mat-icon>
+              Technical Skills
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="card-text">
+              Comprehensive technical expertise across Microsoft technologies, cloud platforms, and modern development practices.
+            </p>
+            <div class="skill-grid">
+              <div class="skill-badge">C# / .NET</div>
+              <div class="skill-badge">.NET Core</div>
+              <div class="skill-badge">Azure Cloud</div>
+              <div class="skill-badge">Microservices</div>
+              <div class="skill-badge">SQL Server</div>
+              <div class="skill-badge">VB.NET</div>
+              <div class="skill-badge">REST APIs</div>
+              <div class="skill-badge">WinForms</div>
+              <div class="skill-badge">Git / TFS</div>
+              <div class="skill-badge">Payment Systems</div>
+              <div class="skill-badge">Retail Domain</div>
+              <div class="skill-badge">Finance Domain</div>
+              <div class="skill-badge">OAuth2 / JWT</div>
+              <div class="skill-badge">Azure DevOps</div>
+              <div class="skill-badge">AI Tools</div>
+              <div class="skill-badge">MCP Server</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-tab>
 
@@ -49,17 +87,64 @@
         <mat-icon>build</mat-icon>
         Tools
       </ng-template>
-      <div class="tab-content" *ngIf="resumeData">
-        <h2 class="section-title">
-          <mat-icon>construction</mat-icon>
-          Tools & Technologies
-        </h2>
-        <mat-list>
-          <mat-list-item *ngFor="let tool of resumeData.tools">
-            <mat-icon matListItemIcon>code</mat-icon>
-            <span matListItemTitle class="item-title">{{ tool }}</span>
-          </mat-list-item>
-        </mat-list>
+      <div class="tab-content">
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              <mat-icon>construction</mat-icon>
+              Tools & Technologies
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="card-text">
+              Professional tools and platforms used for development, cloud operations, and collaboration.
+            </p>
+            <div class="tools-list">
+              <div class="tool-item">
+                <mat-icon>code</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">Visual Studio / VS Code</h3>
+                  <p class="tool-description">Primary IDEs for .NET development, debugging, and code analysis</p>
+                </div>
+              </div>
+              <div class="tool-item">
+                <mat-icon>cloud</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">Azure Services</h3>
+                  <p class="tool-description">App Services, Service Bus, Storage, AppInsights for cloud deployment and monitoring</p>
+                </div>
+              </div>
+              <div class="tool-item">
+                <mat-icon>code</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">Git / TFS</h3>
+                  <p class="tool-description">Version control, branching strategies, and collaborative development workflows</p>
+                </div>
+              </div>
+              <div class="tool-item">
+                <mat-icon>api</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">Postman</h3>
+                  <p class="tool-description">API testing, REST endpoint validation, and integration testing</p>
+                </div>
+              </div>
+              <div class="tool-item">
+                <mat-icon>storage</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">SQL Server Management Studio</h3>
+                  <p class="tool-description">Database management, query optimization, and performance tuning</p>
+                </div>
+              </div>
+              <div class="tool-item">
+                <mat-icon>smart_toy</mat-icon>
+                <div class="tool-info">
+                  <h3 class="tool-name">Claude Code / AI Tools</h3>
+                  <p class="tool-description">AI-assisted development, code generation, and productivity enhancement</p>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-tab>
 
@@ -69,34 +154,50 @@
         <mat-icon>work</mat-icon>
         Experience
       </ng-template>
-      <div class="tab-content" *ngIf="resumeData">
-        <h2 class="section-title">
-          <mat-icon>business_center</mat-icon>
-          Work Experience
-        </h2>
-        <div class="timeline">
-          <div
-            class="timeline-item"
-            *ngFor="let company of resumeData.companies"
-          >
-            <mat-card>
-              <mat-card-header>
-                <mat-card-title class="item-title">{{
-                  company.position
-                }}</mat-card-title>
-                <mat-card-subtitle class="item-subtitle">{{
-                  company.companyName
-                }}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p class="item-description">
-                  {{ company.startDate }} - {{ company.endDate }}
-                </p>
-                <p class="item-description">{{ company.description }}</p>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </div>
+      <div class="tab-content">
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              <mat-icon>business_center</mat-icon>
+              Work Experience
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="experience-card">
+                  <h3 class="experience-title">Software Developer</h3>
+                  <p class="experience-company">EG India | Mangalore</p>
+                  <p class="experience-period">November 2024 - Present</p>
+                  <ul class="experience-list">
+                    <li>Contribute 80% of work to developing and maintaining services using C#, .NET Framework, and .NET Core within a microservices architecture.</li>
+                    <li>Build and enhance Retail Point of Sale (POS) applications and APIs using REST principles, OAuth2, and JWT-based authentication.</li>
+                    <li>Implement and support payment integrations, including onboarding Nordic providers such as Walley, Adyen, and Vipps, and improving existing payment flows.</li>
+                    <li>Work with Azure services (App Services, Service Bus, Storage, AppInsights, etc.) for deployment, monitoring, configuration, and cloud operations.</li>
+                    <li>Maintain POS applications across both on-premise and cloud-based environments, ensuring seamless store operations.</li>
+                    <li>Collaborate in an Agile/Scrum team, participating in sprint planning, stand-ups, reviews, and iterative delivery.</li>
+                    <li>Independently manage a legacy VB.NET WinForms POS application in the remaining 20% of time, handling development, testing, release cycles, and feature updates.</li>
+                    <li>Provide support to consultants, internal teams, and customers by assisting in major incidents, troubleshooting production issues, and ensuring timely resolution.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="experience-card">
+                  <h3 class="experience-title">Senior Programming Engineer</h3>
+                  <p class="experience-company">WINMAN SOFTWARE INDIA LLP | Mangalore</p>
+                  <p class="experience-period">August 2021 - October 2024</p>
+                  <ul class="experience-list">
+                    <li>Developed core modules for a new accounting software and enhanced financial products like E-Proceeding using VB.NET, SQL Server, and Visual Studio.</li>
+                    <li>Led requirement gathering and user-focused design discussions with senior management to shape new software components.</li>
+                    <li>Performed SQL Server query optimization to reduce server load, improve performance, and enhance application responsiveness.</li>
+                    <li>Improved user experience by resolving tickets, coordinating fixes with developers, and optimizing internal workflows.</li>
+                    <li>Conducted code reviews, guided team members, and maintained high code quality standards.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-tab>
 
@@ -106,26 +207,30 @@
         <mat-icon>school</mat-icon>
         Education
       </ng-template>
-      <div class="tab-content" *ngIf="resumeData">
-        <h2 class="section-title">
-          <mat-icon>graduation</mat-icon>
-          Education
-        </h2>
-        <mat-list>
-          <mat-list-item
-            *ngFor="let edu of resumeData.education"
-            class="education-item"
-          >
-            <mat-icon matListItemIcon>school</mat-icon>
-            <div matListItemTitle class="item-title">{{ edu.degree }}</div>
-            <div matListItemLine class="item-subtitle">
-              {{ edu.institution }}
+      <div class="tab-content">
+        <mat-card class="content-card">
+          <mat-card-header>
+            <mat-card-title class="card-title">
+              <mat-icon>school</mat-icon>
+              Education
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="education-list">
+              <div class="education-item">
+                <mat-icon class="education-icon">school</mat-icon>
+                <div class="education-info">
+                  <h3 class="education-degree">INFORMATION SCIENCE & ENGINEERING</h3>
+                  <p class="education-institution">Sahyadri College of Engineering & Management | Karnataka</p>
+                  <p class="education-details">December 2021</p>
+                  <p class="education-description">
+                    Course work in Information/Computer Science. Scored 8.53 CGPA.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div matListItemLine class="item-description">
-              {{ edu.field }} - {{ edu.graduationYear }}
-            </div>
-          </mat-list-item>
-        </mat-list>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-tab>
   </mat-tab-group>

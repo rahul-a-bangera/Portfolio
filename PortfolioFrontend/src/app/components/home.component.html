@@ -2,7 +2,9 @@
   <div class="home-card-wrapper">
     <mat-card class="home-card">
       <div class="card-header">
-        <div class="profile-image">👨‍💼</div>
+        <div class="profile-image">
+          <img src="assets/profile.jpg" alt="Rahul A - Profile Picture" class="profile-pic">
+        </div>
         <h1 class="profile-name">Rahul A</h1>
         <p class="profile-title">Software Engineer | .NET & Azure Specialist</p>
       </div>
@@ -15,30 +17,66 @@
           reliable solutions under tight timelines.
         </p>
         <div class="card-actions">
-          <button mat-raised-button class="cta-button primary">
+          <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
             <mat-icon>download</mat-icon>
             Download CV
           </button>
-          <button mat-stroked-button class="cta-button secondary">
-            <mat-icon>work</mat-icon>
-            View Projects
-          </button>
         </div>
         <div class="social-links">
-          <a href="#" class="social-link" title="GitHub">
-            <mat-icon>code</mat-icon>
-          </a>
-          <a href="#" class="social-link" title="LinkedIn">
+          <a href="https://www.linkedin.com/in/rahul-bangera/" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
             <mat-icon>business</mat-icon>
           </a>
-          <a href="#" class="social-link" title="Twitter">
-            <mat-icon>share</mat-icon>
-          </a>
-          <a href="#" class="social-link" title="Email">
+          <button mat-button class="social-link" title="Contact Info" (click)="toggleContactPopup()">
             <mat-icon>mail</mat-icon>
-          </a>
+          </button>
         </div>
       </mat-card-content>
     </mat-card>
+
+    <!-- Contact Info Popup -->
+    <div class="contact-popup-overlay" *ngIf="showContactPopup" (click)="closeContactPopup()">
+      <mat-card class="contact-popup-card" (click)="$event.stopPropagation()">
+        <mat-card-header>
+          <mat-card-title class="popup-title">
+            <mat-icon>contact_mail</mat-icon>
+            Contact Information
+          </mat-card-title>
+          <button mat-icon-button class="close-button" (click)="closeContactPopup()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content class="popup-content">
+          <div class="contact-item">
+            <mat-icon class="contact-icon">email</mat-icon>
+            <div class="contact-details">
+              <label class="contact-label">Email</label>
+              <div class="contact-value-wrapper">
+                <input type="text" readonly [value]="emailId" class="contact-input" #emailInput>
+                <button mat-raised-button class="copy-button" (click)="copyToClipboard(emailId, 'Email')">
+                  <mat-icon>content_copy</mat-icon>
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <mat-icon class="contact-icon">phone</mat-icon>
+            <div class="contact-details">
+              <label class="contact-label">Mobile</label>
+              <div class="contact-value-wrapper">
+                <input type="text" readonly [value]="mobileNo" class="contact-input" #mobileInput>
+                <button mat-raised-button class="copy-button" (click)="copyToClipboard(mobileNo, 'Mobile number')">
+                  <mat-icon>content_copy</mat-icon>
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="copied-message" *ngIf="showCopiedMessage">
+            {{ copiedMessageText }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </section>

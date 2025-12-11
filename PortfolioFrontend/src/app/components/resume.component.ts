@@ -30,4 +30,14 @@ export class ResumeComponent implements OnInit {
       }
     );
   }
+
+  downloadCV(): void {
+    const link = document.createElement('a');
+    link.href = 'assets/Rahul-A-Resume.pdf';
+    link.download = 'Rahul-A-Resume.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
