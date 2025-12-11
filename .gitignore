@@ -65,6 +65,10 @@ coverage/
 .next/
 out/
 
+# GitHub Pages - IMPORTANT: Do NOT ignore docs/ folder
+# The docs/ folder contains the production build for GitHub Pages
+!docs/
+
 # Dependencies lock files (optional - uncomment if not using in repo)
 # package-lock.json
 # yarn.lock
