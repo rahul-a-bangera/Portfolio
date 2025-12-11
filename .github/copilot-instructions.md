@@ -3,6 +3,29 @@
 ## Project Overview
 This is a modern, responsive portfolio website built with Angular 19 and deployed on GitHub Pages with a custom domain (rahul-a.in). The project features a cyberpunk terminal-inspired design with a consistent color scheme.
 
+## Documentation Structure
+
+**All documentation is consolidated into 7 files in the `misc/` folder:**
+
+1. **01-TECHNICAL.md** - Code quality, tech stack, dependencies, performance metrics
+2. **02-ARCHITECTURE.md** - System architecture, component hierarchy, data flow
+3. **03-THEME.md** - Design system, colors, typography, component patterns
+4. **04-SETUP.md** - Installation and setup instructions
+5. **05-DEPLOYMENT.md** - Deployment process and configuration
+6. **06-RESPONSIVE.md** - Responsive design breakpoints and mobile optimization
+7. **07-BUILD.md** - Build configuration and troubleshooting
+
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
+
+## File Organization
+
+### Documentation Files
+- **Root**: `README.md` only (main project documentation, public-facing)
+- **misc/**: All technical documentation (7 consolidated files)
+- **.github/**: `copilot-instructions.md` (this file)
+
+**Rule**: Never create new .md files outside this structure. Update existing files instead.
+
 ## Code Style & Conventions
 
 ### TypeScript/Angular
@@ -30,7 +53,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 - Each component has: `.ts`, `.html`, `.css` files
 - Global styles in `PortfolioFrontend/src/styles.css`
 - Assets in `PortfolioFrontend/src/assets/`
-- Documentation in `misc/` folder (except `README.md` in root)
+- **Documentation in `misc/` folder (7 consolidated files ONLY)**
 - Build output in `docs/` folder (for GitHub Pages)
 
 ## Design System
@@ -47,7 +70,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 --terminal-border-bright: rgba(0,255,150,0.5)  /* Active/hover borders */
 ```
 
-**Always use these exact color values. Do not introduce new colors without updating this section.**
+**Always use these exact color values. Do not introduce new colors without updating 03-THEME.md**
 
 ### Typography
 - **Headings**: Monaco, Menlo, Ubuntu Mono, Courier New (monospace fonts)
@@ -68,8 +91,7 @@ Use multiples of 8px: `8px, 16px, 24px, 32px, 40px, 48px, 60px`
 
 ### Breakpoints
 ```css
-/* Desktop Default - No media query needed */
-/* Applies to screens wider than 1024px */
+/* Desktop Default - No media query needed (1024px+) */
 
 /* Tablet - 960px to 1024px */
 @media (max-width: 1024px) { }
@@ -195,8 +217,8 @@ Override Material component styles using `::ng-deep` when necessary:
 
 ### Bundle Size Limits
 - **Total Bundle**: Keep under 150 KB (gzipped)
-- **Component CSS**: Keep under 12 KB per file
-- **Images**: Optimize and use appropriate formats (WebP for web, JPEG for photos)
+- **Component CSS**: Keep under 12 KB per file (see 07-BUILD.md)
+- **Images**: Optimize and use appropriate formats (JPEG for photos)
 
 ### Performance Best Practices
 - Use `OnPush` change detection when possible
@@ -233,7 +255,7 @@ Use conventional commits:
 ```
 feat: Add new blog post filtering feature
 fix: Resolve mobile navigation toggle issue
-docs: Update responsive design documentation
+docs: Update technical documentation (in misc/01-TECHNICAL.md)
 style: Improve button hover animations
 refactor: Simplify contact form validation
 perf: Optimize image loading
@@ -255,26 +277,23 @@ chore: Update Angular to version 19.1
 
 ## Documentation
 
-### When to Add Documentation
-- New features: Create/update relevant .md in `misc/`
-- API changes: Update component documentation
-- Breaking changes: Add migration guide
-- Configuration changes: Update setup documentation
+### When to Update Documentation
+- **Code changes**: Update relevant file in `misc/` (01-07)
+- **New features**: Update 01-TECHNICAL.md
+- **Architecture changes**: Update 02-ARCHITECTURE.md
+- **Theme changes**: Update 03-THEME.md
+- **Setup changes**: Update 04-SETUP.md
+- **Deployment changes**: Update 05-DEPLOYMENT.md
+- **Responsive changes**: Update 06-RESPONSIVE.md
+- **Build changes**: Update 07-BUILD.md
 
-### Documentation Files
-All documentation (except `README.md`) goes in `misc/` folder:
-- `DEPLOYMENT_CHECKLIST.md` - Deployment steps
-- `RESPONSIVE_DESIGN_IMPROVEMENTS.md` - Responsive design details
-- `MOBILE_UX_FIXES.md` - Mobile UX improvements
-- `THEME_CONSISTENCY.md` - Theme guidelines
-- `BUILD_FIX_CSS_BUDGET.md` - Build configuration notes
-
-### Documentation Style
-- Use clear headings (##, ###)
-- Include code examples with syntax highlighting
-- Add checkboxes for checklists
-- Use tables for comparisons
-- Include emojis for visual markers (?, ?, ??, ??, etc.)
+### Documentation Rules
+1. **NEVER create new .md files** - Update existing consolidated files
+2. All docs go in `misc/` except `README.md` (root)
+3. Keep documentation concise and up-to-date
+4. Use clear headings and code examples
+5. Include tables for comparisons
+6. Use ? ? ?? ?? for visual markers
 
 ## Testing Guidelines
 
@@ -287,18 +306,6 @@ All documentation (except `README.md`) goes in `misc/` folder:
 - [ ] Check all forms submit correctly
 - [ ] Test keyboard navigation
 - [ ] Verify ARIA labels with screen reader
-
-### Browser DevTools Testing
-```javascript
-// Test responsive design
-// Open DevTools ? Toggle device toolbar
-// Test these viewports:
-// - iPhone SE (375px)
-// - iPhone 12/13 (390px)
-// - iPhone Pro Max (428px)
-// - iPad (768px)
-// - Desktop (1920px)
-```
 
 ## Common Patterns
 
@@ -357,7 +364,7 @@ onWindowScroll(): void {
 ## Troubleshooting Common Issues
 
 ### Build Fails
-- Check `angular.json` CSS budget limits
+- Check `angular.json` CSS budget limits (see 07-BUILD.md)
 - Verify all imports are correct
 - Run `npm install` to update dependencies
 - Check for TypeScript errors with `ng build`
@@ -406,7 +413,7 @@ git push origin main        # Push to GitHub (triggers deployment)
 - Add responsive styles for all breakpoints
 - Test on mobile devices
 - Use Material Icons for consistency
-- Document complex logic
+- Document changes in appropriate misc/ file (01-07)
 - Keep bundle sizes optimized
 - Follow accessibility guidelines
 - Use semantic HTML
@@ -414,14 +421,14 @@ git push origin main        # Push to GitHub (triggers deployment)
 - Test keyboard navigation
 
 ### DON'Ts ?
-- Don't introduce new color schemes
+- **Don't create new .md files** - Update existing misc/ files (01-07)
+- Don't introduce new color schemes without updating 03-THEME.md
 - Don't skip mobile testing
 - Don't use inline styles in templates
 - Don't hardcode values (use CSS variables)
 - Don't ignore accessibility
 - Don't commit `node_modules/` or `dist/`
 - Don't modify `docs/` manually (it's auto-generated)
-- Don't skip documentation for new features
 - Don't exceed CSS budget limits without justification
 - Don't break existing theme consistency
 
