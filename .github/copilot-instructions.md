@@ -1,0 +1,440 @@
+# GitHub Copilot Instructions for Portfolio Project
+
+## Project Overview
+This is a modern, responsive portfolio website built with Angular 19 and deployed on GitHub Pages with a custom domain (rahul-a.in). The project features a cyberpunk terminal-inspired design with a consistent color scheme.
+
+## Code Style & Conventions
+
+### TypeScript/Angular
+- Use **standalone components** (no modules)
+- Follow **Angular 19** best practices
+- Use **strict TypeScript** mode
+- Use **PascalCase** for component class names
+- Use **camelCase** for properties and methods
+- Use **kebab-case** for component selectors (e.g., `app-header`)
+- Prefer **template literals** for string concatenation
+- Use **async/await** over promises where appropriate
+- Use **readonly** for properties that shouldn't be modified
+
+### CSS/Styling
+- Use **CSS custom properties** defined in `:root`
+- Follow **BEM-like naming** for CSS classes (e.g., `.card-title`, `.button--primary`)
+- Use **rem/em** units for responsive sizing
+- Use **px** only for borders and fine details
+- Always provide **fallback colors** for rgba values
+- Use **::ng-deep** sparingly and document why it's needed
+- Prefer **flexbox** and **grid** for layouts
+
+### File Organization
+- Components in `PortfolioFrontend/src/app/components/`
+- Each component has: `.ts`, `.html`, `.css` files
+- Global styles in `PortfolioFrontend/src/styles.css`
+- Assets in `PortfolioFrontend/src/assets/`
+- Documentation in `misc/` folder (except `README.md` in root)
+- Build output in `docs/` folder (for GitHub Pages)
+
+## Design System
+
+### Color Palette (Terminal Green Theme)
+```css
+--terminal-green: #00ff96           /* Primary accent - use for CTAs, links, highlights */
+--terminal-bg-dark: #0f0f1e         /* Main background */
+--terminal-bg-medium: #1a1a2e       /* Secondary background */
+--terminal-bg-light: #16213e        /* Tertiary background */
+--terminal-text: rgba(255,255,255,0.9)      /* Primary text */
+--terminal-text-secondary: rgba(255,255,255,0.6)  /* Secondary text */
+--terminal-border: rgba(0,255,150,0.2)      /* Default borders */
+--terminal-border-bright: rgba(0,255,150,0.5)  /* Active/hover borders */
+```
+
+**Always use these exact color values. Do not introduce new colors without updating this section.**
+
+### Typography
+- **Headings**: Monaco, Menlo, Ubuntu Mono, Courier New (monospace fonts)
+- **Body Text**: Segoe UI, Roboto, sans-serif
+- **Base Font Size**: 15px (desktop), 13-14px (mobile)
+- **Line Height**: 1.6-1.7 for body text, 1.3-1.4 for headings
+
+### Spacing Scale
+Use multiples of 8px: `8px, 16px, 24px, 32px, 40px, 48px, 60px`
+
+### Component Patterns
+- **Cards**: Dark background with green border glow, border-radius: 8px
+- **Buttons**: Terminal green (#00ff96) background, uppercase text, letter-spacing: 0.5px
+- **Hover States**: Increase glow effect, slight translateY(-2px) or scale(1.05)
+- **Icons**: Material Icons, size 20-24px, color matches text or accent
+
+## Responsive Design Guidelines
+
+### Breakpoints
+```css
+/* Desktop Default - No media query needed */
+/* Applies to screens wider than 1024px */
+
+/* Tablet - 960px to 1024px */
+@media (max-width: 1024px) { }
+
+/* Mobile Large - 768px to 960px */
+@media (max-width: 960px) { }
+
+/* Mobile Medium - 480px to 768px */
+@media (max-width: 768px) { }
+
+/* Mobile Small - Below 480px */
+@media (max-width: 480px) { }
+```
+
+### Touch Targets
+- **Minimum size**: 44x44px on mobile (iOS guidelines)
+- **Preferred size**: 48x48px (Android guidelines)
+- **Spacing**: Minimum 8px between touch targets
+
+### Mobile Optimizations
+- Icon-only navigation on screens < 768px
+- Single-column layouts on screens < 768px
+- Font size minimum 16px for inputs (prevents iOS zoom)
+- Stack cards vertically on mobile
+- Reduce padding: 32px ? 24px ? 20px ? 16px ? 12px
+
+### Responsive Text
+- Use `clamp()` for fluid typography when appropriate
+- Scale headings: h1 desktop (32px) ? mobile (20px)
+- Maintain readability: line-height stays 1.6+ on all screens
+
+## Component Guidelines
+
+### When Creating New Components
+1. Use standalone component decorator
+2. Import only what's needed (CommonModule, Material modules)
+3. Include TypeScript interface for any data models
+4. Add responsive CSS for all breakpoints
+5. Use semantic HTML (header, section, article, nav, etc.)
+6. Add ARIA labels for accessibility
+7. Test on mobile and desktop viewports
+
+### Component Structure Template
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule],
+  templateUrl: './example.component.html',
+  styleUrls: ['./example.component.css']
+})
+export class ExampleComponent {
+  // Properties
+  title = 'Example';
+  
+  // Constructor
+  constructor() {}
+  
+  // Methods
+  handleClick(): void {
+    // Implementation
+  }
+}
+```
+
+### CSS Structure Template
+```css
+/* Container */
+.component-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Main elements */
+.component-title {
+  color: var(--terminal-green);
+  font-family: var(--monospace-font);
+}
+
+/* Interactive elements */
+.component-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 150, 0.4);
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .component-container {
+    padding: 20px 16px;
+  }
+  
+  .component-title {
+    font-size: 20px;
+  }
+}
+```
+
+## Angular Material Usage
+
+### Preferred Components
+- `MatToolbar` - Navigation header
+- `MatCard` - Content containers
+- `MatButton` - Interactive buttons  
+- `MatIcon` - Icons (Material Icons font)
+- `MatTabs` - Tabbed content
+- Always customize with terminal green theme
+
+### Material Theme Override
+Override Material component styles using `::ng-deep` when necessary:
+```css
+::ng-deep .mat-mdc-button {
+  color: var(--terminal-green) !important;
+  font-family: var(--monospace-font);
+}
+```
+
+## Performance Guidelines
+
+### Bundle Size Limits
+- **Total Bundle**: Keep under 150 KB (gzipped)
+- **Component CSS**: Keep under 12 KB per file
+- **Images**: Optimize and use appropriate formats (WebP for web, JPEG for photos)
+
+### Performance Best Practices
+- Use `OnPush` change detection when possible
+- Lazy load images with `loading="lazy"`
+- Minimize use of `::ng-deep`
+- Avoid inline styles in templates
+- Use CSS animations over JavaScript when possible
+- Leverage GPU acceleration (transform, opacity)
+
+## Accessibility Requirements
+
+### Essential ARIA Attributes
+- Add `aria-label` to icon-only buttons
+- Use `aria-expanded` for collapsible sections
+- Add `aria-current="page"` to active navigation items
+- Include `alt` text for all images
+- Use `role` attributes when semantic HTML isn't sufficient
+
+### Keyboard Navigation
+- All interactive elements must be keyboard accessible
+- Maintain logical tab order
+- Provide visible focus indicators
+- Support Escape key to close modals/popups
+
+### Color Contrast
+- Maintain WCAG AA standards (4.5:1 for normal text)
+- Terminal green on dark background passes AA
+- Test all text color combinations
+
+## Git & Deployment
+
+### Commit Message Format
+Use conventional commits:
+```
+feat: Add new blog post filtering feature
+fix: Resolve mobile navigation toggle issue
+docs: Update responsive design documentation
+style: Improve button hover animations
+refactor: Simplify contact form validation
+perf: Optimize image loading
+test: Add unit tests for resume component
+chore: Update Angular to version 19.1
+```
+
+### Branch Strategy
+- `main` - Production branch (auto-deploys to GitHub Pages)
+- Feature branches: `feature/feature-name`
+- Bug fixes: `fix/bug-description`
+
+### Deployment Process
+1. Make changes in feature branch
+2. Test locally with `npm start`
+3. Build with `npm run build`
+4. Merge to `main` (triggers auto-deployment via GitHub Actions)
+5. Verify deployment at https://rahul-a.in
+
+## Documentation
+
+### When to Add Documentation
+- New features: Create/update relevant .md in `misc/`
+- API changes: Update component documentation
+- Breaking changes: Add migration guide
+- Configuration changes: Update setup documentation
+
+### Documentation Files
+All documentation (except `README.md`) goes in `misc/` folder:
+- `DEPLOYMENT_CHECKLIST.md` - Deployment steps
+- `RESPONSIVE_DESIGN_IMPROVEMENTS.md` - Responsive design details
+- `MOBILE_UX_FIXES.md` - Mobile UX improvements
+- `THEME_CONSISTENCY.md` - Theme guidelines
+- `BUILD_FIX_CSS_BUDGET.md` - Build configuration notes
+
+### Documentation Style
+- Use clear headings (##, ###)
+- Include code examples with syntax highlighting
+- Add checkboxes for checklists
+- Use tables for comparisons
+- Include emojis for visual markers (?, ?, ??, ??, etc.)
+
+## Testing Guidelines
+
+### Manual Testing Checklist
+- [ ] Test on Chrome, Safari, Firefox, Edge
+- [ ] Test on iPhone (375px, 390px, 428px)
+- [ ] Test on iPad (768px, 1024px)
+- [ ] Test on desktop (1920px, 2560px)
+- [ ] Verify all links work
+- [ ] Check all forms submit correctly
+- [ ] Test keyboard navigation
+- [ ] Verify ARIA labels with screen reader
+
+### Browser DevTools Testing
+```javascript
+// Test responsive design
+// Open DevTools ? Toggle device toolbar
+// Test these viewports:
+// - iPhone SE (375px)
+// - iPhone 12/13 (390px)
+// - iPhone Pro Max (428px)
+// - iPad (768px)
+// - Desktop (1920px)
+```
+
+## Common Patterns
+
+### Loading States
+```typescript
+isLoading = false;
+
+async loadData(): Promise<void> {
+  this.isLoading = true;
+  try {
+    // Fetch data
+  } catch (error) {
+    console.error('Failed to load data:', error);
+  } finally {
+    this.isLoading = false;
+  }
+}
+```
+
+### Copy to Clipboard
+```typescript
+async copyToClipboard(text: string): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(text);
+    this.showSuccessMessage('Copied to clipboard!');
+  } catch (err) {
+    console.error('Failed to copy:', err);
+    this.showErrorMessage('Failed to copy');
+  }
+}
+```
+
+### Scroll to Section
+```typescript
+scrollToSection(sectionId: string): void {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+```
+
+### Auto-close on Scroll
+```typescript
+@HostListener('window:scroll', ['$event'])
+onWindowScroll(): void {
+  if (this.isPopupOpen) {
+    const scrollDiff = Math.abs(window.pageYOffset - this.lastScrollPosition);
+    if (scrollDiff > 50) {
+      this.closePopup();
+    }
+  }
+}
+```
+
+## Troubleshooting Common Issues
+
+### Build Fails
+- Check `angular.json` CSS budget limits
+- Verify all imports are correct
+- Run `npm install` to update dependencies
+- Check for TypeScript errors with `ng build`
+
+### Styles Not Applying
+- Check if using correct CSS custom properties
+- Verify `::ng-deep` placement (before Material selectors)
+- Clear browser cache (Ctrl+Shift+R)
+- Check specificity of selectors
+
+### Responsive Design Issues
+- Verify media queries are in correct order (mobile-last)
+- Check viewport meta tag in `index.html`
+- Test with actual devices, not just DevTools
+- Verify touch target sizes (minimum 44x44px)
+
+### GitHub Pages Deployment
+- Check GitHub Actions logs
+- Verify `docs/` folder is committed
+- Ensure `CNAME` file exists in `docs/`
+- Wait 5-10 minutes for DNS propagation
+
+## Quick Commands Reference
+
+```bash
+# Development
+npm start                    # Start dev server (localhost:4200)
+npm run build               # Build for production (outputs to docs/)
+
+# Git
+git status                  # Check file changes
+git add .                   # Stage all changes
+git commit -m "message"     # Commit with message
+git push origin main        # Push to GitHub (triggers deployment)
+
+# Deployment
+# Just push to main - GitHub Actions handles the rest!
+# Monitor: https://github.com/rahul-a-bangera/Portfolio/actions
+# Live site: https://rahul-a.in
+```
+
+## Project-Specific Rules
+
+### DO's ?
+- Always maintain terminal green theme (#00ff96)
+- Add responsive styles for all breakpoints
+- Test on mobile devices
+- Use Material Icons for consistency
+- Document complex logic
+- Keep bundle sizes optimized
+- Follow accessibility guidelines
+- Use semantic HTML
+- Add ARIA labels
+- Test keyboard navigation
+
+### DON'Ts ?
+- Don't introduce new color schemes
+- Don't skip mobile testing
+- Don't use inline styles in templates
+- Don't hardcode values (use CSS variables)
+- Don't ignore accessibility
+- Don't commit `node_modules/` or `dist/`
+- Don't modify `docs/` manually (it's auto-generated)
+- Don't skip documentation for new features
+- Don't exceed CSS budget limits without justification
+- Don't break existing theme consistency
+
+## Contact & Support
+
+**Developer**: Rahul A  
+**Email**: rahul.bangera.999@gmail.com  
+**LinkedIn**: https://www.linkedin.com/in/rahul-bangera/  
+**Live Site**: https://rahul-a.in  
+**Repository**: https://github.com/rahul-a-bangera/Portfolio
+
+---
+
+**Last Updated**: December 11, 2024  
+**Project Version**: 1.0.0  
+**Angular Version**: 19.0.0
