@@ -320,11 +320,34 @@ button {
   h3 {
     font-size: 20px;
   }
+  
+  .container {
+    padding: 0 20px;
+  }
 }
 
 @media (max-width: 768px) {
   html {
     scroll-padding-top: 70px;
+  }
+
+  body::before {
+    background-size: 40px 40px;
+    animation: gridMove 25s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 40px 40px;
+    }
+  }
+
+  body::after {
+    background-size: 60px 60px;
+    animation: particleFloat 35s linear infinite;
   }
 
   h1 {
@@ -336,9 +359,186 @@ button {
   h3 {
     font-size: 18px;
   }
+  h4 {
+    font-size: 17px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+  h6 {
+    font-size: 15px;
+  }
+
+  p {
+    font-size: 14px;
+  }
 
   .container {
     padding: 0 16px;
+  }
+
+  .mat-mdc-card {
+    border-radius: 6px;
+  }
+
+  /* Material Toolbar Override for Mobile */
+  .mat-toolbar {
+    min-height: 56px;
+  }
+
+  /* Material Button Override for Mobile */
+  .mat-mdc-button,
+  .mat-mdc-raised-button {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  /* Utility Classes */
+  .mt-4 {
+    margin-top: 24px;
+  }
+
+  .mb-4 {
+    margin-bottom: 24px;
+  }
+
+  .mt-2 {
+    margin-top: 12px;
+  }
+
+  .mb-2 {
+    margin-bottom: 12px;
+  }
+
+  .p-4 {
+    padding: 24px;
+  }
+
+  .p-2 {
+    padding: 12px;
+  }
+
+  .gap-4 {
+    gap: 24px;
+  }
+
+  .gap-2 {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 60px;
+  }
+
+  body::before {
+    background-size: 30px 30px;
+    animation: gridMove 30s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 30px 30px;
+    }
+  }
+
+  body::after {
+    background-size: 50px 50px;
+    animation: particleFloat 40s linear infinite;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h3 {
+    font-size: 16px;
+  }
+  h4 {
+    font-size: 15px;
+  }
+  h5 {
+    font-size: 14px;
+  }
+  h6 {
+    font-size: 13px;
+  }
+
+  p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .mat-mdc-card {
+    border-radius: 4px;
+    border-width: 1px !important;
+  }
+
+  /* Material Toolbar Override for Small Mobile */
+  .mat-toolbar {
+    min-height: 48px;
+  }
+
+  /* Material Button Override for Small Mobile */
+  .mat-mdc-button,
+  .mat-mdc-raised-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  /* Material Chip Override for Small Mobile */
+  .mat-mdc-chip {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  /* Scrollbar for mobile */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Utility Classes */
+  .mt-4 {
+    margin-top: 20px;
+  }
+
+  .mb-4 {
+    margin-bottom: 20px;
+  }
+
+  .mt-2 {
+    margin-top: 10px;
+  }
+
+  .mb-2 {
+    margin-bottom: 10px;
+  }
+
+  .p-4 {
+    padding: 20px;
+  }
+
+  .p-2 {
+    padding: 10px;
+  }
+
+  .gap-4 {
+    gap: 20px;
+  }
+
+  .gap-2 {
+    gap: 10px;
   }
 }
 

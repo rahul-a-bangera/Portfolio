@@ -257,7 +257,7 @@ ng serve
   "summary": "Learn the basics...",
   "content": "Full content...",
   "createdDate": "2024-12-01",
-  "author": "John Doe"
+  "author": "Rahul A"
 }
 ```
 

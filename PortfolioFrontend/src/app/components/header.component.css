@@ -46,6 +46,8 @@
   font-size: 13px;
   border: 2px solid rgba(0, 255, 150, 0.3);
   background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 255, 150, 0.2);
 }
 
 .nav-button:hover {
@@ -62,21 +64,74 @@
   width: 20px;
 }
 
-@media (max-width: 768px) {
+/* Mobile Responsive Styles */
+@media (max-width: 960px) {
   .nav-button {
-    font-size: 11px;
-    padding: 6px 8px;
+    font-size: 12px;
+    padding: 6px 12px;
     margin: 0 4px;
+    gap: 4px;
   }
 
   .nav-button mat-icon {
-    font-size: 16px;
-    height: 16px;
-    width: 16px;
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+
+  .logo {
+    font-size: 20px;
+    margin-right: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 12px;
+  }
+
+  .nav-button {
+    font-size: 0;
+    padding: 8px;
+    margin: 0 2px;
+    min-width: 44px;
+    min-height: 44px;
+    gap: 0;
+  }
+
+  .nav-button mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    margin: 0;
   }
 
   .logo {
     font-size: 18px;
-    margin-right: 12px;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0 8px;
+  }
+
+  .nav-button {
+    padding: 6px;
+    margin: 0 1px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .nav-button mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+  }
+
+  .logo {
+    font-size: 16px;
+    margin-right: 4px;
   }
 }

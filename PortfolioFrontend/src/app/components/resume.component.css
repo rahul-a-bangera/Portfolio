@@ -457,13 +457,26 @@
     padding: 20px 16px;
   }
 
+  .resume-header {
+    margin-bottom: 32px;
+  }
+
   .resume-title {
     font-size: 24px;
+  }
+
+  .resume-subtitle {
+    font-size: 14px;
   }
 
   .skill-grid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
+  }
+
+  .skill-badge {
+    font-size: 13px;
+    padding: 10px 14px;
   }
 
   .tab-content {
@@ -478,12 +491,57 @@
     padding: 16px;
   }
 
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-title mat-icon {
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+  }
+
+  .card-text {
+    font-size: 14px;
+  }
+
   .timeline {
     padding-left: 24px;
   }
 
   .timeline-item::before {
     left: -32px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .experience-card {
+    padding: 16px;
+  }
+
+  .experience-title {
+    font-size: 16px;
+  }
+
+  .experience-company {
+    font-size: 13px;
+  }
+
+  .experience-period {
+    font-size: 12px;
+  }
+
+  .experience-description {
+    font-size: 13px;
+  }
+
+  .experience-list li {
+    font-size: 13px;
+    padding-left: 20px;
+  }
+
+  .experience-list li::before {
+    font-size: 16px;
   }
 
   ::ng-deep .mat-mdc-tab-label {
@@ -492,8 +550,202 @@
     min-width: auto;
   }
 
+  ::ng-deep .mat-mdc-tab-label mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+  }
+
   .tool-item,
   .education-item {
     flex-direction: column;
+    padding: 14px;
+  }
+
+  .tool-item mat-icon,
+  .education-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .tool-name,
+  .education-degree {
+    font-size: 15px;
+  }
+
+  .tool-description,
+  .education-description {
+    font-size: 13px;
+  }
+
+  .education-institution {
+    font-size: 13px;
+  }
+
+  .education-details {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-container {
+    margin: 24px auto;
+    padding: 16px 12px;
+  }
+
+  .resume-header {
+    margin-bottom: 24px;
+  }
+
+  .resume-title {
+    font-size: 20px;
+  }
+
+  .resume-subtitle {
+    font-size: 13px;
+  }
+
+  .skill-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+
+  .skill-badge {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .tab-content {
+    padding: 16px 12px;
+  }
+
+  ::ng-deep .content-card .mat-mdc-card-header {
+    padding: 12px 12px 10px;
+  }
+
+  ::ng-deep .content-card .mat-mdc-card-content {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-title mat-icon {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .card-text {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .timeline {
+    padding-left: 20px;
+  }
+
+  .timeline::before {
+    width: 1px;
+  }
+
+  .timeline-item {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .timeline-item::before {
+    left: -28px;
+    width: 8px;
+    height: 8px;
+    border-width: 2px;
+  }
+
+  .experience-card {
+    padding: 12px;
+  }
+
+  .experience-title {
+    font-size: 15px;
+  }
+
+  .experience-company {
+    font-size: 12px;
+  }
+
+  .experience-period {
+    font-size: 11px;
+  }
+
+  .experience-description {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .experience-list li {
+    font-size: 12px;
+    padding-left: 18px;
+    margin-bottom: 10px;
+  }
+
+  .experience-list li::before {
+    font-size: 14px;
+  }
+
+  ::ng-deep .mat-mdc-tab-label {
+    padding: 10px 8px;
+    font-size: 10px;
+    min-width: auto;
+  }
+
+  ::ng-deep .mat-mdc-tab-label mat-icon {
+    font-size: 14px;
+    height: 14px;
+    width: 14px;
+  }
+
+  ::ng-deep .mdc-tab-indicator__content--underline {
+    border-width: 2px !important;
+  }
+
+  .tool-item,
+  .education-item {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .tool-item mat-icon,
+  .education-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .tool-name,
+  .education-degree {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .tool-description,
+  .education-description {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .education-institution {
+    font-size: 12px;
+  }
+
+  .education-details {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .action-button {
+    font-size: 11px;
+    padding: 8px 14px;
   }
 }

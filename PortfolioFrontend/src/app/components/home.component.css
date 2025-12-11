@@ -429,8 +429,17 @@
     min-height: auto;
   }
 
+  .home-card-wrapper {
+    max-width: 100%;
+  }
+
+  .card-header {
+    padding: 32px 24px;
+  }
+
   .card-header::before {
     font-size: 9px;
+    left: 12px;
   }
 
   .profile-image {
@@ -461,10 +470,36 @@
     font-size: 12px;
   }
 
+  .social-links {
+    gap: 12px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  ::ng-deep .social-link mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+  }
+
   /* Contact Popup Overlay */
   .contact-popup-card {
     width: 95%;
     max-width: none;
+    margin: 16px;
+  }
+
+  .popup-title {
+    font-size: 18px;
+  }
+
+  .popup-title mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
   }
 
   .popup-content {
@@ -479,6 +514,9 @@
 
   .contact-icon {
     margin-top: 0;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
   }
 
   .contact-value-wrapper {
@@ -486,7 +524,135 @@
     width: 100%;
   }
 
+  .contact-input {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
   .copy-button {
     width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 16px 12px;
+  }
+
+  .card-header {
+    padding: 24px 16px;
+  }
+
+  .card-header::before {
+    font-size: 8px;
+    left: 8px;
+    top: 6px;
+  }
+
+  .profile-image {
+    width: 90px;
+    height: 90px;
+    font-size: 40px;
+    margin: 16px auto 20px;
+  }
+
+  .profile-name {
+    font-size: 24px;
+  }
+
+  .profile-title {
+    font-size: 11px;
+  }
+
+  .card-content {
+    padding: 20px 16px;
+  }
+
+  .card-description {
+    font-size: 13px;
+    padding: 10px 14px;
+    line-height: 1.6;
+  }
+
+  .cta-button {
+    padding: 9px 16px;
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .cta-button mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .social-links {
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+  }
+
+  ::ng-deep .social-link mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+
+  .contact-popup-card {
+    width: 96%;
+    margin: 12px;
+  }
+
+  ::ng-deep .contact-popup-card .mat-mdc-card-header {
+    padding: 16px 16px 12px;
+  }
+
+  .popup-title {
+    font-size: 16px;
+  }
+
+  .popup-title mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .popup-content {
+    padding: 12px;
+  }
+
+  .contact-item {
+    padding: 10px;
+  }
+
+  .contact-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .contact-label {
+    font-size: 11px;
+  }
+
+  .contact-input {
+    font-size: 13px;
+    padding: 7px 9px;
+  }
+
+  .copy-button {
+    font-size: 11px;
+    padding: 0 12px !important;
+    height: 32px !important;
+  }
+
+  .copied-message {
+    font-size: 13px;
+    padding: 10px 12px;
   }
 }

@@ -277,10 +277,19 @@
   .contact-container {
     margin: 40px auto;
     padding: 20px 16px;
+    min-height: auto;
+  }
+
+  .contact-header {
+    margin-bottom: 32px;
   }
 
   .contact-title {
     font-size: 24px;
+  }
+
+  .contact-subtitle {
+    font-size: 14px;
   }
 
   .contact-content {
@@ -290,6 +299,11 @@
 
   .contact-info-section {
     padding-right: 0;
+  }
+
+  .info-card {
+    padding: 16px;
+    margin-bottom: 16px;
   }
 
   .contact-form-section {
@@ -308,13 +322,52 @@
     font-size: 20px;
   }
 
+  .info-label {
+    font-size: 11px;
+  }
+
+  .info-value {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .info-description {
+    font-size: 13px;
+  }
+
+  .form-label {
+    font-size: 13px;
+  }
+
   .form-input,
   .form-textarea {
     font-size: 16px;
+    padding: 10px 14px;
+  }
+
+  .form-textarea {
+    min-height: 100px;
   }
 
   .submit-btn {
     font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  ::ng-deep .submit-btn mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
+  .social-section {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+
+  .social-title {
+    font-size: 16px;
+    margin-bottom: 12px;
   }
 
   .social-links {
@@ -324,5 +377,126 @@
   .social-link {
     width: 44px;
     height: 44px;
+  }
+
+  ::ng-deep .social-link mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    margin: 24px auto;
+    padding: 16px 12px;
+  }
+
+  .contact-header {
+    margin-bottom: 24px;
+  }
+
+  .contact-title {
+    font-size: 20px;
+  }
+
+  .contact-subtitle {
+    font-size: 13px;
+  }
+
+  .contact-content {
+    gap: 20px;
+  }
+
+  .info-card {
+    padding: 12px;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+
+  .contact-form-section {
+    padding: 16px;
+  }
+
+  .info-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  ::ng-deep .info-icon mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
+  .info-label {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .info-value {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .info-description {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 14px;
+    padding: 9px 12px;
+  }
+
+  .form-textarea {
+    min-height: 90px;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+    padding: 11px 18px;
+  }
+
+  ::ng-deep .submit-btn mat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+
+  .social-section {
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .social-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .social-links {
+    gap: 6px;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+  }
+
+  ::ng-deep .social-link mat-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
   }
 }
