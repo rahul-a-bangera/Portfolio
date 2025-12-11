@@ -451,6 +451,35 @@
   margin: 0;
 }
 
+/* Tab Navigation Scroll Buttons */
+::ng-deep .mat-mdc-tab-header-pagination {
+  background: rgba(0, 255, 150, 0.1) !important;
+  border: 1px solid rgba(0, 255, 150, 0.3) !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-chevron {
+  border-color: #00ff96 !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination:hover {
+  background: rgba(0, 255, 150, 0.2) !important;
+  border-color: rgba(0, 255, 150, 0.5) !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination:not(.mat-mdc-tab-header-pagination-disabled) {
+  box-shadow: 0 0 10px rgba(0, 255, 150, 0.3);
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-before,
+::ng-deep .mat-mdc-tab-header-pagination-after {
+  min-width: 32px !important;
+}
+
 @media (max-width: 768px) {
   .resume-container {
     margin: 40px auto;
@@ -467,6 +496,28 @@
 
   .resume-subtitle {
     font-size: 14px;
+  }
+
+  /* Enhanced scroll buttons for mobile */
+  ::ng-deep .mat-mdc-tab-header-pagination {
+    background: rgba(0, 255, 150, 0.2) !important;
+    border: 2px solid rgba(0, 255, 150, 0.5) !important;
+    box-shadow: 0 0 15px rgba(0, 255, 150, 0.4) !important;
+  }
+
+  ::ng-deep .mat-mdc-tab-header-pagination-chevron {
+    border-color: #00ff96 !important;
+    border-width: 3px 3px 0 0 !important;
+  }
+
+  ::ng-deep .mat-mdc-tab-header-pagination:not(.mat-mdc-tab-header-pagination-disabled):active {
+    background: rgba(0, 255, 150, 0.3) !important;
+    transform: scale(0.95);
+  }
+
+  ::ng-deep .mat-mdc-tab-header-pagination-before,
+  ::ng-deep .mat-mdc-tab-header-pagination-after {
+    min-width: 40px !important;
   }
 
   .skill-grid {
