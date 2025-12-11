@@ -46,10 +46,64 @@
 ::ng-deep .mat-mdc-tab-list {
   border-bottom: 1px solid rgba(0, 255, 150, 0.2);
   background: rgba(0, 0, 0, 0.2);
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::ng-deep .mat-mdc-tab-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* Make tab labels display in a row without wrapping */
+::ng-deep .mat-mdc-tab-labels {
+  display: flex;
+  flex-wrap: nowrap !important;
+}
+
+/* Scroll buttons styling */
+::ng-deep .mat-mdc-tab-header-pagination {
+  position: relative !important;
+  z-index: 100 !important;
+  pointer-events: all !important;
+  background: rgba(0, 255, 150, 0.1) !important;
+  border: 1px solid rgba(0, 255, 150, 0.3) !important;
+  cursor: pointer !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-chevron {
+  border-color: #00ff96 !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination:hover {
+  background: rgba(0, 255, 150, 0.2) !important;
+  border-color: rgba(0, 255, 150, 0.5) !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination:active {
+  background: rgba(0, 255, 150, 0.3) !important;
+  transform: scale(0.95);
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+::ng-deep .mat-mdc-tab-header-pagination:not(.mat-mdc-tab-header-pagination-disabled) {
+  box-shadow: 0 0 10px rgba(0, 255, 150, 0.3);
+}
+
+::ng-deep .mat-mdc-tab-header-pagination-before,
+::ng-deep .mat-mdc-tab-header-pagination-after {
+  min-width: 32px !important;
 }
 
 ::ng-deep .mat-mdc-tab {
   color: rgba(0, 255, 150, 0.7) !important;
+  flex-shrink: 0 !important;
 }
 
 ::ng-deep .mat-mdc-tab-label {
