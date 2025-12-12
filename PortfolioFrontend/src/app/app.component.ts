@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home.component';
 import { ResumeComponent } from './components/resume.component';
 import { BlogComponent } from './components/blog.component';
 import { ContactComponent } from './components/contact.component';
+import { FooterComponent } from './components/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { ContactComponent } from './components/contact.component';
     HomeComponent,
     ResumeComponent,
     BlogComponent,
-    ContactComponent
+    ContactComponent,
+    FooterComponent
   ],
   template: `
     <app-header></app-header>
@@ -23,6 +25,7 @@ import { ContactComponent } from './components/contact.component';
     <app-resume></app-resume>
     <app-blog></app-blog>
     <app-contact></app-contact>
+    <app-footer></app-footer>
   `,
   styles: [`
     :host {

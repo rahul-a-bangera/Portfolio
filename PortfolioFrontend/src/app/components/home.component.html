@@ -1,4 +1,9 @@
 <section id="home" class="home-container">
+  <!-- Ambient Components -->
+  <app-matrix-rain *ngIf="ambientSettings.matrixRain" [width]="ambientSettings.matrixRainWidth"></app-matrix-rain>
+  <app-terminal-logs *ngIf="ambientSettings.terminalLogs"></app-terminal-logs>
+  <app-system-stats *ngIf="ambientSettings.systemStats"></app-system-stats>
+
   <div class="home-card-wrapper">
     <mat-card class="home-card">
       <div class="card-header">
