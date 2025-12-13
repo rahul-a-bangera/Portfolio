@@ -186,12 +186,15 @@
 }
 
 .social-link {
-  width: 48px;
-  height: 48px;
+  min-width: 90px;
+  height: auto;
+  padding: 8px 16px;
   border-radius: 4px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   background-color: rgba(0, 255, 150, 0.1);
   color: #00ff96;
   text-decoration: none;
@@ -202,16 +205,33 @@
 .social-link:hover {
   background-color: rgba(0, 255, 150, 0.2);
   color: #00ff96;
-  transform: translateY(-3px) rotate(5deg);
+  transform: translateY(-3px);
   box-shadow: 0 0 15px rgba(0, 255, 150, 0.4);
   border-color: #00ff96;
 }
 
+.social-link.linkedin:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
+}
+
+.social-link.contact:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
+}
+
+.social-label {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: #00ff96;
+}
+
 ::ng-deep .social-link mat-icon {
-  width: 24px;
-  height: 24px;
-  font-size: 24px;
-  line-height: 24px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,26 +314,6 @@
 .close-button {
   color: rgba(255, 255, 255, 0.7) !important;
   transition: all 0.3s ease;
-}
-
-.close-button:hover {
-  color: #00ff96 !important;
-  background: rgba(0, 255, 150, 0.1) !important;
-  transform: rotate(90deg);
-}
-
-.popup-content {
-  padding: 24px;
-}
-
-.contact-item {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding: 16px;
-  background: rgba(0, 255, 150, 0.05);
-  border: 1px solid rgba(0, 255, 150, 0.2);
-  border-radius: 4px;
 }
 
 .contact-item:last-of-type {
@@ -475,8 +475,12 @@
   }
 
   .social-link {
-    width: 44px;
-    height: 44px;
+    min-width: 80px;
+    padding: 10px 12px;
+  }
+
+  .social-label {
+    font-size: 10px;
   }
 
   ::ng-deep .social-link mat-icon {
@@ -593,8 +597,12 @@
   }
 
   .social-link {
-    width: 40px;
-    height: 40px;
+    min-width: 70px;
+    padding: 8px 10px;
+  }
+
+  .social-label {
+    font-size: 9px;
   }
 
   ::ng-deep .social-link mat-icon {

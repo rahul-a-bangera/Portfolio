@@ -8,4 +8,5 @@ export interface BlogPost {
   author: string;
   category?: string;
   tags?: string[];
+  readTime?: number;
 }

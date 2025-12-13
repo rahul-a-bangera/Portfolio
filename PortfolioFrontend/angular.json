@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.png",
               "src/assets",
-              "src/CNAME"
+              "src/CNAME",
+              "src/blog"
             ],
             "styles": ["src/styles.css"],
             "scripts": [],
