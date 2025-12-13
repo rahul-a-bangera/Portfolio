@@ -6,17 +6,6 @@
     </p>
   </div>
 
-  <div class="filter-section">
-    <button 
-      mat-button 
-      *ngFor="let category of categories"
-      class="filter-chip" 
-      [class.active]="activeFilter === category"
-      (click)="applyFilter(category)">
-      {{ category }}
-    </button>
-  </div>
-
   <div class="blog-grid">
     <mat-card *ngFor="let post of paginatedBlogPosts" class="blog-card">
       <div class="card-image">📝</div>

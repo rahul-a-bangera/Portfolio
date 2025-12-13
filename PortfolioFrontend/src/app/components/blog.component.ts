@@ -15,15 +15,11 @@ import { BlogPost } from '../models/blog-post.model';
 })
 export class BlogComponent implements OnInit {
   allBlogPosts: BlogPost[] = [];
-  filteredBlogPosts: BlogPost[] = [];
   paginatedBlogPosts: BlogPost[] = [];
   
   currentPage = 1;
   postsPerPage = 6; // Default for desktop
   totalPages = 1;
-  
-  activeFilter: string | null = null;
-  categories: string[] = [];
 
   constructor(private markdownBlogService: MarkdownBlogService) { }
 
@@ -34,8 +30,6 @@ export class BlogComponent implements OnInit {
         this.allBlogPosts = data.sort((a, b) => 
           new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
         );
-        this.extractCategories();
-        this.filteredBlogPosts = [...this.allBlogPosts];
         this.updatePagination();
       },
       error => {
@@ -57,41 +51,15 @@ export class BlogComponent implements OnInit {
   }
 
   updatePostsPerPage(): void {
-    // Mobile: 2 posts, Desktop: 6 posts
-    this.postsPerPage = window.innerWidth <= 768 ? 2 : 6;
-  }
-
-  extractCategories(): void {
-    const categorySet = new Set<string>();
-    this.allBlogPosts.forEach(post => {
-      if (post.category) {
-        categorySet.add(post.category.toUpperCase());
-      }
-    });
-    this.categories = Array.from(categorySet).sort();
-  }
-
-  applyFilter(category: string): void {
-    // Toggle filter - if clicking same category, show all
-    if (this.activeFilter === category) {
-      this.activeFilter = null;
-      this.filteredBlogPosts = [...this.allBlogPosts];
-    } else {
-      this.activeFilter = category;
-      this.filteredBlogPosts = this.allBlogPosts.filter(
-        post => post.category?.toUpperCase() === category
-      );
-    }
-    
-    this.currentPage = 1;
-    this.updatePagination();
+    // Mobile: 1 post, Desktop: 6 posts
+    this.postsPerPage = window.innerWidth <= 768 ? 1 : 6;
   }
 
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredBlogPosts.length / this.postsPerPage);
+    this.totalPages = Math.ceil(this.allBlogPosts.length / this.postsPerPage);
     const startIndex = (this.currentPage - 1) * this.postsPerPage;
     const endIndex = startIndex + this.postsPerPage;
-    this.paginatedBlogPosts = this.filteredBlogPosts.slice(startIndex, endIndex);
+    this.paginatedBlogPosts = this.allBlogPosts.slice(startIndex, endIndex);
   }
 
   goToPage(page: number): void {
@@ -108,7 +76,7 @@ export class BlogComponent implements OnInit {
   }
 
   get showPagination(): boolean {
-    return this.filteredBlogPosts.length > this.postsPerPage;
+    return this.allBlogPosts.length > this.postsPerPage;
   }
 
   viewBlog(slug: string): void {
