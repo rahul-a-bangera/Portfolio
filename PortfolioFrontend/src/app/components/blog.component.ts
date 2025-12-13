@@ -112,7 +112,8 @@ export class BlogComponent implements OnInit {
   }
 
   viewBlog(slug: string): void {
-    console.log('View blog:', slug);
-    // TODO: Navigate to blog detail page
+    // Open blog post in new tab
+    const url = `/blog/${slug}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 }

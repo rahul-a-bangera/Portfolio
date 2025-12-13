@@ -19,22 +19,24 @@ interface BlogMetadata {
   providedIn: 'root'
 })
 export class MarkdownBlogService {
+  // List of blog post filenames (without .md extension)
+  // ADD NEW BLOG POSTS HERE - just add the filename!
   private blogFiles = [
-    'getting-started-angular-19.md',
-    'building-restful-apis-dotnet-core.md',
-    'css-grid-vs-flexbox.md',
-    'web-performance-optimization.md',
-    'microservices-azure-guide.md'
+    'getting-started-angular-19',
+    'building-restful-apis-dotnet-core',
+    'css-grid-vs-flexbox',
+    'web-performance-optimization',
+    'microservices-azure-guide'
   ];
 
   constructor(private http: HttpClient) { }
 
   getAllBlogs(): Observable<BlogPost[]> {
-    const blogRequests = this.blogFiles.map(file =>
-      this.http.get(`assets/blog/${file}`, { responseType: 'text' }).pipe(
-        map(content => this.parseMarkdown(content, file)),
+    const blogRequests = this.blogFiles.map(slug =>
+      this.http.get(`assets/blog/${slug}.md`, { responseType: 'text' }).pipe(
+        map(content => this.parseMarkdown(content, `${slug}.md`)),
         catchError(error => {
-          console.error(`Error loading ${file}:`, error);
+          console.error(`Error loading ${slug}.md:`, error);
           return of(null);
         })
       )
@@ -46,15 +48,10 @@ export class MarkdownBlogService {
   }
 
   getBlogBySlug(slug: string): Observable<BlogPost | null> {
-    const file = this.blogFiles.find(f => f.includes(slug));
-    if (!file) {
-      return of(null);
-    }
-
-    return this.http.get(`assets/blog/${file}`, { responseType: 'text' }).pipe(
-      map(content => this.parseMarkdown(content, file)),
+    return this.http.get(`assets/blog/${slug}.md`, { responseType: 'text' }).pipe(
+      map(content => this.parseMarkdown(content, `${slug}.md`)),
       catchError(error => {
-        console.error(`Error loading ${file}:`, error);
+        console.error(`Error loading ${slug}.md:`, error);
         return of(null);
       })
     );
@@ -78,7 +75,7 @@ export class MarkdownBlogService {
   }
 
   private extractFrontmatter(content: string): { metadata: any; body: string } {
-    const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
 
     if (!match) {
@@ -86,7 +83,7 @@ export class MarkdownBlogService {
     }
 
     const frontmatter = match[1];
-    const body = match[2];
+    const body = match[2]; // This is the actual markdown content without frontmatter
     const metadata: any = {};
 
     frontmatter.split('\n').forEach(line => {
