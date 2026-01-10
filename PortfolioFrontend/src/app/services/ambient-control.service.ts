@@ -3,10 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CookieService } from '../utils/cookie.service';
 
 export interface AmbientSettings {
-  matrixRain: boolean;
-  matrixRainWidth: number; // Width in pixels (default 190)
-  terminalLogs: boolean;
   systemStats: boolean;
+  clickSpark: boolean;
+  dotGrid: boolean;
 }
 
 @Injectable({
@@ -15,15 +14,11 @@ export interface AmbientSettings {
 export class AmbientControlService {
   private readonly COOKIE_NAME = 'ambient_settings';
   private readonly COOKIE_EXPIRES = 365; // 1 year
-  private readonly MIN_WIDTH = 100;
-  private readonly MAX_WIDTH = 350;
-  private readonly DEFAULT_WIDTH = 190;
 
   private defaultSettings: AmbientSettings = {
-    matrixRain: true,
-    matrixRainWidth: this.DEFAULT_WIDTH,
-    terminalLogs: true,
-    systemStats: true
+    systemStats: true, // System stats enabled by default
+    clickSpark: true, // Click spark enabled by default
+    dotGrid: true // Dot grid enabled by default
   };
 
   private ambientSettingsSubject = new BehaviorSubject<AmbientSettings>(this.defaultSettings);
@@ -38,55 +33,12 @@ export class AmbientControlService {
     if (savedSettings) {
       try {
         const settings = JSON.parse(savedSettings);
-        // Ensure matrixRainWidth is within bounds
-        if (settings.matrixRainWidth) {
-          settings.matrixRainWidth = this.clampWidth(settings.matrixRainWidth);
-        }
+        // Merge with defaults to ensure new properties exist
         this.ambientSettingsSubject.next({ ...this.defaultSettings, ...settings });
       } catch (e) {
         console.error('Failed to parse ambient settings from cookie', e);
       }
     }
-  }
-
-  private clampWidth(width: number): number {
-    return Math.max(this.MIN_WIDTH, Math.min(this.MAX_WIDTH, width));
-  }
-
-  toggleMatrixRain(): void {
-    const current = this.ambientSettingsSubject.value;
-    const updated = { ...current, matrixRain: !current.matrixRain };
-    this.updateSettings(updated);
-  }
-
-  setMatrixRainWidth(width: number): void {
-    const clampedWidth = this.clampWidth(width);
-    const current = this.ambientSettingsSubject.value;
-    const updated = { ...current, matrixRainWidth: clampedWidth };
-    this.updateSettings(updated);
-  }
-
-  toggleTerminalLogs(): void {
-    const current = this.ambientSettingsSubject.value;
-    const updated = { ...current, terminalLogs: !current.terminalLogs };
-    this.updateSettings(updated);
-  }
-
-  toggleSystemStats(): void {
-    const current = this.ambientSettingsSubject.value;
-    const updated = { ...current, systemStats: !current.systemStats };
-    this.updateSettings(updated);
-  }
-
-  toggleAll(enabled: boolean): void {
-    const current = this.ambientSettingsSubject.value;
-    const updated: AmbientSettings = {
-      matrixRain: enabled,
-      matrixRainWidth: current.matrixRainWidth, // Preserve width setting
-      terminalLogs: enabled,
-      systemStats: enabled
-    };
-    this.updateSettings(updated);
   }
 
   private updateSettings(settings: AmbientSettings): void {
@@ -98,29 +50,44 @@ export class AmbientControlService {
     });
   }
 
+  toggleSystemStats(): void {
+    const current = this.ambientSettingsSubject.value;
+    const updated = { ...current, systemStats: !current.systemStats };
+    this.updateSettings(updated);
+  }
+
+  toggleClickSpark(): void {
+    const current = this.ambientSettingsSubject.value;
+    const updated = { ...current, clickSpark: !current.clickSpark };
+    this.updateSettings(updated);
+  }
+
+  toggleDotGrid(): void {
+    const current = this.ambientSettingsSubject.value;
+    const updated = { ...current, dotGrid: !current.dotGrid };
+    this.updateSettings(updated);
+  }
+
+  toggleAll(enabled: boolean): void {
+    const updated: AmbientSettings = {
+      systemStats: enabled,
+      clickSpark: enabled,
+      dotGrid: enabled
+    };
+    this.updateSettings(updated);
+  }
+
   getSettings(): AmbientSettings {
     return this.ambientSettingsSubject.value;
   }
 
-  getMinWidth(): number {
-    return this.MIN_WIDTH;
-  }
-
-  getMaxWidth(): number {
-    return this.MAX_WIDTH;
-  }
-
-  getDefaultWidth(): number {
-    return this.DEFAULT_WIDTH;
-  }
-
   isAllEnabled(): boolean {
     const settings = this.ambientSettingsSubject.value;
-    return settings.matrixRain && settings.terminalLogs && settings.systemStats;
+    return settings.systemStats && settings.clickSpark && settings.dotGrid;
   }
 
   isAnyEnabled(): boolean {
     const settings = this.ambientSettingsSubject.value;
-    return settings.matrixRain || settings.terminalLogs || settings.systemStats;
+    return settings.systemStats || settings.clickSpark || settings.dotGrid;
   }
 }

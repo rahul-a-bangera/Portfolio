@@ -1,21 +1,19 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
 import { AmbientControlService, AmbientSettings } from '../services/ambient-control.service';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatSlideToggleModule, MatSliderModule, FormsModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatSlideToggleModule],
   template: `
     <footer class="footer-container">
       <div class="footer-content">
         <div class="footer-left">
-          <span class="footer-text">� 2024 Rahul A. All rights reserved.</span>
+          <span class="footer-text">© 2024 Rahul A. All rights reserved.</span>
         </div>
         
         <div class="footer-center">
@@ -27,48 +25,32 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
             </button>
             
             <div class="ambient-menu" [class.open]="menuOpen">
-              <div class="ambient-option">
-                <span class="option-label">Matrix Rain</span>
-                <mat-slide-toggle
-                  [checked]="settings.matrixRain"
-                  (change)="toggleMatrixRain()"
-                  color="primary"
-                  class="custom-toggle">
-                </mat-slide-toggle>
-              </div>
-              
-              <!-- Matrix Rain Width Slider -->
-              <div class="slider-option" *ngIf="settings.matrixRain">
-                <div class="slider-header">
-                  <span class="slider-label">Width</span>
-                  <span class="slider-value">{{ settings.matrixRainWidth }}px</span>
-                </div>
-                <mat-slider
-                  class="width-slider"
-                  [min]="minWidth"
-                  [max]="maxWidth"
-                  [step]="10"
-                  [discrete]="true"
-                  [showTickMarks]="false">
-                  <input matSliderThumb [(ngModel)]="settings.matrixRainWidth" (ngModelChange)="onWidthChange($event)">
-                </mat-slider>
-              </div>
-              
-              <div class="ambient-option">
-                <span class="option-label">Terminal Logs</span>
-                <mat-slide-toggle
-                  [checked]="settings.terminalLogs"
-                  (change)="toggleTerminalLogs()"
-                  color="primary"
-                  class="custom-toggle">
-                </mat-slide-toggle>
-              </div>
               
               <div class="ambient-option">
                 <span class="option-label">System Stats</span>
                 <mat-slide-toggle
                   [checked]="settings.systemStats"
                   (change)="toggleSystemStats()"
+                  color="primary"
+                  class="custom-toggle">
+                </mat-slide-toggle>
+              </div>
+              
+              <div class="ambient-option">
+                <span class="option-label">Click Spark</span>
+                <mat-slide-toggle
+                  [checked]="settings.clickSpark"
+                  (change)="toggleClickSpark()"
+                  color="primary"
+                  class="custom-toggle">
+                </mat-slide-toggle>
+              </div>
+              
+              <div class="ambient-option">
+                <span class="option-label">Dot Grid</span>
+                <mat-slide-toggle
+                  [checked]="settings.dotGrid"
+                  (change)="toggleDotGrid()"
                   color="primary"
                   class="custom-toggle">
                 </mat-slide-toggle>
@@ -420,19 +402,13 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
 export class FooterComponent {
   menuOpen = false;
   settings: AmbientSettings = {
-    matrixRain: true,
-    matrixRainWidth: 190,
-    terminalLogs: true,
-    systemStats: true
+    systemStats: true,
+    clickSpark: true,
+    dotGrid: true
   };
   isAllEnabled = true;
-  minWidth: number;
-  maxWidth: number;
 
   constructor(private ambientService: AmbientControlService) {
-    this.minWidth = this.ambientService.getMinWidth();
-    this.maxWidth = this.ambientService.getMaxWidth();
-    
     this.ambientService.ambientSettings$.subscribe(settings => {
       this.settings = settings;
       this.isAllEnabled = this.ambientService.isAllEnabled();
@@ -443,20 +419,16 @@ export class FooterComponent {
     this.menuOpen = !this.menuOpen;
   }
 
-  toggleMatrixRain(): void {
-    this.ambientService.toggleMatrixRain();
-  }
-
-  onWidthChange(width: number): void {
-    this.ambientService.setMatrixRainWidth(width);
-  }
-
-  toggleTerminalLogs(): void {
-    this.ambientService.toggleTerminalLogs();
-  }
-
   toggleSystemStats(): void {
     this.ambientService.toggleSystemStats();
+  }
+
+  toggleClickSpark(): void {
+    this.ambientService.toggleClickSpark();
+  }
+
+  toggleDotGrid(): void {
+    this.ambientService.toggleDotGrid();
   }
 
   toggleAll(): void {

@@ -3,22 +3,23 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TerminalLogsComponent } from './ambient/terminal-logs.component';
-import { MatrixRainComponent } from './ambient/matrix-rain.component';
+import { Subscription } from 'rxjs';
 import { SystemStatsComponent } from './ambient/system-stats.component';
+import { ClickSparkComponent } from './ambient/click-spark.component';
+import { DotGridComponent } from './ambient/dot-grid.component';
 import { AmbientControlService, AmbientSettings } from '../services/ambient-control.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatCardModule, 
-    MatButtonModule, 
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
     MatIconModule,
-    TerminalLogsComponent,
-    MatrixRainComponent,
-    SystemStatsComponent
+    SystemStatsComponent,
+    ClickSparkComponent,
+    DotGridComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -30,16 +31,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   showCopiedMessage = false;
   copiedMessageText = '';
   ambientSettings: AmbientSettings = {
-    matrixRain: true,
-    matrixRainWidth: 190,
-    terminalLogs: true,
-    systemStats: true
+    systemStats: true,
+    clickSpark: true,
+    dotGrid: true
   };
   private scrollThreshold = 50;
   private lastScrollPosition = 0;
+  private settingsSubscription?: Subscription;
 
   constructor(private ambientService: AmbientControlService) {
-    this.ambientService.ambientSettings$.subscribe(settings => {
+    this.settingsSubscription = this.ambientService.ambientSettings$.subscribe(settings => {
       this.ambientSettings = settings;
     });
   }
@@ -49,7 +50,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cleanup is handled by Angular for HostListener
+    if (this.settingsSubscription) {
+      this.settingsSubscription.unsubscribe();
+    }
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -57,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.showContactPopup) {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
       const scrollDifference = Math.abs(currentScrollPosition - this.lastScrollPosition);
-      
+
       if (scrollDifference > this.scrollThreshold) {
         this.closeContactPopup();
         this.lastScrollPosition = currentScrollPosition;

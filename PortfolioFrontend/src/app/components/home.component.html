@@ -1,8 +1,8 @@
 <section id="home" class="home-container">
   <!-- Ambient Components -->
-  <app-matrix-rain *ngIf="ambientSettings.matrixRain" [width]="ambientSettings.matrixRainWidth"></app-matrix-rain>
-  <app-terminal-logs *ngIf="ambientSettings.terminalLogs"></app-terminal-logs>
+  <app-dot-grid *ngIf="ambientSettings.dotGrid"></app-dot-grid>
   <app-system-stats *ngIf="ambientSettings.systemStats"></app-system-stats>
+  <app-click-spark *ngIf="ambientSettings.clickSpark"></app-click-spark>
 
   <div class="home-card-wrapper">
     <mat-card class="home-card">
