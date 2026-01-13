@@ -72,7 +72,7 @@ export class AmbientControlService {
     const updated: AmbientSettings = {
       systemStats: enabled,
       clickSpark: enabled,
-      dotGrid: enabled
+      dotGrid: enabled,
     };
     this.updateSettings(updated);
   }

@@ -259,7 +259,7 @@ export class DotGridComponent implements OnInit, OnDestroy {
     }
 
     // Draw circle with reduced opacity for dimmer appearance
-    this.ctx.globalAlpha = 0.10;
+    this.ctx.globalAlpha = 0.15;
     this.ctx.beginPath();
     this.ctx.arc(dot.currentX, dot.currentY, this.DOT_SIZE / 2, 0, Math.PI * 2);
     this.ctx.fillStyle = color;

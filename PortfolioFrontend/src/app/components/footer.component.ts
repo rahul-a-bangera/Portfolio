@@ -25,12 +25,11 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
             </button>
             
             <div class="ambient-menu" [class.open]="menuOpen">
-              
               <div class="ambient-option">
-                <span class="option-label">System Stats</span>
+                <span class="option-label">Dot Grid</span>
                 <mat-slide-toggle
-                  [checked]="settings.systemStats"
-                  (change)="toggleSystemStats()"
+                  [checked]="settings.dotGrid"
+                  (change)="toggleDotGrid()"
                   color="primary"
                   class="custom-toggle">
                 </mat-slide-toggle>
@@ -41,16 +40,6 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
                 <mat-slide-toggle
                   [checked]="settings.clickSpark"
                   (change)="toggleClickSpark()"
-                  color="primary"
-                  class="custom-toggle">
-                </mat-slide-toggle>
-              </div>
-              
-              <div class="ambient-option">
-                <span class="option-label">Dot Grid</span>
-                <mat-slide-toggle
-                  [checked]="settings.dotGrid"
-                  (change)="toggleDotGrid()"
                   color="primary"
                   class="custom-toggle">
                 </mat-slide-toggle>
