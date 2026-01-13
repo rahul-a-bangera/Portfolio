@@ -5,15 +5,17 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ## Documentation Structure
 
-**All documentation is consolidated into 7 files in the `misc/` folder:**
+**All documentation is consolidated into 8 files in the `misc/` folder:**
 
-1. **01-TECHNICAL.md** - Code quality, tech stack, dependencies, performance metrics
-2. **02-ARCHITECTURE.md** - System architecture, component hierarchy, data flow
-3. **03-THEME.md** - Design system, colors, typography, component patterns
-4. **04-SETUP.md** - Installation and setup instructions
-5. **05-DEPLOYMENT.md** - Deployment process and configuration
-6. **06-RESPONSIVE.md** - Responsive design breakpoints and mobile optimization
-7. **07-BUILD.md** - Build configuration and troubleshooting
+1. **00-DOCUMENTATION-INDEX.md** - Documentation overview and consolidation history
+2. **01-TECHNICAL.md** - Code quality, tech stack, dependencies, performance metrics
+3. **02-ARCHITECTURE.md** - System architecture, component hierarchy, data flow
+4. **03-THEME.md** - Design system, colors, typography, component patterns
+5. **04-SETUP.md** - Installation and setup instructions
+6. **05-DEPLOYMENT.md** - Deployment process and configuration
+7. **06-RESPONSIVE.md** - Responsive design breakpoints and mobile optimization
+8. **07-BUILD.md** - Build configuration and troubleshooting
+9. **08-AZURE-SETUP.md** - Azure Static Web Apps API setup and configuration
 
 **IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
@@ -21,7 +23,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ### Documentation Files
 - **Root**: `README.md` only (main project documentation, public-facing)
-- **misc/**: All technical documentation (7 consolidated files)
+- **misc/**: All technical documentation (8 consolidated files: 00-08)
 - **.github/**: `copilot-instructions.md` (this file)
 
 **Rule**: Never create new .md files outside this structure. Update existing files instead.
@@ -53,8 +55,9 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 - Each component has: `.ts`, `.html`, `.css` files
 - Global styles in `PortfolioFrontend/src/styles.css`
 - Assets in `PortfolioFrontend/src/assets/`
-- **Documentation in `misc/` folder (7 consolidated files ONLY)**
+- **Documentation in `misc/` folder (8 consolidated files ONLY)**
 - Build output in `docs/` folder (for GitHub Pages)
+- **Azure Functions API in `PortfolioAPI/` folder**
 
 ## Design System
 
@@ -278,7 +281,7 @@ chore: Update Angular to version 19.1
 ## Documentation
 
 ### When to Update Documentation
-- **Code changes**: Update relevant file in `misc/` (01-07)
+- **Code changes**: Update relevant file in `misc/` (01-08)
 - **New features**: Update 01-TECHNICAL.md
 - **Architecture changes**: Update 02-ARCHITECTURE.md
 - **Theme changes**: Update 03-THEME.md
@@ -286,6 +289,7 @@ chore: Update Angular to version 19.1
 - **Deployment changes**: Update 05-DEPLOYMENT.md
 - **Responsive changes**: Update 06-RESPONSIVE.md
 - **Build changes**: Update 07-BUILD.md
+- **Azure/API changes**: Update 08-AZURE-SETUP.md
 
 ### Documentation Rules
 1. **NEVER create new .md files** - Update existing consolidated files
@@ -413,7 +417,7 @@ git push origin main        # Push to GitHub (triggers deployment)
 - Add responsive styles for all breakpoints
 - Test on mobile devices
 - Use Material Icons for consistency
-- Document changes in appropriate misc/ file (01-07)
+- Document changes in appropriate misc/ file (00-08)
 - Keep bundle sizes optimized
 - Follow accessibility guidelines
 - Use semantic HTML
@@ -421,7 +425,7 @@ git push origin main        # Push to GitHub (triggers deployment)
 - Test keyboard navigation
 
 ### DON'Ts ?
-- **Don't create new .md files** - Update existing misc/ files (01-07)
+- **Don't create new .md files** - Update existing misc/ files (00-08)
 - Don't introduce new color schemes without updating 03-THEME.md
 - Don't skip mobile testing
 - Don't use inline styles in templates

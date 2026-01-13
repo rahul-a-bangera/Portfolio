@@ -1,0 +1,16 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ContactInfo": {
+    "Email": "rahul.bangera.999@gmail.com",
+    "Phone": "+91 9663 885 365",
+    "LinkedIn": "https://www.linkedin.com/in/rahul-bangera/",
+    "GitHub": "https://github.com/rahul-a-bangera",
+    "Twitter": "https://x.com/im_rahulbangera"
+  }
+}

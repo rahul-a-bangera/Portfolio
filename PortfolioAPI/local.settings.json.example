@@ -1,0 +1,16 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "CONTACT_EMAIL": "rahul.bangera.999@gmail.com",
+    "CONTACT_PHONE": "+91 9663 885 365",
+    "CONTACT_LINKEDIN": "https://www.linkedin.com/in/rahul-bangera/",
+    "CONTACT_GITHUB": "https://github.com/rahul-a-bangera",
+    "CONTACT_TWITTER": "https://twitter.com/your-handle"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
+  }
+}

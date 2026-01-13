@@ -7,7 +7,9 @@ import { Subscription } from 'rxjs';
 import { SystemStatsComponent } from './ambient/system-stats.component';
 import { ClickSparkComponent } from './ambient/click-spark.component';
 import { DotGridComponent } from './ambient/dot-grid.component';
+import { ContactService } from '../services/contact.service';
 import { AmbientControlService, AmbientSettings } from '../services/ambient-control.service';
+import { ContactInfo } from '../models/contact.model';
 
 @Component({
   selector: 'app-home',
@@ -26,10 +28,12 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
 })
 export class HomeComponent implements OnInit, OnDestroy {
   showContactPopup = false;
-  emailId = 'rahul.bangera.999@gmail.com';
-  mobileNo = '9663885365';
+  emailId = '';
+  mobileNo = '';
   showCopiedMessage = false;
   copiedMessageText = '';
+  isLoadingContact = false;
+  contactError = false;
   ambientSettings: AmbientSettings = {
     systemStats: true,
     clickSpark: true,
@@ -38,8 +42,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   private scrollThreshold = 50;
   private lastScrollPosition = 0;
   private settingsSubscription?: Subscription;
+  private contactSubscription?: Subscription;
 
-  constructor(private ambientService: AmbientControlService) {
+  constructor(
+    private ambientService: AmbientControlService,
+    private contactService: ContactService
+  ) {
     this.settingsSubscription = this.ambientService.ambientSettings$.subscribe(settings => {
       this.ambientSettings = settings;
     });
@@ -47,11 +55,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    this.loadContactInfo();
   }
 
   ngOnDestroy(): void {
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
+    }
+    if (this.contactSubscription) {
+      this.contactSubscription.unsubscribe();
     }
   }
 
@@ -101,6 +113,24 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 2000);
     }).catch(err => {
       console.error('Failed to copy: ', err);
+    });
+  }
+
+  private loadContactInfo(): void {
+    this.isLoadingContact = true;
+    this.contactError = false;
+    
+    this.contactSubscription = this.contactService.getContactInfo().subscribe({
+      next: (contactInfo: ContactInfo) => {
+        this.emailId = contactInfo.email;
+        this.mobileNo = contactInfo.phone;
+        this.isLoadingContact = false;
+      },
+      error: (error) => {
+        console.error('Failed to load contact information:', error);
+        this.contactError = true;
+        this.isLoadingContact = false;
+      }
     });
   }
 }

@@ -4,3 +4,7 @@ obj/
 *.user
 *.suo
 .vscode/
+
+# Local configuration (contains sensitive contact information)
+appsettings.local.json
+appsettings.*.local.json

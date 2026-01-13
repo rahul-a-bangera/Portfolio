@@ -7,18 +7,25 @@ namespace PortfolioBackend.Controllers
     [Route("api/[controller]")]
     public class ContactController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public ContactController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpGet]
         public ActionResult<ContactInfo> GetContactInfo()
         {
             var contact = new ContactInfo
             {
-                Email = "rahul.bangera.999@gmail.com",
-                Phone = "+91 9663 885 365",
+                Email = _configuration["ContactInfo:Email"] ?? string.Empty,
+                Phone = _configuration["ContactInfo:Phone"] ?? string.Empty,
                 SocialLinks = new Dictionary<string, string>
                 {
-                    { "LinkedIn", "https://linkedin.com/in/rahul-bangera" },
-                    { "GitHub", "https://github.com/rahul-bangera" },
-                    { "Twitter", "https://twitter.com/rahul_bangera" }
+                    { "LinkedIn", _configuration["ContactInfo:LinkedIn"] ?? string.Empty },
+                    { "GitHub", _configuration["ContactInfo:GitHub"] ?? string.Empty },
+                    { "Twitter", _configuration["ContactInfo:Twitter"] ?? string.Empty }
                 }
             };
 
