@@ -1,8 +1,55 @@
 # Azure Static Web Apps Setup Guide
 
-**Last Updated**: December 2024  
+**Last Updated**: January 2025  
 **Azure Region**: East Asia  
 **Angular Version**: 19.0.0
+
+---
+
+## ?? TROUBLESHOOTING: Build Pipeline Failing
+
+### Error: "App Directory Location is invalid"
+
+**Error Message:**
+```
+App Directory Location: './PortfolioFrontend ' is invalid.
+Could not detect this directory.
+```
+
+**Root Cause:** Trailing space or incorrect path format in Azure Portal configuration.
+
+**Fix:**
+1. **Go to Azure Portal** ? Your Static Web App ? **Configuration** ? **Application settings**
+2. Check the **Build configuration** values
+3. Make sure they are EXACTLY:
+
+| Field | Correct Value | ? Wrong Values |
+|-------|---------------|----------------|
+| **App location** | `PortfolioFrontend` | `./PortfolioFrontend`<br>`PortfolioFrontend `<br>`./PortfolioFrontend ` |
+| **API location** | `PortfolioAPI` | `./PortfolioAPI`<br>`PortfolioAPI ` |
+| **Output location** | Leave **EMPTY** or blank | `docs`<br>`dist`<br>` ` (space) |
+
+**Key Points:**
+- ? NO leading `./`
+- ? NO trailing spaces
+- ? NO quotes around the path
+- ? Just the folder name: `PortfolioFrontend`
+
+### How to Fix in Azure Portal
+
+**Option 1: Via Configuration (Recommended)**
+
+1. Azure Portal ? Your Static Web App
+2. **Settings** ? **Configuration**
+3. Under **Build Presets**, you'll see the build configuration
+4. If you can't edit it there, you need to delete and recreate the resource
+
+**Option 2: Delete and Recreate (If Configuration Can't Be Edited)**
+
+If the configuration is locked, you'll need to:
+1. Delete the current Static Web App resource
+2. Recreate it with correct values (see setup steps below)
+3. Update the GitHub Secret with the new deployment token
 
 ---
 
@@ -201,21 +248,28 @@ sudo apt-get install azure-functions-core-tools-4
 
 ### Step 3: Build Configuration
 
-**?? CRITICAL: Use exact paths (case-sensitive)**
+**?? CRITICAL: Use exact paths (case-sensitive, NO extra spaces or dots)**
 
-| Field | Value | ?? Common Mistakes |
-|-------|-------|-------------------|
-| **App location** | `PortfolioFrontend` | ? NOT `./PortfolioAPI`<br>? NOT `portfoliofrontend` |
-| **API location** | `PortfolioAPI` | ? NOT `api`<br>? NOT `./PortfolioAPI` |
-| **Output location** | Leave **EMPTY** | ? NOT `docs`<br>? NOT `dist` |
+| Field | ? Correct Value | ? Wrong Values |
+|-------|-----------------|----------------|
+| **App location** | `PortfolioFrontend` | `./PortfolioFrontend`<br>`PortfolioFrontend `<br>`portfoliofrontend` |
+| **API location** | `PortfolioAPI` | `./PortfolioAPI`<br>`api`<br>`PortfolioAPI ` |
+| **Output location** | Leave **EMPTY** or blank | `docs`<br>`dist`<br>` ` |
+
+**How to type it:**
+1. Click in the "App location" field
+2. Type: `PortfolioFrontend` (exactly, no extra characters)
+3. Press Tab to move to next field
+4. **IMPORTANT:** Don't copy-paste, type it manually to avoid hidden characters
 
 ### Step 4: Review and Create
 
 1. Click **"Review + create"**
-2. Verify all settings match above
-3. Click **"Create"**
-4. Wait 2-3 minutes for deployment
-5. Azure will automatically create a GitHub Actions workflow
+2. **VERIFY** the build configuration shows correctly (no `./` prefix, no trailing spaces)
+3. If you see `./PortfolioFrontend` or extra spaces, click **"Previous"** and re-type the values
+4. Click **"Create"**
+5. Wait 2-3 minutes for deployment
+6. Azure will automatically create a GitHub Actions workflow
 
 ---
 
@@ -239,9 +293,12 @@ sudo apt-get install azure-functions-core-tools-4
 ### Step 3: Verify Workflow
 
 1. **GitHub** ? **Actions** tab
-2. Look for workflow: **"Azure Static Web Apps CI/CD"**
+2. Look for workflow: **"Build and Deploy"**
 3. Check if it runs successfully
 4. If failed, check logs for errors
+
+**Common failure:** "App Directory Location is invalid"
+- **Fix:** Check Azure Portal configuration (no `./` prefix, no trailing spaces)
 
 ---
 
@@ -263,7 +320,7 @@ CONTACT_EMAIL = rahul.bangera.999@gmail.com
 CONTACT_PHONE = +91 9663 885 365
 CONTACT_LINKEDIN = https://www.linkedin.com/in/rahul-bangera/
 CONTACT_GITHUB = https://github.com/rahul-a-bangera
-CONTACT_TWITTER = https://twitter.com/your-handle
+CONTACT_TWITTER = https://x.com/im_rahulbangera
 ```
 
 ### Steps for Each Variable
@@ -313,7 +370,7 @@ PortfolioBackend/
   "socialLinks": {
     "LinkedIn": "https://www.linkedin.com/in/rahul-bangera/",
     "GitHub": "https://github.com/rahul-a-bangera",
-    "Twitter": "https://twitter.com/your-handle"
+    "Twitter": "https://x.com/im_rahulbangera"
   }
 }
 ```
@@ -516,6 +573,34 @@ Angular displays contact information
 
 ## Troubleshooting
 
+### ? GitHub Actions: "App Directory Location is invalid"
+
+**Error:**
+```
+App Directory Location: './PortfolioFrontend ' is invalid.
+Could not detect this directory.
+```
+
+**Causes:**
+1. Trailing space in Azure Portal configuration: `PortfolioFrontend `
+2. Leading `./` in configuration: `./PortfolioFrontend`
+3. Wrong case: `portfoliofrontend` (should be `PortfolioFrontend`)
+
+**Fix:**
+1. Go to Azure Portal ? Your Static Web App
+2. Check **Configuration** ? **Application settings**
+3. Verify build configuration values (may need to recreate resource if locked)
+4. Correct values:
+   - App location: `PortfolioFrontend` (no `./`, no trailing space)
+   - API location: `PortfolioAPI`
+   - Output location: (empty)
+
+**If configuration is locked:**
+1. Delete the Static Web App resource
+2. Recreate with correct values (no copy-paste, type manually)
+3. Get new deployment token
+4. Update GitHub Secret: `AZURE_STATIC_WEB_APPS_API_TOKEN`
+
 ### ? Local API Returns Empty Data
 
 **Problem:** API responds but all fields are empty
@@ -531,15 +616,6 @@ Angular displays contact information
 2. Check file has correct environment variables
 3. Restart function: `func start`
 4. Test: `Invoke-RestMethod -Uri http://localhost:7071/api/contact`
-
-### ? Build Fails: "App location not found"
-
-**Problem**: Azure can't find the Angular app folder
-
-**Fix**:
-1. Check App location is **exactly**: `PortfolioFrontend`
-2. Must match folder name (case-sensitive)
-3. No leading `./` or trailing `/`
 
 ### ? Build Fails: "No output found"
 
@@ -602,12 +678,13 @@ Stop-Process -Id <ProcessId>
 ### ? Azure Deployment Checklist
 
 - [ ] Static Web App created in Azure Portal
+- [ ] **Build configuration has NO trailing spaces or `./` prefix**
 - [ ] Resource Group: `portfolio_group`
 - [ ] Region: `East Asia`
 - [ ] GitHub repository connected
 - [ ] Deployment token added to GitHub Secrets
 - [ ] 5 environment variables configured and **saved**
-- [ ] GitHub Actions workflow runs successfully
+- [ ] GitHub Actions workflow runs successfully (no "invalid directory" error)
 - [ ] Azure Static Web App URL accessible
 
 ### ? API Endpoint Tests
@@ -712,10 +789,12 @@ func --version                 # Check Azure Functions Core Tools
 
 ? **Configuration:** Environment-based (appsettings.local.json for local, Azure Portal for production)
 
+? **Build Configuration:** NO trailing spaces, NO `./` prefix in Azure Portal
+
 **Ready to develop locally and deploy to Azure!** ??
 
 ---
 
-**Last Updated**: December 2024  
-**Document Version**: 2.0  
+**Last Updated**: January 2025  
+**Document Version**: 2.1  
 **Maintained by**: Rahul A

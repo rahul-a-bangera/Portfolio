@@ -65,6 +65,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
 
       - name: Build and Deploy to Azure Static Web Apps
         id: builddeploy
@@ -74,5 +77,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "PortfolioFrontend"
-          output_location: ""
           api_location: "PortfolioAPI"
+          output_location: ""
