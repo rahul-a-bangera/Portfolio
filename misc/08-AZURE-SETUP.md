@@ -1,6 +1,6 @@
 # Azure Static Web Apps Setup Guide
 
-**Last Updated**: January 2025  
+**Last Updated**: January 2026  
 **Azure Region**: East Asia  
 **Angular Version**: 19.0.0
 
@@ -795,6 +795,6 @@ func --version                 # Check Azure Functions Core Tools
 
 ---
 
-**Last Updated**: January 2025  
+**Last Updated**: January 13, 2026  
 **Document Version**: 2.1  
 **Maintained by**: Rahul A

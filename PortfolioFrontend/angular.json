@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../docs",
+            "outputPath": "dist/portfolio-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -38,6 +38,22 @@
               "namedChunks": true
             },
             "production": {
+              "outputHashing": "all",
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kb",
+                  "maximumError": "12kb"
+                }
+              ]
+            },
+            "github-pages": {
+              "outputPath": "../docs",
               "outputHashing": "all",
               "budgets": [
                 {

@@ -35,10 +35,10 @@ jobs:
           cd PortfolioFrontend
           npm ci
       
-      - name: Build Angular app
+      - name: Build Angular app for GitHub Pages
         run: |
           cd PortfolioFrontend
-          npm run build -- --configuration production --base-href /
+          npm run build -- --configuration github-pages --base-href /
       
       - name: Copy .nojekyll
         run: |
@@ -78,4 +78,4 @@ jobs:
           action: "upload"
           app_location: "PortfolioFrontend"
           api_location: "PortfolioAPI"
-          output_location: ""
+          output_location: "dist/portfolio-frontend"
