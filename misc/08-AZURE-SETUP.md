@@ -290,6 +290,8 @@ sudo apt-get install azure-functions-core-tools-4
 5. **Value**: Paste the deployment token
 6. Click **"Add secret"**
 
+**? Note**: Previously, Azure auto-generated long names like `AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_GRASS_04910CA00`. We've simplified it to just `AZURE_STATIC_WEB_APPS_API_TOKEN` for easier management.
+
 ### Step 3: Verify Workflow
 
 1. **GitHub** ? **Actions** tab
