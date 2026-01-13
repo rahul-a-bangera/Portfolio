@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://YOUR_AZURE_SWA_URL'  // Replace with your Azure Static Web App URL
+    apiUrl: 'https://lemon-ocean-021332a00.2.azurestaticapps.net'  // Replace with your Azure Static Web App URL
 };
