@@ -1,63 +1,105 @@
-# Test all Portfolio API endpoints
-# Run this after starting the API with: func start
+# Test All API Endpoints
+# This script tests all API endpoints (local and production)
 
-Write-Host "Testing Portfolio API Endpoints..." -ForegroundColor Cyan
+Write-Host "==================================" -ForegroundColor Cyan
+Write-Host "Testing Portfolio API Endpoints" -ForegroundColor Cyan
+Write-Host "==================================" -ForegroundColor Cyan
 Write-Host ""
 
-$baseUrl = "http://localhost:7071/api"
+# API URLs
+$localBackendUrl = "http://localhost:5091"
+$localFunctionsUrl = "http://localhost:7071"
+$productionUrl = "https://gentle-moss-0d321ce00.2.azurestaticapps.net"
 
-# Test Contact endpoint
-Write-Host "1. Testing /api/contact..." -ForegroundColor Yellow
-try {
-    $contactResult = Invoke-RestMethod -Uri "$baseUrl/contact" -Method Get
-    Write-Host "   ? Contact API works!" -ForegroundColor Green
-    Write-Host "   Email: $($contactResult.email)" -ForegroundColor Gray
-    Write-Host "   Phone: $($contactResult.phone)" -ForegroundColor Gray
-} catch {
-    Write-Host "   ? Contact API failed: $_" -ForegroundColor Red
-}
-
-Write-Host ""
-
-# Test Resume endpoint
-Write-Host "2. Testing /api/resume..." -ForegroundColor Yellow
-try {
-    $resumeResult = Invoke-RestMethod -Uri "$baseUrl/resume" -Method Get
-    Write-Host "   ? Resume API works!" -ForegroundColor Green
-    Write-Host "   Name: $($resumeResult.personalInfo.name)" -ForegroundColor Gray
-    Write-Host "   Title: $($resumeResult.personalInfo.title)" -ForegroundColor Gray
-    Write-Host "   Skills: $($resumeResult.skills.frontend.Count) frontend, $($resumeResult.skills.backend.Count) backend" -ForegroundColor Gray
-} catch {
-    Write-Host "   ? Resume API failed: $_" -ForegroundColor Red
-}
-
-Write-Host ""
-
-# Test Blog endpoint (all posts)
-Write-Host "3. Testing /api/blog..." -ForegroundColor Yellow
-try {
-    $blogResult = Invoke-RestMethod -Uri "$baseUrl/blog" -Method Get
-    Write-Host "   ? Blog API works!" -ForegroundColor Green
-    Write-Host "   Total posts: $($blogResult.Count)" -ForegroundColor Gray
-    if ($blogResult.Count -gt 0) {
-        Write-Host "   First post: $($blogResult[0].title)" -ForegroundColor Gray
+# Function to test an endpoint
+function Test-Endpoint {
+    param(
+        [string]$Url,
+        [string]$Name
+    )
+    
+    Write-Host "Testing: $Name" -ForegroundColor Yellow
+    Write-Host "URL: $Url" -ForegroundColor Gray
+    
+    try {
+        $response = Invoke-RestMethod -Uri $Url -Method Get -TimeoutSec 10
+        Write-Host "? SUCCESS" -ForegroundColor Green
+        Write-Host "Response:" -ForegroundColor Gray
+        $response | ConvertTo-Json -Depth 5 | Write-Host
+        Write-Host ""
+        return $true
     }
-} catch {
-    Write-Host "   ? Blog API failed: $_" -ForegroundColor Red
+    catch {
+        Write-Host "? FAILED" -ForegroundColor Red
+        Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host ""
+        return $false
+    }
+}
+
+# Test Production Endpoints
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "PRODUCTION (Azure Static Web Apps)" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+$prodResults = @{
+    Contact = Test-Endpoint -Url "$productionUrl/api/contact" -Name "Contact API (Production)"
+    Resume = Test-Endpoint -Url "$productionUrl/api/resume" -Name "Resume API (Production)"
+    Blog = Test-Endpoint -Url "$productionUrl/api/blog" -Name "Blog API (Production)"
+}
+
+# Test Local .NET Backend (if running)
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "LOCAL (.NET Backend - Port 5091)" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+$localBackendResults = @{
+    Contact = Test-Endpoint -Url "$localBackendUrl/api/contact" -Name "Contact API (Local .NET)"
+    Resume = Test-Endpoint -Url "$localBackendUrl/api/resume" -Name "Resume API (Local .NET)"
+    Blog = Test-Endpoint -Url "$localBackendUrl/api/blog" -Name "Blog API (Local .NET)"
+}
+
+# Test Local Azure Functions (if running)
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "LOCAL (Azure Functions - Port 7071)" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+$localFunctionsResults = @{
+    Contact = Test-Endpoint -Url "$localFunctionsUrl/api/contact" -Name "Contact API (Local Functions)"
+    Resume = Test-Endpoint -Url "$localFunctionsUrl/api/resume" -Name "Resume API (Local Functions)"
+    Blog = Test-Endpoint -Url "$localFunctionsUrl/api/blog" -Name "Blog API (Local Functions)"
+}
+
+# Summary
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "SUMMARY" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
+
+Write-Host "Production (Azure):" -ForegroundColor Yellow
+$prodResults.GetEnumerator() | ForEach-Object {
+    $status = if ($_.Value) { "? PASS" } else { "? FAIL" }
+    Write-Host "  $($_.Key): $status"
 }
 
 Write-Host ""
-
-# Test Blog endpoint (single post by slug)
-Write-Host "4. Testing /api/blog/{slug}..." -ForegroundColor Yellow
-try {
-    $blogPostResult = Invoke-RestMethod -Uri "$baseUrl/blog/getting-started-angular-19" -Method Get
-    Write-Host "   ? Blog post API works!" -ForegroundColor Green
-    Write-Host "   Title: $($blogPostResult.title)" -ForegroundColor Gray
-    Write-Host "   Author: $($blogPostResult.author)" -ForegroundColor Gray
-} catch {
-    Write-Host "   ? Blog post API failed: $_" -ForegroundColor Red
+Write-Host "Local .NET Backend:" -ForegroundColor Yellow
+$localBackendResults.GetEnumerator() | ForEach-Object {
+    $status = if ($_.Value) { "? PASS" } else { "? FAIL" }
+    Write-Host "  $($_.Key): $status"
 }
 
 Write-Host ""
-Write-Host "Testing complete!" -ForegroundColor Cyan
+Write-Host "Local Azure Functions:" -ForegroundColor Yellow
+$localFunctionsResults.GetEnumerator() | ForEach-Object {
+    $status = if ($_.Value) { "? PASS" } else { "? FAIL" }
+    Write-Host "  $($_.Key): $status"
+}
+
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Test complete!" -ForegroundColor Green
+Write-Host "========================================" -ForegroundColor Cyan

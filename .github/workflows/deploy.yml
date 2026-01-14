@@ -34,13 +34,33 @@ jobs:
           cd PortfolioFrontend
           npm run build -- --configuration github-pages --base-href /
       
+      - name: Verify build output
+        run: |
+          if [ ! -d "docs" ]; then
+            echo "Error: docs folder not created!"
+            exit 1
+          fi
+          if [ ! -f "docs/index.html" ]; then
+            echo "Error: index.html not found in docs folder!"
+            exit 1
+          fi
+          echo "Build output verified successfully!"
+      
       - name: Copy .nojekyll
         run: |
           cp .nojekyll docs/
+      
+      - name: Verify CNAME file
+        run: |
+          if [ ! -f "docs/CNAME" ]; then
+            echo "Warning: CNAME file not found in docs folder"
+            echo "rahul-a.in" > docs/CNAME
+          fi
+          echo "CNAME file verified: $(cat docs/CNAME)"
       
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Deploy to GitHub Pages" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Deploy to GitHub Pages [skip ci]" && git push)

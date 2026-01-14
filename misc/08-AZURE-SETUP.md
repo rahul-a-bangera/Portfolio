@@ -6,6 +6,18 @@
 
 ---
 
+## ?? IMPORTANT: API-Only Deployment
+
+**This Azure Static Web App is configured to host ONLY the API endpoints, not the full frontend.**
+
+- **Full Portfolio Website**: https://rahul-a.in (hosted on GitHub Pages)
+- **API Documentation Page**: https://gentle-moss-0d321ce00.2.azurestaticapps.net (minimal HTML page)
+- **API Endpoints**: https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/*
+
+The Azure deployment uses a lightweight API documentation page (`AzureStaticFrontend/index.html`) instead of building the entire Angular application. This reduces build time, deployment size, and keeps Azure focused on its purpose: hosting serverless API functions.
+
+---
+
 ## ?? TROUBLESHOOTING: Build Pipeline Failing
 
 ### Error: "App Directory Location is invalid"
@@ -577,24 +589,24 @@ GitHub Actions Workflow
          +------------------+------------------+
          |                                     |
          v                                     v
-   [Job: build]                      [Job: deploy-azure-swa]
+   [Job: build]                    [Job: build_and_deploy_job]
          |                                     |
          v                                     v
-  Build Angular App                    Build + Deploy Both
-  Output to docs/                      Frontend + API
+  Build Angular App                   Deploy Minimal HTML Page
+  Output to docs/                     + Build & Deploy API Functions
          |                                     |
          v                                     v
   GitHub Pages Deploy                  Azure Static Web Apps
          |                                     |
          v                                     v
   https://rahul-a.in              https://[app].azurestaticapps.net
-  (Static frontend)               (Frontend + Serverless API)
+  (Full Angular frontend)         (API Docs Page + Serverless API)
          |                                     |
          +------------------+------------------+
                             |
                             v
                      Production Site
-            Frontend calls Azure API for data
+            Frontend (GitHub Pages) calls Azure API for data
 ```
 
 ### Why Two Deployments?
@@ -603,15 +615,26 @@ GitHub Actions Workflow
    - Custom domain
    - Free hosting
    - Fast CDN
+   - **Full Angular application**
    - Static files only
    - **Limitation**: No backend/API
 
 2. **Azure Static Web Apps**:
-   - Provides serverless API
+   - **Minimal API documentation page** (not full frontend)
+   - Provides serverless API endpoints
    - Auto-scaling backend
    - Environment variables
    - Application insights
-   - **Frontend calls Azure API**
+   - **GitHub Pages frontend calls these APIs**
+
+### What's Deployed Where?
+
+| Component | GitHub Pages | Azure Static Web Apps |
+|-----------|--------------|----------------------|
+| **Frontend** | ? Full Angular App | ? Minimal HTML Page Only |
+| **API Endpoints** | ? Not Available | ? Serverless Functions |
+| **Purpose** | Main portfolio website | API backend + documentation |
+| **URL** | https://rahul-a.in | https://[app].azurestaticapps.net |
 
 ### Data Flow
 
@@ -633,6 +656,21 @@ Returns contact info JSON
          v
 Angular displays contact information
 ```
+
+### Azure Frontend vs GitHub Pages Frontend
+
+**Azure Static Web App Frontend** (`AzureStaticFrontend/index.html`):
+- Single HTML page
+- API documentation (like Swagger UI)
+- No Angular build required
+- Fast deployment (no compilation)
+- Purpose: Developer documentation and API testing
+
+**GitHub Pages Frontend** (`PortfolioFrontend/`):
+- Full Angular 19 application
+- Complete portfolio with all features
+- Compiled and optimized
+- Purpose: Public-facing portfolio website
 
 ---
 
@@ -771,9 +809,9 @@ Stop-Process -Id <ProcessId>
 2. **Wait for GitHub Actions** to complete deployment (2-5 minutes)
 3. **Test Azure endpoints**:
    ```bash
-   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/contact
-   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/resume
-   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/blog
+   curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/contact
+   curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/resume
+   curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/blog
    ```
 
 ---

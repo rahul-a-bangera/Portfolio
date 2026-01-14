@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-    apiUrl: 'https://green-grass-04910ca00.6.azurestaticapps.net'  // Replace with your actual Azure URL after deployment
+  apiUrl: 'https://gentle-moss-0d321ce00.2.azurestaticapps.net'
 };
 
