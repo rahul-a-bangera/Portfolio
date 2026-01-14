@@ -65,6 +65,143 @@ If the configuration is locked, you'll need to:
 
 ---
 
+## ?? TROUBLESHOOTING: Build Pipeline Failing
+
+### Error: "Function language info isn't provided"
+
+**Error Message:**
+```
+Cannot deploy to the function app because Function language info isn't provided.
+```
+
+**Root Cause:** Azure Static Web Apps deployment cannot detect the Function runtime/language because `function.json` files are missing from Azure Functions (v4 programming model uses code-based registration but deployment still needs these files).
+
+**Fix:**
+
+**Problem:** Azure Functions v4 (Node.js) uses `app.http()` in code for function registration, but Azure Static Web Apps deployment still requires traditional `function.json` files to understand the function bindings and language.
+
+**Solution:** Add `function.json` files to each function directory:
+
+1. **Create `function.json` in each function folder**:
+
+**PortfolioAPI/contact/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "contact"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ],
+  "scriptFile": "index.js"
+}
+```
+
+**PortfolioAPI/resume/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "resume"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ],
+  "scriptFile": "index.js"
+}
+```
+
+**PortfolioAPI/blog/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "blog"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ],
+  "scriptFile": "index.js"
+}
+```
+
+2. **Verify the files are committed**:
+```bash
+git add PortfolioAPI/*/function.json
+git commit -m "fix: Add function.json files for Azure Static Web Apps deployment"
+git push origin main
+```
+
+3. **Update GitHub Actions workflow** to verify `function.json` files:
+
+Edit `.github/workflows/azure-static-web-apps-gentle-moss-0d321ce00.yml`:
+```yaml
+- name: Verify compiled functions exist
+  run: |
+    echo "Checking for compiled JavaScript files and function.json..."
+    ls -la PortfolioAPI/contact/
+    ls -la PortfolioAPI/resume/
+    ls -la PortfolioAPI/blog/
+    if [ ! -f "PortfolioAPI/contact/index.js" ] || [ ! -f "PortfolioAPI/contact/function.json" ]; then
+      echo "Error: contact function files not found!"
+      exit 1
+    fi
+    if [ ! -f "PortfolioAPI/resume/index.js" ] || [ ! -f "PortfolioAPI/resume/function.json" ]; then
+      echo "Error: resume function files not found!"
+      exit 1
+    fi
+    if [ ! -f "PortfolioAPI/blog/index.js" ] || [ ! -f "PortfolioAPI/blog/function.json" ]; then
+      echo "Error: blog function files not found!"
+      exit 1
+    fi
+    echo "All compiled functions and function.json files verified!"
+```
+
+**Why this works:**
+- Azure Functions v4 programming model (app.http()) works for local development and Azure Functions hosting
+- Azure Static Web Apps deployment still uses the traditional deployment mechanism that reads `function.json`
+- Having both is compatible: the `function.json` file is used during deployment, and `app.http()` works at runtime
+- The `scriptFile` property in `function.json` points to the compiled JavaScript file
+
+**Verification:**
+```bash
+# Check all function.json files exist
+ls PortfolioAPI/contact/function.json
+ls PortfolioAPI/resume/function.json
+ls PortfolioAPI/blog/function.json
+
+# Push changes
+git push origin main
+
+# Monitor GitHub Actions
+# https://github.com/rahul-a-bangera/Portfolio/actions
+```
+
 ## Table of Contents
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
@@ -357,12 +494,15 @@ PortfolioAPI/
 ??? contact/
 ?   ??? index.ts          # Contact API handler
 ?   ??? index.js          # Compiled JavaScript
+?   ??? function.json     # Function binding configuration (required for Azure deployment)
 ??? resume/
 ?   ??? index.ts          # Resume API handler
 ?   ??? index.js          # Compiled JavaScript
+?   ??? function.json     # Function binding configuration (required for Azure deployment)
 ??? blog/
 ?   ??? index.ts          # Blog API handler
 ?   ??? index.js          # Compiled JavaScript
+?   ??? function.json     # Function binding configuration (required for Azure deployment)
 ??? host.json             # Azure Functions host config
 ??? package.json          # Dependencies
 ??? tsconfig.json         # TypeScript config
@@ -378,6 +518,12 @@ PortfolioBackend/
 ??? appsettings.json      # Base settings
 ??? appsettings.local.json  # Local env vars (not in git)
 ```
+
+**Note about function.json files:**
+- Required for Azure Static Web Apps deployment
+- Defines HTTP trigger bindings and routes
+- Works alongside Azure Functions v4 programming model (app.http())
+- Contains `scriptFile` property pointing to compiled JavaScript
 
 ### API Endpoint Details
 
@@ -735,7 +881,7 @@ Could not detect this directory.
 
 **Problem**: Output location incorrectly configured
 
-**Fix**:
+**Fix:**
 1. Set Output location to **empty/blank**
 2. Angular CLI automatically outputs to correct location
 3. Do NOT use `docs` or `dist`
@@ -813,6 +959,137 @@ Stop-Process -Id <ProcessId>
    curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/resume
    curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/blog
    ```
+
+### Error: "Function language info isn't provided"
+
+```
+Cannot deploy to the function app because Function language info isn't provided.
+```
+
+**Root Cause:** Azure Static Web Apps deployment cannot detect the Function runtime/language because `function.json` files are missing from Azure Functions (v4 programming model uses code-based registration but deployment still needs these files).
+
+**Fix:**
+
+**Problem:** Azure Functions v4 (Node.js) uses `app.http()` in code for function registration, but Azure Static Web Apps deployment still requires traditional `function.json` files to understand the function bindings and language.
+
+**Solution:** Add `function.json` files to each function directory:
+
+1. **Create `function.json` in each function folder**:
+
+**PortfolioAPI/contact/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "contact"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
+```
+
+**PortfolioAPI/resume/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "resume"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
+```
+
+**PortfolioAPI/blog/function.json**:
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "options"],
+      "route": "blog"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
+```
+
+2. **Verify the files are committed**:
+```bash
+git add PortfolioAPI/*/function.json
+git commit -m "fix: Add function.json files for Azure Static Web Apps deployment"
+git push origin main
+```
+
+3. **Update GitHub Actions workflow** to verify `function.json` files:
+
+Edit `.github/workflows/azure-static-web-apps-gentle-moss-0d321ce00.yml`:
+```yaml
+- name: Verify compiled functions exist
+  run: |
+    echo "Checking for compiled JavaScript files and function.json..."
+    ls -la PortfolioAPI/contact/
+    ls -la PortfolioAPI/resume/
+    ls -la PortfolioAPI/blog/
+    if [ ! -f "PortfolioAPI/contact/index.js" ] || [ ! -f "PortfolioAPI/contact/function.json" ]; then
+      echo "Error: contact function files not found!"
+      exit 1
+    fi
+    if [ ! -f "PortfolioAPI/resume/index.js" ] || [ ! -f "PortfolioAPI/resume/function.json" ]; then
+      echo "Error: resume function files not found!"
+      exit 1
+    fi
+    if [ ! -f "PortfolioAPI/blog/index.js" ] || [ ! -f "PortfolioAPI/blog/function.json" ]; then
+      echo "Error: blog function files not found!"
+      exit 1
+    fi
+    echo "All compiled functions and function.json files verified!"
+```
+
+**Why this works:**
+- Azure Functions v4 programming model (app.http()) works for local development and Azure Functions hosting
+- Azure Static Web Apps deployment still uses the traditional deployment mechanism that reads `function.json`
+- Having both is compatible: the `function.json` file is used during deployment, and `app.http()` works at runtime
+- The `scriptFile` property in `function.json` points to the compiled JavaScript file
+
+**Verification:**
+```bash
+# Check all function.json files exist
+ls PortfolioAPI/contact/function.json
+ls PortfolioAPI/resume/function.json
+ls PortfolioAPI/blog/function.json
+
+# Push changes
+git push origin main
+
+# Monitor GitHub Actions
+# https://github.com/rahul-a-bangera/Portfolio/actions
+```
 
 ---
 

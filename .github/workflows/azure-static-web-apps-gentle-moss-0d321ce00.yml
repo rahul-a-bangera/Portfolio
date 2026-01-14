@@ -40,19 +40,19 @@ jobs:
           ls -la PortfolioAPI/contact/
           ls -la PortfolioAPI/resume/
           ls -la PortfolioAPI/blog/
-          if [ ! -f "PortfolioAPI/contact/index.js" ]; then
-            echo "Error: contact/index.js not found!"
+          if [ ! -f "PortfolioAPI/contact/index.js" ] || [ ! -f "PortfolioAPI/contact/function.json" ]; then
+            echo "Error: contact function files not found!"
             exit 1
           fi
-          if [ ! -f "PortfolioAPI/resume/index.js" ]; then
-            echo "Error: resume/index.js not found!"
+          if [ ! -f "PortfolioAPI/resume/index.js" ] || [ ! -f "PortfolioAPI/resume/function.json" ]; then
+            echo "Error: resume function files not found!"
             exit 1
           fi
-          if [ ! -f "PortfolioAPI/blog/index.js" ]; then
-            echo "Error: blog/index.js not found!"
+          if [ ! -f "PortfolioAPI/blog/index.js" ] || [ ! -f "PortfolioAPI/blog/function.json" ]; then
+            echo "Error: blog function files not found!"
             exit 1
           fi
-          echo "All compiled functions verified!"
+          echo "All compiled functions and function.json files verified!"
       
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
