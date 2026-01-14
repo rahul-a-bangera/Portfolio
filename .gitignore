@@ -27,13 +27,14 @@ PortfolioFrontend/.npm/
 PortfolioFrontend/package-lock.json
 PortfolioFrontend/yarn.lock
 
-# Azure Functions API
+# Azure Functions API - IMPORTANT: We need to commit compiled .js files!
 PortfolioAPI/node_modules/
 PortfolioAPI/dist/
 PortfolioAPI/package-lock.json
+# Do NOT ignore .js files - they are needed for deployment!
+# Commented out: PortfolioAPI/**/*.js
+# Only ignore source maps
 PortfolioAPI/**/*.js.map
-PortfolioAPI/**/*.js
-!PortfolioAPI/node_modules/
 
 # IDE - General
 .vscode/
