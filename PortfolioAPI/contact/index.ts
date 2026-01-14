@@ -1,9 +1,9 @@
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
-export default async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+const contactHandler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     // Handle CORS preflight
-    if (request.method === "OPTIONS") {
-        return {
+    if (req.method === "OPTIONS") {
+        context.res = {
             status: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -11,6 +11,7 @@ export default async function contactHandler(request: HttpRequest, context: Invo
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        return;
     }
 
     try {
@@ -24,7 +25,7 @@ export default async function contactHandler(request: HttpRequest, context: Invo
             }
         };
 
-        return {
+        context.res = {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
@@ -32,17 +33,19 @@ export default async function contactHandler(request: HttpRequest, context: Invo
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            jsonBody: contactInfo
+            body: contactInfo
         };
     } catch (error) {
-        context.error("Error fetching contact info:", error);
-        return {
+        context.log.error("Error fetching contact info:", error);
+        context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            jsonBody: { error: "Failed to fetch contact info" }
+            body: { error: "Failed to fetch contact info" }
         };
     }
-}
+};
+
+export default contactHandler;

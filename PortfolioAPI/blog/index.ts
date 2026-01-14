@@ -1,9 +1,9 @@
-import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
-export default async function blogHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+const blogHandler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     // Handle CORS preflight
-    if (request.method === "OPTIONS") {
-        return {
+    if (req.method === "OPTIONS") {
+        context.res = {
             status: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -11,6 +11,7 @@ export default async function blogHandler(request: HttpRequest, context: Invocat
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        return;
     }
 
     try {
@@ -84,24 +85,25 @@ export default async function blogHandler(request: HttpRequest, context: Invocat
         ];
 
         // Get slug from route parameters if provided
-        const slug = request.params.slug;
+        const slug = req.params.slug;
 
         if (slug) {
             // Return single blog post by slug
             const post = blogPosts.find(p => p.slug === slug);
             
             if (!post) {
-                return {
+                context.res = {
                     status: 404,
                     headers: {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    jsonBody: { error: "Blog post not found" }
+                    body: { error: "Blog post not found" }
                 };
+                return;
             }
 
-            return {
+            context.res = {
                 status: 200,
                 headers: {
                     "Content-Type": "application/json",
@@ -109,11 +111,11 @@ export default async function blogHandler(request: HttpRequest, context: Invocat
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                jsonBody: post
+                body: post
             };
         } else {
             // Return all blog posts
-            return {
+            context.res = {
                 status: 200,
                 headers: {
                     "Content-Type": "application/json",
@@ -121,18 +123,20 @@ export default async function blogHandler(request: HttpRequest, context: Invocat
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                jsonBody: blogPosts
+                body: blogPosts
             };
         }
     } catch (error) {
-        context.error("Error fetching blog data:", error);
-        return {
+        context.log.error("Error fetching blog data:", error);
+        context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            jsonBody: { error: "Failed to fetch blog data" }
+            body: { error: "Failed to fetch blog data" }
         };
     }
-}
+};
+
+export default blogHandler;

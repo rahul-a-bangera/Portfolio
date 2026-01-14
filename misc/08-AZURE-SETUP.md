@@ -882,74 +882,93 @@ Stop-Process -Id <ProcessId>
 
 **Error Message:**
 ```
-Status: Failed. Time: 17.7517448(s)
+Status: Failed. Time: 16.2187037(s)
 Deployment Failed :(
 Deployment Failure Reason: Failed to deploy the Azure Functions.
 ```
 
-**Root Cause:** Azure Functions v4 programming model (`app.http()`) conflicts with Azure Static Web Apps deployment when `function.json` files are present. Azure Static Web Apps expects the traditional v3 export pattern.
+**Root Causes:** 
+1. Azure Functions v4 programming model (`app.http()`) conflicts with Azure Static Web Apps deployment
+2. Using `@azure/functions` v4 package with v3 code patterns causes type mismatches
+3. Azure Static Web Apps requires the traditional v3 API pattern
 
-**Fix: Convert to Azure Functions v3 Programming Model**
+**Complete Fix: Use Azure Functions v3 Package and API**
 
-When using `function.json` files with Azure Static Web Apps, you must use the traditional export pattern (v3 model) instead of the v4 programming model.
+**Step 1: Downgrade @azure/functions package**
 
-**Change from v4 to v3:**
-
-**? Before (v4 - doesn't work with Azure Static Web Apps):**
-```typescript
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-
-async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-    // ... handler logic
+Edit `PortfolioAPI/package.json`:
+```json
+{
+  "dependencies": {
+    "@azure/functions": "^3.5.1"
+  }
 }
-
-app.http('contact', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'contact',
-    handler: contactHandler
-});
 ```
 
-**? After (v3 - works with Azure Static Web Apps):**
+**Step 2: Update TypeScript to use v3 API**
+
+**? Before (v4 API - doesn't work):**
 ```typescript
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-export default async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-    // ... handler logic
+export default async function handler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    return {
+        status: 200,
+        jsonBody: { data: "value" }
+    };
 }
 ```
 
-**Key Changes:**
-1. Remove `app` import (not needed for v3)
-2. Export the handler function as `default export`
-3. Remove `app.http()` registration call
-4. Keep the `function.json` file which defines the bindings
+**? After (v3 API - works):**
+```typescript
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 
-**Apply to all functions:**
+const handler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    context.res = {
+        status: 200,
+        body: { data: "value" }
+    };
+};
+
+export default handler;
+```
+
+**Key API Differences:**
+| v4 API | v3 API |
+|--------|--------|
+| `HttpRequest, HttpResponseInit, InvocationContext` | `AzureFunction, Context, HttpRequest` |
+| `return { status: 200, jsonBody: data }` | `context.res = { status: 200, body: data }` |
+| `context.error()` | `context.log.error()` |
+| `request.method` | `req.method` |
+| `request.params` | `req.params` |
+
+**Step 3: Apply to all functions**
+
+Update these files:
 - `PortfolioAPI/contact/index.ts`
 - `PortfolioAPI/resume/index.ts`
 - `PortfolioAPI/blog/index.ts`
 
-**Rebuild and deploy:**
+**Step 4: Reinstall dependencies and rebuild**
 ```bash
 cd PortfolioAPI
+npm install
 npm run build
 
-# Verify compiled files have correct exports
+# Verify exports
 cat contact/index.js | grep "exports.default"
-
 # Should see: exports.default = contactHandler;
 
 git add .
-git commit -m "fix: Convert Azure Functions to v3 model for Static Web Apps compatibility"
+git commit -m "fix: Use Azure Functions v3 package and API for Static Web Apps compatibility"
 git push origin main
 ```
 
 **Why this works:**
-- Azure Functions v4 (`app.http()`) is designed for Azure Functions hosting
-- Azure Static Web Apps uses a different deployment model that requires v3 pattern
-- The v3 model with `function.json` is fully compatible with Azure Static Web Apps
-- Your functions will work the same way, just with a different registration mechanism
+- Azure Static Web Apps deployment tool expects v3 API patterns
+- The v3 package (`@azure/functions@3.5.1`) provides the correct types
+- Using `context.res` instead of returning response object
+- Using `AzureFunction` type and `Context` instead of v4 types
+- The deployment process can properly package and deploy v3 functions
 
 ### Error: "Function language info isn't provided"

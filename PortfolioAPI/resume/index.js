@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = resumeHandler;
-async function resumeHandler(request, context) {
-    if (request.method === "OPTIONS") {
-        return {
+const resumeHandler = async function (context, req) {
+    if (req.method === "OPTIONS") {
+        context.res = {
             status: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -11,6 +10,7 @@ async function resumeHandler(request, context) {
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        return;
     }
     try {
         const resumeData = {
@@ -110,7 +110,7 @@ async function resumeHandler(request, context) {
                 }
             ]
         };
-        return {
+        context.res = {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
@@ -118,18 +118,19 @@ async function resumeHandler(request, context) {
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            jsonBody: resumeData
+            body: resumeData
         };
     }
     catch (error) {
-        context.error("Error fetching resume data:", error);
-        return {
+        context.log.error("Error fetching resume data:", error);
+        context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            jsonBody: { error: "Failed to fetch resume data" }
+            body: { error: "Failed to fetch resume data" }
         };
     }
-}
+};
+exports.default = resumeHandler;

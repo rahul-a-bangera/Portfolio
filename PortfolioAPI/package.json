@@ -2,7 +2,7 @@
   "name": "portfolio-api",
   "version": "1.0.0",
   "description": "Portfolio API for Azure Static Web Apps - Contact, Resume, and Blog endpoints",
-  "main": "contact/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -11,12 +11,11 @@
     "test": "echo \"No tests yet\""
   },
   "dependencies": {
-    "@azure/functions": "^4.0.0"
+    "@azure/functions": "^3.5.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
-    "azure-functions-core-tools": "^4.0.0"
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=20.0.0"

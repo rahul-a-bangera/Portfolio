@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = contactHandler;
-async function contactHandler(request, context) {
-    if (request.method === "OPTIONS") {
-        return {
+const contactHandler = async function (context, req) {
+    if (req.method === "OPTIONS") {
+        context.res = {
             status: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -11,6 +10,7 @@ async function contactHandler(request, context) {
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        return;
     }
     try {
         const contactInfo = {
@@ -22,7 +22,7 @@ async function contactHandler(request, context) {
                 Twitter: process.env.CONTACT_TWITTER || ""
             }
         };
-        return {
+        context.res = {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
@@ -30,18 +30,19 @@ async function contactHandler(request, context) {
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            jsonBody: contactInfo
+            body: contactInfo
         };
     }
     catch (error) {
-        context.error("Error fetching contact info:", error);
-        return {
+        context.log.error("Error fetching contact info:", error);
+        context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            jsonBody: { error: "Failed to fetch contact info" }
+            body: { error: "Failed to fetch contact info" }
         };
     }
-}
+};
+exports.default = contactHandler;
