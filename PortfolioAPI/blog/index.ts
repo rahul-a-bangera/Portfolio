@@ -1,6 +1,6 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-async function blogHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export default async function blogHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
         return {
@@ -136,10 +136,3 @@ async function blogHandler(request: HttpRequest, context: InvocationContext): Pr
         };
     }
 }
-
-app.http('blog', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'blog/{slug?}',
-    handler: blogHandler
-});

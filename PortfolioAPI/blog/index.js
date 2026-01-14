@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const functions_1 = require("@azure/functions");
+exports.default = blogHandler;
 async function blogHandler(request, context) {
     if (request.method === "OPTIONS") {
         return {
@@ -129,9 +129,3 @@ async function blogHandler(request, context) {
         };
     }
 }
-functions_1.app.http('blog', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'blog/{slug?}',
-    handler: blogHandler
-});

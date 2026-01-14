@@ -1,6 +1,6 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-async function resumeHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export default async function resumeHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
         return {
@@ -134,10 +134,3 @@ async function resumeHandler(request: HttpRequest, context: InvocationContext): 
         };
     }
 }
-
-app.http('resume', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'resume',
-    handler: resumeHandler
-});

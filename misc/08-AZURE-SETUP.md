@@ -878,273 +878,78 @@ Stop-Process -Id <ProcessId>
    curl https://gentle-moss-0d321ce00.2.azurestaticapps.net/api/blog
    ```
 
-### Error: "Function language info isn't provided"
+### Error: "Failed to deploy the Azure Functions"
 
+**Error Message:**
 ```
-Cannot deploy to the function app because Function language info isn't provided.
-```
-
-**Root Cause:** Azure Static Web Apps deployment cannot detect the Function runtime/language. This requires TWO things:
-1. `function.json` files in each function directory
-2. `platform.apiRuntime` configuration in `staticwebapp.config.json` (in the app location directory)
-
-**Fix:**
-
-**Part 1: Add function.json files**
-
-Azure Functions v4 (Node.js) uses `app.http()` in code for function registration, but Azure Static Web Apps deployment still requires traditional `function.json` files to understand the function bindings.
-
-Create `function.json` in each function folder:
-
-**PortfolioAPI/contact/function.json**:
-```json
-{
-  "bindings": [
-    {
-      "authLevel": "anonymous",
-      "type": "httpTrigger",
-      "direction": "in",
-      "name": "req",
-      "methods": ["get", "options"],
-      "route": "contact"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "res"
-    }
-  ],
-  "scriptFile": "index.js"
-}
+Status: Failed. Time: 17.7517448(s)
+Deployment Failed :(
+Deployment Failure Reason: Failed to deploy the Azure Functions.
 ```
 
-Repeat for `resume/function.json` and `blog/function.json` with appropriate routes.
+**Root Cause:** Azure Functions v4 programming model (`app.http()`) conflicts with Azure Static Web Apps deployment when `function.json` files are present. Azure Static Web Apps expects the traditional v3 export pattern.
 
-**Part 2: Configure API runtime in staticwebapp.config.json**
+**Fix: Convert to Azure Functions v3 Programming Model**
 
-?? **CRITICAL**: The `staticwebapp.config.json` must be in your **app location directory** (`AzureStaticFrontend`), NOT in the API directory!
+When using `function.json` files with Azure Static Web Apps, you must use the traditional export pattern (v3 model) instead of the v4 programming model.
 
-Edit `AzureStaticFrontend/staticwebapp.config.json` and add the `platform` section at the top:
+**Change from v4 to v3:**
 
-```json
-{
-  "platform": {
-    "apiRuntime": "node:20"
-  },
-  "routes": [
-    {
-      "route": "/*",
-      "serve": "/index.html",
-      "statusCode": 200
-    }
-  ],
-  "navigationFallback": {
-    "rewrite": "/index.html"
-  }
-}
-```
-
-**Why both are needed:**
-- `function.json` files ? Tell Azure what functions exist and their bindings
-- `platform.apiRuntime` ? Tell Azure what runtime to use (Node.js 20)
-- Both must be present for successful deployment
-
-**Verification:**
-```bash
-# Check function.json files exist
-ls PortfolioAPI/contact/function.json
-ls PortfolioAPI/resume/function.json
-ls PortfolioAPI/blog/function.json
-
-# Check staticwebapp.config.json has platform configuration
-cat AzureStaticFrontend/staticwebapp.config.json | grep -A 2 "platform"
-
-# Should output:
-# "platform": {
-#   "apiRuntime": "node:20"
-# }
-
-# Commit and push
-git add .
-git commit -m "fix: Add function.json files and configure API runtime for Azure deployment"
-git push origin main
-```
-
----
-
-## Verification
-
-### ? Local Development Checklist
-
-- [ ] .NET SDK installed (`dotnet --version`)
-- [ ] Node.js installed (`node --version`)
-- [ ] `appsettings.local.json` created with contact info
-- [ ] Backend starts successfully on port 5091
-- [ ] API returns contact data (test with `.\test-api.ps1`)
-- [ ] Frontend starts on port 4200
-- [ ] Contact popup shows email and phone
-
-### ? Azure Deployment Checklist
-
-- [ ] Static Web App created in Azure Portal
-- [ ] **Build configuration has NO trailing spaces or `./` prefix**
-- [ ] Resource Group: `portfolio_group`
-- [ ] Region: `East Asia`
-- [ ] GitHub repository connected
-- [ ] Deployment token added to GitHub Secrets
-- [ ] 5 environment variables configured and **saved**
-- [ ] GitHub Actions workflow runs successfully (no "invalid directory" error)
-- [ ] Azure Static Web App URL accessible
-
-### ? API Endpoint Tests
-
-**Test 1: Local API (.NET Backend)**
-```powershell
-Invoke-RestMethod -Uri http://localhost:5091/api/contact
-Invoke-RestMethod -Uri http://localhost:5091/api/resume
-Invoke-RestMethod -Uri http://localhost:5091/api/blog
-```
-
-**Test 2: Local API (Azure Functions)**
-```powershell
-Invoke-RestMethod -Uri http://localhost:7071/api/contact
-Invoke-RestMethod -Uri http://localhost:7071/api/resume
-Invoke-RestMethod -Uri http://localhost:7071/api/blog
-```
-
-**Test 3: Azure API (Production)**
-```bash
-curl https://[your-app].azurestaticapps.net/api/contact
-curl https://[your-app].azurestaticapps.net/api/resume
-curl https://[your-app].azurestaticapps.net/api/blog
-```
-
-**Expected Contact Response**:
-```json
-{
-  "email": "rahul.bangera.999@gmail.com",
-  "phone": "+91 9663 885 365",
-  "socialLinks": {
-    "LinkedIn": "https://www.linkedin.com/in/rahul-bangera/",
-    "GitHub": "https://github.com/rahul-a-bangera",
-    "Twitter": "https://x.com/im_rahulbangera"
-  }
-}
-```
-
-**Expected Resume Response**:
-```json
-{
-  "personalInfo": {
-    "name": "Rahul A Bangera",
-    "title": "Full Stack Developer | Cloud Solutions Architect",
-    "email": "rahul.bangera.999@gmail.com"
-  },
-  "summary": "...",
-  "skills": { ... },
-  "experience": [ ... ]
-}
-```
-
-**Expected Blog Response**:
-```json
-{
-  "id": 1,
-  "slug": "getting-started-angular-19",
-  "title": "Getting Started with Angular 19",
-  "description": "...",
-  "author": "Rahul A Bangera"
-}
-```
-
----
-
-## Update API URL in Frontend
-
-### For Production Deployment
-
-After Azure deployment, update the production environment:
-
-Edit: `PortfolioFrontend/src/environments/environment.prod.ts`
-
+**? Before (v4 - doesn't work with Azure Static Web Apps):**
 ```typescript
-export const environment = {
-  production: true,
-  apiUrl: 'https://your-actual-app-name.azurestaticapps.net'  // Your Azure URL
-};
+import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+
+async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    // ... handler logic
+}
+
+app.http('contact', {
+    methods: ['GET', 'OPTIONS'],
+    authLevel: 'anonymous',
+    route: 'contact',
+    handler: contactHandler
+});
 ```
 
-**Get your Azure URL:**
-1. Azure Portal ? Your Static Web App ? **Overview**
-2. Copy the **URL** at the top
+**? After (v3 - works with Azure Static Web Apps):**
+```typescript
+import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-**Commit and deploy:**
+export default async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+    // ... handler logic
+}
+```
+
+**Key Changes:**
+1. Remove `app` import (not needed for v3)
+2. Export the handler function as `default export`
+3. Remove `app.http()` registration call
+4. Keep the `function.json` file which defines the bindings
+
+**Apply to all functions:**
+- `PortfolioAPI/contact/index.ts`
+- `PortfolioAPI/resume/index.ts`
+- `PortfolioAPI/blog/index.ts`
+
+**Rebuild and deploy:**
 ```bash
-git add PortfolioFrontend/src/environments/environment.prod.ts
-git commit -m "feat: Update API URL for Azure Static Web Apps"
+cd PortfolioAPI
+npm run build
+
+# Verify compiled files have correct exports
+cat contact/index.js | grep "exports.default"
+
+# Should see: exports.default = contactHandler;
+
+git add .
+git commit -m "fix: Convert Azure Functions to v3 model for Static Web Apps compatibility"
 git push origin main
 ```
 
----
+**Why this works:**
+- Azure Functions v4 (`app.http()`) is designed for Azure Functions hosting
+- Azure Static Web Apps uses a different deployment model that requires v3 pattern
+- The v3 model with `function.json` is fully compatible with Azure Static Web Apps
+- Your functions will work the same way, just with a different registration mechanism
 
-## Quick Reference Commands
-
-```bash
-# Local Development - .NET Backend
-cd PortfolioBackend
-dotnet run                     # Start backend (port 5091)
-
-# Local Development - Azure Functions
-cd PortfolioAPI
-npm install                    # Install dependencies
-npm run build                  # Build TypeScript
-func start                     # Start API (port 7071)
-
-# Frontend
-cd PortfolioFrontend
-npm start                      # Start dev server (port 4200)
-
-# Testing
-.\test-api.ps1                                              # Test local API
-Invoke-RestMethod -Uri http://localhost:5091/api/contact   # Test .NET backend - Contact
-Invoke-RestMethod -Uri http://localhost:5091/api/resume    # Test .NET backend - Resume
-Invoke-RestMethod -Uri http://localhost:5091/api/blog      # Test .NET backend - Blog
-Invoke-RestMethod -Uri http://localhost:7071/api/contact   # Test Azure Functions - Contact
-Invoke-RestMethod -Uri http://localhost:7071/api/resume    # Test Azure Functions - Resume
-Invoke-RestMethod -Uri http://localhost:7071/api/blog      # Test Azure Functions - Blog
-
-# Deployment
-git add .
-git commit -m "feat: Update configuration"
-git push origin main           # Triggers auto-deployment
-
-# Troubleshooting
-dotnet --version               # Check .NET SDK
-node --version                 # Check Node.js
-func --version                 # Check Azure Functions Core Tools
-npm run build                  # Rebuild TypeScript if 404 errors occur
-```
-
----
-
-## Summary
-
-? **Local Development:** Use .NET Backend (simpler, faster)
-
-? **Production:** Uses Azure Static Web Apps (serverless, auto-scaling)
-
-? **Dual Deployment:** GitHub Pages for frontend + Azure for API
-
-? **Free Tier:** Covers all needs for personal portfolio
-
-? **Configuration:** Environment-based (appsettings.local.json for local, Azure Portal for production)
-
-? **Build Configuration:** NO trailing spaces, NO `./` prefix in Azure Portal
-
-**Ready to develop locally and deploy to Azure!** ??
-
----
-
-**Last Updated**: January 13, 2026  
-**Document Version**: 2.1  
-**Maintained by**: Rahul A
+### Error: "Function language info isn't provided"

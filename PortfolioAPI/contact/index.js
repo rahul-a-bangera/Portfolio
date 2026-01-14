@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const functions_1 = require("@azure/functions");
+exports.default = contactHandler;
 async function contactHandler(request, context) {
     if (request.method === "OPTIONS") {
         return {
@@ -45,9 +45,3 @@ async function contactHandler(request, context) {
         };
     }
 }
-functions_1.app.http('contact', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'contact',
-    handler: contactHandler
-});

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const functions_1 = require("@azure/functions");
+exports.default = resumeHandler;
 async function resumeHandler(request, context) {
     if (request.method === "OPTIONS") {
         return {
@@ -133,9 +133,3 @@ async function resumeHandler(request, context) {
         };
     }
 }
-functions_1.app.http('resume', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'resume',
-    handler: resumeHandler
-});

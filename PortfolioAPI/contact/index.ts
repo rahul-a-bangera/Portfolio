@@ -1,6 +1,6 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
-async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export default async function contactHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     // Handle CORS preflight
     if (request.method === "OPTIONS") {
         return {
@@ -46,10 +46,3 @@ async function contactHandler(request: HttpRequest, context: InvocationContext):
         };
     }
 }
-
-app.http('contact', {
-    methods: ['GET', 'OPTIONS'],
-    authLevel: 'anonymous',
-    route: 'contact',
-    handler: contactHandler
-});
