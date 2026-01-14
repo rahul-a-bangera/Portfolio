@@ -12,6 +12,7 @@ A modern, fully responsive single-page portfolio website built with Angular 19, 
 
 **Primary URL**: [https://rahul-a.in](https://rahul-a.in)  
 **GitHub Pages**: [https://rahul-a-bangera.github.io/Portfolio/](https://rahul-a-bangera.github.io/Portfolio/)
+**API Documentation**: [https://gentle-moss-0d321ce00.2.azurestaticapps.net](https://gentle-moss-0d321ce00.2.azurestaticapps.net)
 
 ---
 
