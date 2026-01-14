@@ -1,5 +1,9 @@
 # Root .gitignore
 
+# Root node_modules (for workspace tooling)
+/node_modules/
+/package-lock.json
+
 # Backend - .NET / Visual Studio
 PortfolioBackend/bin/
 PortfolioBackend/obj/
@@ -22,6 +26,14 @@ PortfolioFrontend/.angular/cache/
 PortfolioFrontend/.npm/
 PortfolioFrontend/package-lock.json
 PortfolioFrontend/yarn.lock
+
+# Azure Functions API
+PortfolioAPI/node_modules/
+PortfolioAPI/dist/
+PortfolioAPI/package-lock.json
+PortfolioAPI/**/*.js.map
+PortfolioAPI/**/*.js
+!PortfolioAPI/node_modules/
 
 # IDE - General
 .vscode/

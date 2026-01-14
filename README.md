@@ -148,29 +148,59 @@ Portfolio/
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- **Node.js**: v18.0.0 or higher
-- **npm**: v9.0.0 or higher
-- **Angular CLI**: v19.0.0 (optional, but recommended)
+**NEW: Start all services (Frontend + Backend + Azure Functions) with one command!**
 
-### Installation
+See [QUICKSTART.md](QUICKSTART.md) for detailed instructions.
+
+### ⚡ One-Command Setup
+
+```powershell
+# Option 1: Use PowerShell script (recommended)
+.\start-dev.ps1
+
+# Option 2: Use npm directly
+npm start
+```
+
+This will start:
+- **Frontend**: http://localhost:4200 (Angular)
+- **Backend**: http://localhost:5091 (.NET Core API)
+- **Azure Functions**: http://localhost:7071 (Serverless API)
+
+### 📋 Prerequisites
+
+- **Node.js**: v18.0.0 or higher
+- **.NET SDK**: v8.0 or higher
+- **Azure Functions Core Tools**: v4.x (optional)
+
+### 🔧 Manual Setup (Alternative)
+
+<details>
+<summary>Click to expand traditional setup instructions</summary>
+
+#### Installation
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/rahul-a-bangera/Portfolio.git
-   cd Portfolio/PortfolioFrontend
+   cd Portfolio
    ```
 
-2. **Install dependencies**
+2. **Install all dependencies**
    ```bash
-   npm install
+   npm run install:all
    ```
 
-3. **Run development server**
+3. **Start individual services**
    ```bash
-   npm start
-   # or
-   ng serve
+   # Frontend only
+   npm run start:frontend-only
+
+   # Backend only
+   npm run start:backend-only
+
+   # Azure Functions only
+   npm run start:api-only
    ```
 
 4. **Open in browser**
@@ -178,9 +208,27 @@ Portfolio/
    http://localhost:4200
    ```
 
+</details>
+
+### 🎯 Available Commands
+
+From the root directory:
+
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start all services (Frontend + Backend + API) |
+| `npm run start:frontend-only` | Start only Angular frontend |
+| `npm run start:backend-only` | Start only .NET backend |
+| `npm run start:api-only` | Start only Azure Functions |
+| `npm run install:all` | Install dependencies for all projects |
+| `npm run build:all` | Build frontend and API |
+| `npm run test:api` | Test all API endpoints |
+
 ### Building for Production
 
 ```bash
+npm run build:all
+# or for frontend only
 cd PortfolioFrontend
 npm run build
 

@@ -1,0 +1,27 @@
+{
+  "name": "portfolio-workspace",
+  "version": "1.0.0",
+  "description": "Portfolio monorepo - runs frontend, backend, and Azure Functions",
+  "scripts": {
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\" \"npm run start:api\" --names \"FRONTEND,BACKEND,API\" --prefix-colors \"cyan,green,yellow\"",
+    "start:frontend": "cd PortfolioFrontend && npm start",
+    "start:backend": "cd PortfolioBackend && dotnet run",
+    "start:api": "cd PortfolioAPI && npm run build && func start",
+    "start:frontend-only": "cd PortfolioFrontend && npm start",
+    "start:backend-only": "cd PortfolioBackend && dotnet run",
+    "start:api-only": "cd PortfolioAPI && npm run build && func start",
+    "install:all": "npm install && cd PortfolioFrontend && npm install && cd ../PortfolioAPI && npm install && cd ..",
+    "build:all": "npm run build:frontend && npm run build:api",
+    "build:frontend": "cd PortfolioFrontend && npm run build",
+    "build:api": "cd PortfolioAPI && npm run build",
+    "test:api": "pwsh -File test-all-api-endpoints.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Rahul A Bangera",
+  "license": "MIT"
+}

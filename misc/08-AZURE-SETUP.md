@@ -343,7 +343,14 @@ CONTACT_TWITTER = https://x.com/im_rahulbangera
 ```
 PortfolioAPI/
 ??? contact/
-?   ??? index.ts          # Azure Function handler
+?   ??? index.ts          # Contact API handler
+?   ??? index.js          # Compiled JavaScript
+??? resume/
+?   ??? index.ts          # Resume API handler
+?   ??? index.js          # Compiled JavaScript
+??? blog/
+?   ??? index.ts          # Blog API handler
+?   ??? index.js          # Compiled JavaScript
 ??? host.json             # Azure Functions host config
 ??? package.json          # Dependencies
 ??? tsconfig.json         # TypeScript config
@@ -353,6 +360,8 @@ PortfolioAPI/
 PortfolioBackend/
 ??? Controllers/
 ?   ??? ContactController.cs  # .NET API controller
+?   ??? ResumeController.cs   # .NET Resume controller
+?   ??? BlogController.cs     # .NET Blog controller
 ??? Program.cs            # .NET app configuration
 ??? appsettings.json      # Base settings
 ??? appsettings.local.json  # Local env vars (not in git)
@@ -360,11 +369,18 @@ PortfolioBackend/
 
 ### API Endpoint Details
 
-**Endpoint**: `https://[your-app].azurestaticapps.net/api/contact`
+**Base URL**: `https://[your-app].azurestaticapps.net/api`
+
+**Available Endpoints**:
+
+1. **GET /api/contact** - Contact information
+2. **GET /api/resume** - Complete resume data
+3. **GET /api/blog** - All blog posts
+4. **GET /api/blog/{slug}** - Single blog post by slug
 
 **Method**: `GET`
 
-**Response Format**:
+**Contact Response Format**:
 ```json
 {
   "email": "rahul.bangera.999@gmail.com",
@@ -374,6 +390,33 @@ PortfolioBackend/
     "GitHub": "https://github.com/rahul-a-bangera",
     "Twitter": "https://x.com/im_rahulbangera"
   }
+}
+```
+
+**Resume Response Format**:
+```json
+{
+  "personalInfo": { ... },
+  "summary": "...",
+  "skills": { ... },
+  "experience": [ ... ],
+  "education": [ ... ],
+  "certifications": [ ... ],
+  "projects": [ ... ]
+}
+```
+
+**Blog Response Format**:
+```json
+{
+  "id": 1,
+  "slug": "getting-started-angular-19",
+  "title": "Getting Started with Angular 19",
+  "description": "...",
+  "author": "Rahul A Bangera",
+  "publishDate": "2024-01-15",
+  "tags": ["Angular", "TypeScript"],
+  "readTime": "8 min read"
 }
 ```
 
@@ -473,19 +516,39 @@ export const environment = {
 
 **PowerShell:**
 ```powershell
+# Test all endpoints
 Invoke-RestMethod -Uri http://localhost:5091/api/contact  # .NET
 Invoke-RestMethod -Uri http://localhost:7071/api/contact  # Azure Functions
+
+Invoke-RestMethod -Uri http://localhost:5091/api/resume   # .NET
+Invoke-RestMethod -Uri http://localhost:7071/api/resume   # Azure Functions
+
+Invoke-RestMethod -Uri http://localhost:5091/api/blog     # .NET
+Invoke-RestMethod -Uri http://localhost:7071/api/blog     # Azure Functions
 ```
 
 **curl:**
 ```bash
 curl http://localhost:5091/api/contact  # .NET
 curl http://localhost:7071/api/contact  # Azure Functions
+
+curl http://localhost:5091/api/resume   # .NET
+curl http://localhost:7071/api/resume   # Azure Functions
+
+curl http://localhost:5091/api/blog     # .NET
+curl http://localhost:7071/api/blog     # Azure Functions
 ```
 
 **Browser:**
-- .NET: `http://localhost:5091/api/contact`
-- Azure Functions: `http://localhost:7071/api/contact`
+- .NET Backend:
+  - `http://localhost:5091/api/contact`
+  - `http://localhost:5091/api/resume`
+  - `http://localhost:5091/api/blog`
+
+- Azure Functions:
+  - `http://localhost:7071/api/contact`
+  - `http://localhost:7071/api/resume`
+  - `http://localhost:7071/api/blog`
 
 ### Run Frontend
 
@@ -611,13 +674,24 @@ Could not detect this directory.
 1. Verify `PortfolioBackend/appsettings.local.json` exists
 2. Check file has correct contact information
 3. **Restart backend** (Ctrl+C, then `dotnet run`)
-4. Test: `Invoke-RestMethod -Uri http://localhost:5091/api/contact`
+4. Test all endpoints:
+   ```powershell
+   Invoke-RestMethod -Uri http://localhost:5091/api/contact
+   Invoke-RestMethod -Uri http://localhost:5091/api/resume
+   Invoke-RestMethod -Uri http://localhost:5091/api/blog
+   ```
 
 **Fix (Azure Functions):**
 1. Verify `PortfolioAPI/local.settings.json` exists
 2. Check file has correct environment variables
-3. Restart function: `func start`
-4. Test: `Invoke-RestMethod -Uri http://localhost:7071/api/contact`
+3. **Build TypeScript**: `npm run build`
+4. **Restart function**: `func start`
+5. Test all endpoints:
+   ```powershell
+   Invoke-RestMethod -Uri http://localhost:7071/api/contact
+   Invoke-RestMethod -Uri http://localhost:7071/api/resume
+   Invoke-RestMethod -Uri http://localhost:7071/api/blog
+   ```
 
 ### ? Build Fails: "No output found"
 
@@ -663,6 +737,45 @@ Stop-Process -Id <ProcessId>
 # Or restart your computer
 ```
 
+### ? 404 errors on /api/resume or /api/blog
+
+**Problem**: Resume or blog endpoints return 404 Not Found
+
+**Causes:**
+1. Azure Functions not built after adding new endpoints
+2. Functions not deployed to Azure
+3. TypeScript not compiled to JavaScript
+
+**Fix (Local Development):**
+1. **Navigate to API folder**: `cd PortfolioAPI`
+2. **Build TypeScript**: `npm run build`
+3. **Verify compiled files exist**:
+   - `PortfolioAPI/contact/index.js`
+   - `PortfolioAPI/resume/index.js`
+   - `PortfolioAPI/blog/index.js`
+4. **Restart function**: `func start`
+5. **Test endpoints**:
+   ```powershell
+   Invoke-RestMethod -Uri http://localhost:7071/api/contact
+   Invoke-RestMethod -Uri http://localhost:7071/api/resume
+   Invoke-RestMethod -Uri http://localhost:7071/api/blog
+   ```
+
+**Fix (Azure Production):**
+1. **Commit new API functions**:
+   ```bash
+   git add PortfolioAPI/resume/ PortfolioAPI/blog/
+   git commit -m "feat: Add resume and blog API endpoints"
+   git push origin main
+   ```
+2. **Wait for GitHub Actions** to complete deployment (2-5 minutes)
+3. **Test Azure endpoints**:
+   ```bash
+   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/contact
+   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/resume
+   curl https://green-grass-04910ca00.6.azurestaticapps.net/api/blog
+   ```
+
 ---
 
 ## Verification
@@ -691,17 +804,28 @@ Stop-Process -Id <ProcessId>
 
 ### ? API Endpoint Tests
 
-**Test 1: Local API**
+**Test 1: Local API (.NET Backend)**
 ```powershell
 Invoke-RestMethod -Uri http://localhost:5091/api/contact
+Invoke-RestMethod -Uri http://localhost:5091/api/resume
+Invoke-RestMethod -Uri http://localhost:5091/api/blog
 ```
 
-**Test 2: Azure API**
+**Test 2: Local API (Azure Functions)**
+```powershell
+Invoke-RestMethod -Uri http://localhost:7071/api/contact
+Invoke-RestMethod -Uri http://localhost:7071/api/resume
+Invoke-RestMethod -Uri http://localhost:7071/api/blog
+```
+
+**Test 3: Azure API (Production)**
 ```bash
 curl https://[your-app].azurestaticapps.net/api/contact
+curl https://[your-app].azurestaticapps.net/api/resume
+curl https://[your-app].azurestaticapps.net/api/blog
 ```
 
-**Expected Response:**
+**Expected Contact Response**:
 ```json
 {
   "email": "rahul.bangera.999@gmail.com",
@@ -711,6 +835,31 @@ curl https://[your-app].azurestaticapps.net/api/contact
     "GitHub": "https://github.com/rahul-a-bangera",
     "Twitter": "https://x.com/im_rahulbangera"
   }
+}
+```
+
+**Expected Resume Response**:
+```json
+{
+  "personalInfo": {
+    "name": "Rahul A Bangera",
+    "title": "Full Stack Developer | Cloud Solutions Architect",
+    "email": "rahul.bangera.999@gmail.com"
+  },
+  "summary": "...",
+  "skills": { ... },
+  "experience": [ ... ]
+}
+```
+
+**Expected Blog Response**:
+```json
+{
+  "id": 1,
+  "slug": "getting-started-angular-19",
+  "title": "Getting Started with Angular 19",
+  "description": "...",
+  "author": "Rahul A Bangera"
 }
 ```
 
@@ -763,8 +912,12 @@ npm start                      # Start dev server (port 4200)
 
 # Testing
 .\test-api.ps1                                              # Test local API
-Invoke-RestMethod -Uri http://localhost:5091/api/contact   # Test .NET backend
-Invoke-RestMethod -Uri http://localhost:7071/api/contact   # Test Azure Functions
+Invoke-RestMethod -Uri http://localhost:5091/api/contact   # Test .NET backend - Contact
+Invoke-RestMethod -Uri http://localhost:5091/api/resume    # Test .NET backend - Resume
+Invoke-RestMethod -Uri http://localhost:5091/api/blog      # Test .NET backend - Blog
+Invoke-RestMethod -Uri http://localhost:7071/api/contact   # Test Azure Functions - Contact
+Invoke-RestMethod -Uri http://localhost:7071/api/resume    # Test Azure Functions - Resume
+Invoke-RestMethod -Uri http://localhost:7071/api/blog      # Test Azure Functions - Blog
 
 # Deployment
 git add .
@@ -775,6 +928,7 @@ git push origin main           # Triggers auto-deployment
 dotnet --version               # Check .NET SDK
 node --version                 # Check Node.js
 func --version                 # Check Azure Functions Core Tools
+npm run build                  # Rebuild TypeScript if 404 errors occur
 ```
 
 ---

@@ -1,6 +1,6 @@
 # Portfolio API - Azure Functions
 
-Contact information API for the portfolio website.
+Serverless API for the portfolio website providing contact, resume, and blog endpoints.
 
 ## Quick Start
 
@@ -48,10 +48,59 @@ Returns contact information configured in environment variables.
   "socialLinks": {
     "LinkedIn": "https://www.linkedin.com/in/rahul-bangera/",
     "GitHub": "https://github.com/rahul-a-bangera",
-    "Twitter": "https://twitter.com/your-handle"
+    "Twitter": "https://x.com/im_rahulbangera"
   }
 }
 ```
+
+### GET /api/resume
+Returns complete resume data including experience, education, skills, and projects.
+
+**Response**:
+```json
+{
+  "personalInfo": {
+    "name": "Rahul A Bangera",
+    "title": "Full Stack Developer | Cloud Solutions Architect",
+    "email": "rahul.bangera.999@gmail.com",
+    "phone": "+91 9663 885 365",
+    "location": "Bangalore, India",
+    "linkedin": "https://www.linkedin.com/in/rahul-bangera/",
+    "github": "https://github.com/rahul-a-bangera",
+    "website": "https://rahul-a.in"
+  },
+  "summary": "...",
+  "skills": { ... },
+  "experience": [ ... ],
+  "education": [ ... ],
+  "certifications": [ ... ],
+  "projects": [ ... ]
+}
+```
+
+### GET /api/blog
+Returns all blog posts.
+
+**Response**:
+```json
+[
+  {
+    "id": 1,
+    "slug": "getting-started-angular-19",
+    "title": "Getting Started with Angular 19",
+    "description": "...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2024-01-15",
+    "tags": ["Angular", "TypeScript"],
+    "readTime": "8 min read"
+  }
+]
+```
+
+### GET /api/blog/{slug}
+Returns a single blog post by slug.
+
+**Example**: `GET /api/blog/getting-started-angular-19`
 
 ## Configuration
 
@@ -69,15 +118,22 @@ Environment variables are stored in `local.settings.json` (for local dev) and Az
 **PowerShell**:
 ```powershell
 Invoke-RestMethod -Uri http://localhost:7071/api/contact
+Invoke-RestMethod -Uri http://localhost:7071/api/resume
+Invoke-RestMethod -Uri http://localhost:7071/api/blog
+Invoke-RestMethod -Uri http://localhost:7071/api/blog/getting-started-angular-19
 ```
 
 **curl**:
 ```bash
 curl http://localhost:7071/api/contact
+curl http://localhost:7071/api/resume
+curl http://localhost:7071/api/blog
 ```
 
 **Browser**:
-Open `http://localhost:7071/api/contact`
+- `http://localhost:7071/api/contact`
+- `http://localhost:7071/api/resume`
+- `http://localhost:7071/api/blog`
 
 ## Deployment
 
@@ -91,6 +147,10 @@ See `misc/08-AZURE-SETUP.md` for complete Azure setup instructions.
 PortfolioAPI/
 ??? contact/
 ?   ??? index.ts          # Contact API handler
+??? resume/
+?   ??? index.ts          # Resume API handler
+??? blog/
+?   ??? index.ts          # Blog API handler
 ??? host.json             # Azure Functions config
 ??? package.json          # Dependencies
 ??? tsconfig.json         # TypeScript config
@@ -102,6 +162,11 @@ PortfolioAPI/
 
 ### "func: command not found"
 Install Azure Functions Core Tools (see Prerequisites above).
+
+### 404 errors on /api/resume or /api/blog
+1. Make sure you've built the TypeScript: `npm run build`
+2. Restart the function: `func start`
+3. Check that the `resume/` and `blog/` folders exist
 
 ### Contact info not loading in frontend
 1. Make sure API is running (`func start`)
