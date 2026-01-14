@@ -23,7 +23,7 @@ jobs:
           submodules: true
           lfs: false
       
-      - name: Setup Node.js
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -31,10 +31,28 @@ jobs:
       - name: Build TypeScript API Functions
         run: |
           cd PortfolioAPI
-          npm install
+          npm ci
           npm run build
-        env:
-          NODE_VERSION: '20'
+      
+      - name: Verify compiled functions exist
+        run: |
+          echo "Checking for compiled JavaScript files..."
+          ls -la PortfolioAPI/contact/
+          ls -la PortfolioAPI/resume/
+          ls -la PortfolioAPI/blog/
+          if [ ! -f "PortfolioAPI/contact/index.js" ]; then
+            echo "Error: contact/index.js not found!"
+            exit 1
+          fi
+          if [ ! -f "PortfolioAPI/resume/index.js" ]; then
+            echo "Error: resume/index.js not found!"
+            exit 1
+          fi
+          if [ ! -f "PortfolioAPI/blog/index.js" ]; then
+            echo "Error: blog/index.js not found!"
+            exit 1
+          fi
+          echo "All compiled functions verified!"
       
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
@@ -54,18 +72,14 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "AzureStaticFrontend" # App source code path
-          api_location: "PortfolioAPI" # Api source code path - optional
-          output_location: "" # Built app content directory - optional
-          skip_app_build: true # Don't build the frontend (just deploy static HTML)
-          skip_api_build: false
+          ###### Repository/Build Configurations ######
+          app_location: "AzureStaticFrontend"
+          api_location: "PortfolioAPI"
+          output_location: ""
+          skip_app_build: true
+          skip_api_build: true
           github_id_token: ${{ steps.idtoken.outputs.result }}
           ###### End of Repository/Build Configurations ######
-        env:
-          NODE_VERSION: '20'
-          ORYX_NODE_VERSION: '20'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
