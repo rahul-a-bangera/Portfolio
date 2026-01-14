@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'PortfolioFrontend/**'
+      - '.github/workflows/deploy.yml'
+      - 'PortfolioAPI/**'  # Rebuild frontend when API changes (for environment config)
   workflow_dispatch:
 
 permissions:
