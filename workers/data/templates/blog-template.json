@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "slug": "your-first-blog-post",
+    "title": "Your First Blog Post Title",
+    "description": "A compelling description that summarizes your blog post in 1-2 sentences.",
+    "content": "The full content of your blog post goes here. You can write markdown or HTML. Include code examples, images, and links to make your post engaging.",
+    "author": "Your Name",
+    "publishDate": "2024-01-01",
+    "tags": ["Technology", "Programming", "Web Development"],
+    "imageUrl": "/assets/blog/your-image.jpg",
+    "readTime": "5 min read",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "slug": "second-blog-post",
+    "title": "Another Interesting Post",
+    "description": "Another captivating description for your second post.",
+    "content": "More content here...",
+    "author": "Your Name",
+    "publishDate": "2024-01-15",
+    "tags": ["Tutorial", "Guide"],
+    "imageUrl": "/assets/blog/another-image.jpg",
+    "readTime": "8 min read",
+    "featured": false
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "email": "your.email@example.com",
+  "phone": "+00 0000 000000",
+  "socialLinks": {
+    "LinkedIn": "https://linkedin.com/in/yourprofile",
+    "GitHub": "https://github.com/yourusername",
+    "Twitter": "https://twitter.com/yourhandle"
+  }
+}

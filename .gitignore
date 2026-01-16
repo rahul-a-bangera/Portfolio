@@ -1,5 +1,17 @@
 # Root .gitignore
 
+# Personal Data Files - DO NOT COMMIT
+# These contain sensitive personal information and should be stored in Cloudflare KV
+workers/data/resume.json
+workers/data/blog-posts.json
+workers/data/contact.json
+PortfolioFrontend/src/assets/Rahul-A-Resume.pdf
+
+# Keep template files and directory structure
+!workers/data/templates/
+!workers/data/.gitkeep
+!workers/data/README.md
+
 # Root node_modules (for workspace tooling)
 /node_modules/
 /package-lock.json
@@ -27,14 +39,13 @@ PortfolioFrontend/.npm/
 PortfolioFrontend/package-lock.json
 PortfolioFrontend/yarn.lock
 
-# Azure Functions API - IMPORTANT: We need to commit compiled .js files!
-PortfolioAPI/node_modules/
-PortfolioAPI/dist/
-PortfolioAPI/package-lock.json
-# Do NOT ignore .js files - they are needed for deployment!
-# Commented out: PortfolioAPI/**/*.js
-# Only ignore source maps
-PortfolioAPI/**/*.js.map
+# Old Azure API (deprecated - removed)
+PortfolioAPI/
+
+# Cloudflare Workers
+workers/node_modules/
+workers/dist/
+workers/.wrangler/
 
 # IDE - General
 .vscode/
@@ -82,10 +93,6 @@ out/
 # The docs/ folder contains the production build for GitHub Pages
 !docs/
 
-# Dependencies lock files (optional - uncomment if not using in repo)
-# package-lock.json
-# yarn.lock
-
 # Temporary files
 *.tmp
 *.bak
@@ -93,3 +100,4 @@ out/
 *.swo
 *~
 .DS_Store
+

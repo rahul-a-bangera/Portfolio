@@ -1,6 +1,6 @@
 /**
  * Contact API Handler
- * Returns contact information
+ * Fetches contact information from Cloudflare KV
  */
 
 export async function handleContact(
@@ -9,50 +9,48 @@ export async function handleContact(
   corsHeaders: Record<string, string>
 ): Promise<Response> {
   if (request.method !== 'GET') {
-    return new Response(
-      JSON.stringify({ error: 'Method Not Allowed' }),
-      {
-        status: 405,
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders,
-        },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
   }
 
   try {
-    const contactInfo = {
-      email: env.CONTACT_EMAIL || 'rahul.bangera.999@gmail.com',
-      phone: env.CONTACT_PHONE || '+91 9663885365',
-      socialLinks: {
-        LinkedIn: env.CONTACT_LINKEDIN || 'https://www.linkedin.com/in/rahul-bangera/',
-        GitHub: env.CONTACT_GITHUB || 'https://github.com/rahul-a-bangera',
-        Twitter: env.CONTACT_TWITTER || '',
-      },
-    };
+    // Fetch contact info from KV
+    const contactInfo = await env.PORTFOLIO_DATA.get('contact:info', 'json');
+
+    if (!contactInfo) {
+      console.error('[ERROR] Contact info not found in KV');
+      return new Response(
+        JSON.stringify({ 
+          error: 'Not Found', 
+          message: 'Contact information not available' 
+        }),
+        { 
+          status: 404, 
+          headers: { 'Content-Type': 'application/json', ...corsHeaders } 
+        }
+      );
+    }
 
     return new Response(JSON.stringify(contactInfo), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600',
+        'Cache-Control': 'public, max-age=3600, s-maxage=7200',
         ...corsHeaders,
       },
     });
   } catch (error: any) {
-    console.error('Error in contact handler:', error);
+    console.error('[ERROR] Contact handler error:', error);
     return new Response(
-      JSON.stringify({
-        error: 'Internal Server Error',
-        message: error.message,
+      JSON.stringify({ 
+        error: 'Internal Server Error', 
+        message: 'Failed to fetch contact information' 
       }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-          ...corsHeaders,
-        },
+      { 
+        status: 500, 
+        headers: { 'Content-Type': 'application/json', ...corsHeaders } 
       }
     );
   }

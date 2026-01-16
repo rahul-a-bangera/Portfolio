@@ -1,0 +1,66 @@
+{
+  "personalInfo": {
+    "name": "Your Full Name",
+    "title": "Your Professional Title",
+    "email": "your.email@example.com",
+    "phone": "+00 0000 000000",
+    "location": "Your City, Country",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourusername",
+    "website": "https://yoursite.com"
+  },
+  "summary": "Your professional summary goes here. Describe your expertise, experience, and what makes you unique as a developer.",
+  "skills": {
+    "frontend": ["Angular", "React", "TypeScript", "JavaScript", "HTML5", "CSS3"],
+    "backend": [".NET Core", "Node.js", "Python", "Java"],
+    "cloud": ["Azure", "AWS", "Cloudflare", "Docker"],
+    "database": ["SQL Server", "MongoDB", "PostgreSQL", "Redis"],
+    "tools": ["Git", "VS Code", "Docker", "Jenkins", "Postman"]
+  },
+  "experience": [
+    {
+      "company": "Company Name",
+      "position": "Job Title",
+      "location": "City, Country",
+      "startDate": "YYYY-MM",
+      "endDate": "Present",
+      "description": "Brief description of your role",
+      "achievements": [
+        "Achievement 1 - be specific and quantify when possible",
+        "Achievement 2 - focus on impact and results",
+        "Achievement 3 - highlight technical skills used"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University Name",
+      "degree": "Degree Name (e.g., Bachelor of Science in Computer Science)",
+      "location": "City, Country",
+      "graduationDate": "YYYY-MM",
+      "gpa": "X.X/10 or X.X/4.0"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Certification Name",
+      "issuer": "Issuing Organization",
+      "issueDate": "YYYY-MM",
+      "credentialId": "Optional Credential ID"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Project Name",
+      "description": "Brief description of the project",
+      "technologies": ["Tech1", "Tech2", "Tech3"],
+      "url": "https://project-url.com",
+      "github": "https://github.com/yourusername/project",
+      "highlights": [
+        "Key feature or achievement 1",
+        "Key feature or achievement 2",
+        "Key feature or achievement 3"
+      ]
+    }
+  ]
+}
