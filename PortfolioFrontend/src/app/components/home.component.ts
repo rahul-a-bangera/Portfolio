@@ -50,7 +50,6 @@ private lastScrollPosition = 0;
 private settingsSubscription?: Subscription;
 private contactSubscription?: Subscription;
 private resumeSubscription?: Subscription;
-private resumeSubscription?: Subscription;
 
 constructor(
   private ambientService: AmbientControlService,
