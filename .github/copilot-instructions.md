@@ -23,7 +23,8 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ### Documentation Files
 - **Root**: `README.md` only (main project documentation, public-facing)
-- **misc/**: All technical documentation (8 consolidated files: 00-08)
+- **misc/**: All technical documentation (consolidated files: 00-07, 09, MIGRATION)
+- **workers/**: `README.md` (Cloudflare Workers API documentation)
 - **.github/**: `copilot-instructions.md` (this file)
 
 **Rule**: Never create new .md files outside this structure. Update existing files instead.

@@ -104,7 +104,19 @@ A modern, fully responsive single-page portfolio website built with Angular 19, 
 Portfolio/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml              # GitHub Actions deployment workflow
+│       ├── deploy.yml              # GitHub Pages deployment
+│       └── deploy-workers.yml      # Cloudflare Workers deployment
+│
+├── workers/                        # Cloudflare Workers API
+│   ├── src/
+│   │   ├── index.ts               # Main router
+│   │   └── handlers/
+│   │       ├── contact.ts         # Contact endpoint
+│   │       ├── resume.ts          # Resume endpoint
+│   │       └── blog.ts            # Blog endpoint
+│   ├── wrangler.toml              # Workers configuration
+│   ├── package.json               # Dependencies
+│   └── README.md                  # API documentation
 │
 ├── docs/                           # Build output (GitHub Pages)
 │   ├── assets/
@@ -135,13 +147,18 @@ Portfolio/
 │   └── *.md                                # Documentation files
 │
 ├── misc/                                   # Documentation
-│   ├── DEPLOYMENT_CHECKLIST.md
-│   ├── GITHUB_PAGES_DEPLOYMENT.md
-│   ├── CUSTOM_DOMAIN_SETUP.md
-│   └── *.md                                # Various guides
+│   ├── 00-DOCUMENTATION-INDEX.md
+│   ├── 01-TECHNICAL.md
+│   ├── 02-ARCHITECTURE.md
+│   ├── 03-THEME.md
+│   ├── 04-SETUP.md
+│   ├── 05-DEPLOYMENT.md
+│   ├── 06-RESPONSIVE.md
+│   ├── 07-BUILD.md
+│   ├── 08-AZURE-SETUP.md (deprecated)
+│   └── 09-CLOUDFLARE-WORKERS-SETUP.md     # NEW!
 │
 ├── .nojekyll                              # Disable Jekyll processing
-├── PRODUCTION_READINESS_REPORT.md         # Production status report
 └── README.md                              # This file
 ```
 
