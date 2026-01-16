@@ -68,7 +68,7 @@ jobs:
       - name: Copy .nojekyll
         run: |
           cp .nojekyll docs/
-          echo "? Copied .nojekyll to docs/"
+          echo "✅ Copied .nojekyll to docs/"
       
       - name: Verify CNAME file
         run: |
