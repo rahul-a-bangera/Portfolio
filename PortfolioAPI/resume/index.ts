@@ -1,10 +1,13 @@
 import { Context, HttpRequest } from "@azure/functions";
 
 module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log('Resume function triggered');
+    context.log('=== Resume Function Started ===');
+    context.log('Method:', req.method);
+    context.log('URL:', req.url);
     
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
+        context.log('Handling OPTIONS request (CORS preflight)');
         context.res = {
             status: 200,
             headers: {
@@ -13,10 +16,13 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        context.log('OPTIONS response set, returning');
         return;
     }
 
     try {
+        context.log('Building resume data object...');
+        
         const resumeData = {
             personalInfo: {
                 name: "Rahul A Bangera",
@@ -115,6 +121,10 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
             ]
         };
 
+        context.log('Resume data object created successfully');
+        context.log('Object keys:', Object.keys(resumeData).join(', '));
+        context.log('Setting response...');
+
         context.res = {
             status: 200,
             headers: {
@@ -125,15 +135,28 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
             },
             body: resumeData
         };
+        
+        context.log('Response set successfully');
+        context.log('Status:', context.res.status);
+        context.log('=== Resume Function Completed Successfully ===');
     } catch (error) {
-        context.log.error("Error fetching resume data:", error);
+        context.log.error('=== ERROR in Resume Function ===');
+        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error message:', error.message);
+        context.log.error('Error stack:', error.stack);
+        
         context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch resume data" }
+            body: { 
+                error: "Failed to fetch resume data",
+                details: error.message,
+                timestamp: new Date().toISOString()
+            }
         };
+        context.log.error('Error response set');
     }
 }

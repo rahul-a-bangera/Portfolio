@@ -1,8 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = async function (context, req) {
-    context.log('Blog function triggered');
+    context.log('=== Blog Function Started ===');
+    context.log('Method:', req.method);
+    context.log('URL:', req.url);
+    context.log('Query params:', JSON.stringify(req.query));
     if (req.method === "OPTIONS") {
+        context.log('Handling OPTIONS request (CORS preflight)');
         context.res = {
             status: 200,
             headers: {
@@ -11,9 +15,11 @@ module.exports = async function (context, req) {
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        context.log('OPTIONS response set, returning');
         return;
     }
     try {
+        context.log('Building blog posts array...');
         const blogPosts = [
             {
                 id: 1,
@@ -81,10 +87,14 @@ module.exports = async function (context, req) {
                 featured: false
             }
         ];
+        context.log('Blog posts array created, count:', blogPosts.length);
         const slug = req.params.slug;
+        context.log('Slug parameter:', slug || 'none (returning all posts)');
         if (slug) {
+            context.log('Searching for specific post with slug:', slug);
             const post = blogPosts.find(p => p.slug === slug);
             if (!post) {
+                context.log.warn('Blog post not found for slug:', slug);
                 context.res = {
                     status: 404,
                     headers: {
@@ -93,8 +103,10 @@ module.exports = async function (context, req) {
                     },
                     body: { error: "Blog post not found" }
                 };
+                context.log('404 response set, returning');
                 return;
             }
+            context.log('Blog post found:', post.title);
             context.res = {
                 status: 200,
                 headers: {
@@ -105,8 +117,10 @@ module.exports = async function (context, req) {
                 },
                 body: post
             };
+            context.log('Single post response set successfully');
         }
         else {
+            context.log('Returning all blog posts, count:', blogPosts.length);
             context.res = {
                 status: 200,
                 headers: {
@@ -117,17 +131,28 @@ module.exports = async function (context, req) {
                 },
                 body: blogPosts
             };
+            context.log('All posts response set successfully');
         }
+        context.log('Status:', context.res.status);
+        context.log('=== Blog Function Completed Successfully ===');
     }
     catch (error) {
-        context.log.error("Error fetching blog data:", error);
+        context.log.error('=== ERROR in Blog Function ===');
+        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error message:', error.message);
+        context.log.error('Error stack:', error.stack);
         context.res = {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch blog data" }
+            body: {
+                error: "Failed to fetch blog data",
+                details: error.message,
+                timestamp: new Date().toISOString()
+            }
         };
+        context.log.error('Error response set');
     }
 };
