@@ -31,6 +31,11 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ## Code Style & Conventions
 
+### General Rules
+- **NO EMOJIS** - Never use emojis in code, configuration files, workflows, or log messages
+- Use text markers instead: `[SUCCESS]`, `[ERROR]`, `[WARNING]`, `[INFO]`, `[ACTION]`
+- Emojis cause encoding issues in GitHub Actions and other CI/CD systems
+
 ### TypeScript/Angular
 - Use **standalone components** (no modules)
 - Follow **Angular 19** best practices
