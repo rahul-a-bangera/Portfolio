@@ -2,6 +2,7 @@ export interface ResumeData {
   personalInfo: PersonalInfo;
   summary: string;
   skills: SkillsInfo;
+  tools: Tool[];
   experience: Experience[];
   education: Education[];
   certifications?: Certification[];
@@ -20,11 +21,18 @@ export interface PersonalInfo {
 }
 
 export interface SkillsInfo {
+  technical?: string[];
   frontend: string[];
   backend: string[];
   cloud: string[];
   database: string[];
   tools: string[];
+}
+
+export interface Tool {
+  name: string;
+  icon: string;
+  description: string;
 }
 
 export interface Experience {
@@ -40,9 +48,11 @@ export interface Experience {
 export interface Education {
   institution: string;
   degree: string;
+  field?: string;
   location: string;
   graduationDate: string;
   gpa?: string;
+  description?: string;
 }
 
 export interface Certification {
@@ -76,4 +86,5 @@ export interface EducationInfo {
   field: string;
   graduationYear: string;
 }
+
 

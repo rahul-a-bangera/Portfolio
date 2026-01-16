@@ -1,88 +1,135 @@
 {
   "personalInfo": {
     "name": "Rahul A Bangera",
-    "title": "Full Stack Developer | Cloud Solutions Architect",
+    "title": "Software Developer | .NET & Azure Specialist",
     "email": "rahul.bangera.999@gmail.com",
     "phone": "+91 9663 885 365",
-    "location": "Bangalore, India",
+    "location": "Mangalore, Karnataka, India",
     "linkedin": "https://www.linkedin.com/in/rahul-bangera/",
     "github": "https://github.com/rahul-a-bangera",
     "website": "https://rahul-a.in"
   },
-  "summary": "Experienced Full Stack Developer with 5+ years of expertise in building scalable web applications using .NET, Angular, and cloud services. Passionate about clean code, modern architecture, and delivering high-quality solutions.",
+  "summary": "Software Engineer with 4+ years of hands-on experience designing, developing, and maintaining robust applications using the Microsoft .NET ecosystem. Proficient in C#, .NET Core, VB.NET, WinForms, and SQL Server, with strong experience building both modern microservice-based systems and maintaining business-critical legacy applications. I have worked extensively across retail, financial, and accounting domains, delivering stable, scalable, and user-focused solutions that support real-world business operations.\n\nI bring practical expertise in payment system integrations, including onboarding and supporting multiple providers, improving transaction flows, and ensuring secure, reliable processing. My experience spans cloud-native and hybrid environments, with solid exposure to Azure services for deployment, monitoring, configuration, and application performance insights. I am comfortable working across the full development lifecycle—from requirement analysis and system design to development, testing, deployment, and production support.\n\nKnown for my strong problem-solving and debugging skills, I thrive in fast-paced environments where reliability and performance are critical. I have a proven ability to manage complex systems under tight timelines, independently own features or applications, and contribute effectively within Agile/Scrum teams. I value clean code, maintainability, and thoughtful design, while also balancing business priorities and technical constraints.\n\nBeyond technical skills, I am recognized for clear communication, cross-team collaboration, and a proactive mindset. I enjoy working closely with stakeholders, consultants, and end users to understand real needs and translate them into effective technical solutions. Driven by continuous learning, I actively explore new technologies, cloud patterns, and AI-assisted development tools to improve productivity and software quality. My goal is to build dependable systems that create measurable impact while continuously growing as an engineer.",
   "skills": {
-    "frontend": ["Angular", "TypeScript", "JavaScript", "HTML5", "CSS3", "RxJS", "Material Design"],
-    "backend": [".NET Core", "C#", "ASP.NET", "Web API", "Entity Framework", "Node.js"],
-    "cloud": ["Azure", "Cloudflare Workers", "Azure Functions", "Azure DevOps", "CI/CD"],
-    "database": ["SQL Server", "CosmosDB", "MongoDB", "PostgreSQL"],
-    "tools": ["Git", "Visual Studio", "VS Code", "Docker", "Postman"]
+    "technical": [
+      "C# / .NET",
+      ".NET Core",
+      "Azure Cloud",
+      "Microservices",
+      "SQL Server",
+      "VB.NET",
+      "REST APIs",
+      "WinForms",
+      "Git / TFS",
+      "Payment Systems",
+      "Retail Domain",
+      "Finance Domain",
+      "OAuth2 / JWT",
+      "Azure DevOps",
+      "AI Tools",
+      "MCP Server"
+    ],
+    "frontend": ["Angular", "TypeScript", "JavaScript", "HTML5", "CSS3"],
+    "backend": [".NET Core", "C#", "VB.NET", "ASP.NET", "Web API", "Node.js"],
+    "cloud": ["Azure App Services", "Azure Service Bus", "Azure Storage", "Azure AppInsights", "Azure DevOps", "Cloudflare Workers"],
+    "database": ["SQL Server", "Query Optimization", "Performance Tuning"],
+    "tools": ["Visual Studio", "VS Code", "Git", "TFS", "Postman", "SSMS", "Claude AI"]
   },
+  "tools": [
+    {
+      "name": "Visual Studio / VS Code",
+      "icon": "code",
+      "description": "Primary IDEs for .NET development, debugging, and code analysis"
+    },
+    {
+      "name": "Azure Services",
+      "icon": "cloud",
+      "description": "App Services, Service Bus, Storage, AppInsights for cloud deployment and monitoring"
+    },
+    {
+      "name": "Git / TFS",
+      "icon": "code",
+      "description": "Version control, branching strategies, and collaborative development workflows"
+    },
+    {
+      "name": "Postman",
+      "icon": "api",
+      "description": "API testing, REST endpoint validation, and integration testing"
+    },
+    {
+      "name": "SQL Server Management Studio",
+      "icon": "storage",
+      "description": "Database management, query optimization, and performance tuning"
+    },
+    {
+      "name": "Claude Code / AI Tools",
+      "icon": "smart_toy",
+      "description": "AI-assisted development, code generation, and productivity enhancement"
+    }
+  ],
   "experience": [
     {
-      "company": "Tech Solutions Inc.",
-      "position": "Senior Full Stack Developer",
-      "location": "Bangalore, India",
-      "startDate": "2021-01",
+      "company": "EG India",
+      "position": "Software Developer",
+      "location": "Mangalore",
+      "startDate": "November 2024",
       "endDate": "Present",
-      "description": "Lead development of enterprise web applications using .NET Core and Angular",
+      "description": "Developing and maintaining microservices-based POS applications and payment integrations",
       "achievements": [
-        "Architected and implemented microservices-based solutions",
-        "Reduced application load time by 40% through performance optimization",
-        "Mentored junior developers and conducted code reviews",
-        "Implemented CI/CD pipelines"
+        "Contribute 80% of work to developing and maintaining services using C#, .NET Framework, and .NET Core within a microservices architecture.",
+        "Build and enhance Retail Point of Sale (POS) applications and APIs using REST principles, OAuth2, and JWT-based authentication.",
+        "Implement and support payment integrations, including onboarding Nordic providers such as Walley, Adyen, and Vipps, and improving existing payment flows.",
+        "Work with Azure services (App Services, Service Bus, Storage, AppInsights, etc.) for deployment, monitoring, configuration, and cloud operations.",
+        "Maintain POS applications across both on-premise and cloud-based environments, ensuring seamless store operations.",
+        "Collaborate in an Agile/Scrum team, participating in sprint planning, stand-ups, reviews, and iterative delivery.",
+        "Independently manage a legacy VB.NET WinForms POS application in the remaining 20% of time, handling development, testing, release cycles, and feature updates.",
+        "Provide support to consultants, internal teams, and customers by assisting in major incidents, troubleshooting production issues, and ensuring timely resolution."
       ]
     },
     {
-      "company": "Digital Innovations Ltd.",
-      "position": "Full Stack Developer",
-      "location": "Bangalore, India",
-      "startDate": "2019-06",
-      "endDate": "2020-12",
-      "description": "Developed and maintained multiple client-facing web applications",
+      "company": "WINMAN SOFTWARE INDIA LLP",
+      "position": "Senior Programming Engineer",
+      "location": "Mangalore",
+      "startDate": "August 2021",
+      "endDate": "October 2024",
+      "description": "Developed accounting software and enhanced financial products",
       "achievements": [
-        "Built RESTful APIs using .NET Core and integrated with Angular frontend",
-        "Implemented authentication and authorization using JWT",
-        "Collaborated with cross-functional teams in Agile environment",
-        "Optimized database queries resulting in 30% performance improvement"
+        "Developed core modules for a new accounting software and enhanced financial products like E-Proceeding using VB.NET, SQL Server, and Visual Studio.",
+        "Led requirement gathering and user-focused design discussions with senior management to shape new software components.",
+        "Performed SQL Server query optimization to reduce server load, improve performance, and enhance application responsiveness.",
+        "Improved user experience by resolving tickets, coordinating fixes with developers, and optimizing internal workflows.",
+        "Conducted code reviews, guided team members, and maintained high code quality standards."
       ]
     }
   ],
   "education": [
     {
-      "institution": "University of Technology",
-      "degree": "Bachelor of Engineering in Computer Science",
-      "location": "Karnataka, India",
-      "graduationDate": "2019-05",
-      "gpa": "8.5/10"
+      "institution": "Sahyadri College of Engineering & Management",
+      "degree": "INFORMATION SCIENCE & ENGINEERING",
+      "field": "Information/Computer Science",
+      "location": "Karnataka",
+      "graduationDate": "December 2021",
+      "gpa": "8.53 CGPA",
+      "description": "Course work in Information/Computer Science. Scored 8.53 CGPA."
     }
   ],
-  "certifications": [
-    {
-      "name": "Microsoft Certified: Azure Developer Associate",
-      "issuer": "Microsoft",
-      "issueDate": "2022-06",
-      "credentialId": "AZ-204"
-    },
-    {
-      "name": "Angular - The Complete Guide",
-      "issuer": "Udemy",
-      "issueDate": "2021-03"
-    }
-  ],
+  "certifications": [],
   "projects": [
     {
-      "name": "Portfolio Website",
-      "description": "Modern responsive portfolio built with Angular 19 and Cloudflare Workers",
-      "technologies": ["Angular", "TypeScript", "Cloudflare Workers", "GitHub Pages"],
+      "name": "Privacy-First Portfolio Website",
+      "description": "Modern responsive portfolio built with Angular 19, Cloudflare Workers, and KV storage for privacy-first data management",
+      "technologies": ["Angular 19", "TypeScript", "Cloudflare Workers", "Cloudflare KV", "GitHub Pages"],
       "url": "https://rahul-a.in",
       "github": "https://github.com/rahul-a-bangera/Portfolio",
       "highlights": [
-        "Terminal-inspired cyberpunk design theme",
-        "Serverless API with Cloudflare Workers",
+        "Terminal-inspired cyberpunk design theme with ambient effects",
+        "Serverless API with Cloudflare Workers and KV storage",
+        "Complete privacy: Personal data stored in KV, not in public repo",
+        "Intelligent caching system reducing API calls by 67%",
         "Responsive design with mobile-first approach",
-        "CI/CD with GitHub Actions",
-        "Privacy-first: Personal data stored in KV, not in repo"
+        "CI/CD with GitHub Actions for automated deployment"
       ]
     }
   ]
 }
+

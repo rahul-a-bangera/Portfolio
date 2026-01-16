@@ -1,10 +1,31 @@
 <section id="resume" class="resume-container">
-  <div class="resume-header">
-    <h1 class="resume-title">My Resume</h1>
-    <p class="resume-subtitle">Experience, Skills & Education</p>
-  </div>
+<div class="resume-header">
+  <h1 class="resume-title">My Resume</h1>
+  <p class="resume-subtitle">Experience, Skills & Education</p>
+</div>
 
-  <mat-tab-group>
+<!-- Loading State -->
+<div *ngIf="isLoading" class="loading-container">
+  <mat-card class="loading-card">
+    <div class="loading-state">
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>Loading resume data...</p>
+    </div>
+  </mat-card>
+</div>
+
+<!-- Error State -->
+<div *ngIf="hasError && !isLoading" class="error-container">
+  <mat-card class="error-card">
+    <div class="error-state">
+      <mat-icon>error_outline</mat-icon>
+      <p>Failed to load resume data. Please try again later.</p>
+    </div>
+  </mat-card>
+</div>
+
+<!-- Content -->
+<mat-tab-group *ngIf="!isLoading && !hasError && resumeData">
     <!-- Summary Tab -->
     <mat-tab>
       <ng-template mat-tab-label>
@@ -20,32 +41,8 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <p class="card-text">
-              Software Engineer with 4+ years of hands-on experience designing, developing, and maintaining robust applications 
-              using the Microsoft .NET ecosystem. Proficient in C#, .NET Core, VB.NET, WinForms, and SQL Server, with strong 
-              experience building both modern microservice-based systems and maintaining business-critical legacy applications. 
-              I have worked extensively across retail, financial, and accounting domains, delivering stable, scalable, and 
-              user-focused solutions that support real-world business operations.
-            </p>
-            <p class="card-text">
-              I bring practical expertise in payment system integrations, including onboarding and supporting multiple providers, 
-              improving transaction flows, and ensuring secure, reliable processing. My experience spans cloud-native and hybrid 
-              environments, with solid exposure to Azure services for deployment, monitoring, configuration, and application 
-              performance insights. I am comfortable working across the full development lifecycle—from requirement analysis and 
-              system design to development, testing, deployment, and production support.
-            </p>
-            <p class="card-text">
-              Known for my strong problem-solving and debugging skills, I thrive in fast-paced environments where reliability and 
-              performance are critical. I have a proven ability to manage complex systems under tight timelines, independently own 
-              features or applications, and contribute effectively within Agile/Scrum teams. I value clean code, maintainability, 
-              and thoughtful design, while also balancing business priorities and technical constraints.
-            </p>
-            <p class="card-text">
-              Beyond technical skills, I am recognized for clear communication, cross-team collaboration, and a proactive mindset. 
-              I enjoy working closely with stakeholders, consultants, and end users to understand real needs and translate them into 
-              effective technical solutions. Driven by continuous learning, I actively explore new technologies, cloud patterns, and 
-              AI-assisted development tools to improve productivity and software quality. My goal is to build dependable systems that 
-              create measurable impact while continuously growing as an engineer.
+            <p class="card-text" *ngFor="let paragraph of getSummaryParagraphs()">
+              {{ paragraph }}
             </p>
             <div class="card-actions">
               <button mat-raised-button class="action-button" (click)="downloadCV()">
@@ -77,22 +74,9 @@
               Comprehensive technical expertise across Microsoft technologies, cloud platforms, and modern development practices.
             </p>
             <div class="skill-grid">
-              <div class="skill-badge">C# / .NET</div>
-              <div class="skill-badge">.NET Core</div>
-              <div class="skill-badge">Azure Cloud</div>
-              <div class="skill-badge">Microservices</div>
-              <div class="skill-badge">SQL Server</div>
-              <div class="skill-badge">VB.NET</div>
-              <div class="skill-badge">REST APIs</div>
-              <div class="skill-badge">WinForms</div>
-              <div class="skill-badge">Git / TFS</div>
-              <div class="skill-badge">Payment Systems</div>
-              <div class="skill-badge">Retail Domain</div>
-              <div class="skill-badge">Finance Domain</div>
-              <div class="skill-badge">OAuth2 / JWT</div>
-              <div class="skill-badge">Azure DevOps</div>
-              <div class="skill-badge">AI Tools</div>
-              <div class="skill-badge">MCP Server</div>
+              <div class="skill-badge" *ngFor="let skill of resumeData.skills.technical">
+                {{ skill }}
+              </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -118,46 +102,11 @@
               Professional tools and platforms used for development, cloud operations, and collaboration.
             </p>
             <div class="tools-list">
-              <div class="tool-item">
-                <mat-icon>code</mat-icon>
+              <div class="tool-item" *ngFor="let tool of resumeData.tools">
+                <mat-icon>{{ tool.icon }}</mat-icon>
                 <div class="tool-info">
-                  <h3 class="tool-name">Visual Studio / VS Code</h3>
-                  <p class="tool-description">Primary IDEs for .NET development, debugging, and code analysis</p>
-                </div>
-              </div>
-              <div class="tool-item">
-                <mat-icon>cloud</mat-icon>
-                <div class="tool-info">
-                  <h3 class="tool-name">Azure Services</h3>
-                  <p class="tool-description">App Services, Service Bus, Storage, AppInsights for cloud deployment and monitoring</p>
-                </div>
-              </div>
-              <div class="tool-item">
-                <mat-icon>code</mat-icon>
-                <div class="tool-info">
-                  <h3 class="tool-name">Git / TFS</h3>
-                  <p class="tool-description">Version control, branching strategies, and collaborative development workflows</p>
-                </div>
-              </div>
-              <div class="tool-item">
-                <mat-icon>api</mat-icon>
-                <div class="tool-info">
-                  <h3 class="tool-name">Postman</h3>
-                  <p class="tool-description">API testing, REST endpoint validation, and integration testing</p>
-                </div>
-              </div>
-              <div class="tool-item">
-                <mat-icon>storage</mat-icon>
-                <div class="tool-info">
-                  <h3 class="tool-name">SQL Server Management Studio</h3>
-                  <p class="tool-description">Database management, query optimization, and performance tuning</p>
-                </div>
-              </div>
-              <div class="tool-item">
-                <mat-icon>smart_toy</mat-icon>
-                <div class="tool-info">
-                  <h3 class="tool-name">Claude Code / AI Tools</h3>
-                  <p class="tool-description">AI-assisted development, code generation, and productivity enhancement</p>
+                  <h3 class="tool-name">{{ tool.name }}</h3>
+                  <p class="tool-description">{{ tool.description }}</p>
                 </div>
               </div>
             </div>
@@ -182,34 +131,13 @@
           </mat-card-header>
           <mat-card-content>
             <div class="timeline">
-              <div class="timeline-item">
+              <div class="timeline-item" *ngFor="let exp of resumeData.experience">
                 <div class="experience-card">
-                  <h3 class="experience-title">Software Developer</h3>
-                  <p class="experience-company">EG India | Mangalore</p>
-                  <p class="experience-period">November 2024 - Present</p>
+                  <h3 class="experience-title">{{ exp.position }}</h3>
+                  <p class="experience-company">{{ exp.company }} | {{ exp.location }}</p>
+                  <p class="experience-period">{{ exp.startDate }} - {{ exp.endDate }}</p>
                   <ul class="experience-list">
-                    <li>Contribute 80% of work to developing and maintaining services using C#, .NET Framework, and .NET Core within a microservices architecture.</li>
-                    <li>Build and enhance Retail Point of Sale (POS) applications and APIs using REST principles, OAuth2, and JWT-based authentication.</li>
-                    <li>Implement and support payment integrations, including onboarding Nordic providers such as Walley, Adyen, and Vipps, and improving existing payment flows.</li>
-                    <li>Work with Azure services (App Services, Service Bus, Storage, AppInsights, etc.) for deployment, monitoring, configuration, and cloud operations.</li>
-                    <li>Maintain POS applications across both on-premise and cloud-based environments, ensuring seamless store operations.</li>
-                    <li>Collaborate in an Agile/Scrum team, participating in sprint planning, stand-ups, reviews, and iterative delivery.</li>
-                    <li>Independently manage a legacy VB.NET WinForms POS application in the remaining 20% of time, handling development, testing, release cycles, and feature updates.</li>
-                    <li>Provide support to consultants, internal teams, and customers by assisting in major incidents, troubleshooting production issues, and ensuring timely resolution.</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="timeline-item">
-                <div class="experience-card">
-                  <h3 class="experience-title">Senior Programming Engineer</h3>
-                  <p class="experience-company">WINMAN SOFTWARE INDIA LLP | Mangalore</p>
-                  <p class="experience-period">August 2021 - October 2024</p>
-                  <ul class="experience-list">
-                    <li>Developed core modules for a new accounting software and enhanced financial products like E-Proceeding using VB.NET, SQL Server, and Visual Studio.</li>
-                    <li>Led requirement gathering and user-focused design discussions with senior management to shape new software components.</li>
-                    <li>Performed SQL Server query optimization to reduce server load, improve performance, and enhance application responsiveness.</li>
-                    <li>Improved user experience by resolving tickets, coordinating fixes with developers, and optimizing internal workflows.</li>
-                    <li>Conducted code reviews, guided team members, and maintained high code quality standards.</li>
+                    <li *ngFor="let achievement of exp.achievements">{{ achievement }}</li>
                   </ul>
                 </div>
               </div>
@@ -235,14 +163,14 @@
           </mat-card-header>
           <mat-card-content>
             <div class="education-list">
-              <div class="education-item">
+              <div class="education-item" *ngFor="let edu of resumeData.education">
                 <mat-icon class="education-icon">school</mat-icon>
                 <div class="education-info">
-                  <h3 class="education-degree">INFORMATION SCIENCE & ENGINEERING</h3>
-                  <p class="education-institution">Sahyadri College of Engineering & Management | Karnataka</p>
-                  <p class="education-details">December 2021</p>
-                  <p class="education-description">
-                    Course work in Information/Computer Science. Scored 8.53 CGPA.
+                  <h3 class="education-degree">{{ edu.degree }}</h3>
+                  <p class="education-institution">{{ edu.institution }} | {{ edu.location }}</p>
+                  <p class="education-details">{{ edu.graduationDate }}</p>
+                  <p class="education-description" *ngIf="edu.description">
+                    {{ edu.description }}
                   </p>
                 </div>
               </div>
