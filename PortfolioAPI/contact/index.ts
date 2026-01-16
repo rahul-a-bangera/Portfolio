@@ -35,7 +35,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            body: JSON.stringify(contactInfo)
+            body: contactInfo
         };
     } catch (error) {
         context.log.error("Error fetching contact info:", error);
@@ -45,7 +45,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ error: "Failed to fetch contact info" })
+            body: { error: "Failed to fetch contact info" }
         };
     }
 }

@@ -32,7 +32,7 @@ async function default_1(context, req) {
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            body: JSON.stringify(contactInfo)
+            body: contactInfo
         };
     }
     catch (error) {
@@ -43,7 +43,7 @@ async function default_1(context, req) {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ error: "Failed to fetch contact info" })
+            body: { error: "Failed to fetch contact info" }
         };
     }
 }

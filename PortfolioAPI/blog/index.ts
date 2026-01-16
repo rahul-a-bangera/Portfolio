@@ -100,7 +100,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    body: JSON.stringify({ error: "Blog post not found" })
+                    body: { error: "Blog post not found" }
                 };
                 return;
             }
@@ -113,7 +113,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: JSON.stringify(post)
+                body: post
             };
         } else {
             // Return all blog posts
@@ -125,7 +125,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: JSON.stringify(blogPosts)
+                body: blogPosts
             };
         }
     } catch (error) {
@@ -136,7 +136,7 @@ export default async function (context: Context, req: HttpRequest): Promise<void
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ error: "Failed to fetch blog data" })
+            body: { error: "Failed to fetch blog data" }
         };
     }
 }

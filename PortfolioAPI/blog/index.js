@@ -92,7 +92,7 @@ async function default_1(context, req) {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    body: JSON.stringify({ error: "Blog post not found" })
+                    body: { error: "Blog post not found" }
                 };
                 return;
             }
@@ -104,7 +104,7 @@ async function default_1(context, req) {
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: JSON.stringify(post)
+                body: post
             };
         }
         else {
@@ -116,7 +116,7 @@ async function default_1(context, req) {
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: JSON.stringify(blogPosts)
+                body: blogPosts
             };
         }
     }
@@ -128,7 +128,7 @@ async function default_1(context, req) {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ error: "Failed to fetch blog data" })
+            body: { error: "Failed to fetch blog data" }
         };
     }
 }
