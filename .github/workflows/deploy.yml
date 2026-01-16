@@ -11,7 +11,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy-github-pages:
@@ -81,38 +87,11 @@ jobs:
             echo "? CNAME file exists: $(cat docs/CNAME)"
           fi
       
-      - name: Show git status before deploy
-        run: |
-          echo "?? Git Status:"
-          git status
-          echo ""
-          echo "?? Git Diff (unstaged):"
-          git diff --stat || echo "No unstaged changes"
-          echo ""
-          echo "?? Git Diff (staged after add):"
-          git add docs/
-          git diff --cached --stat || echo "No staged changes"
-          echo ""
-          echo "?? Detailed diff of docs/ folder:"
-          git diff --cached --name-status docs/ || echo "No changes in docs/"
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
       
       - name: Deploy to GitHub Pages
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          echo "?? Attempting to deploy..."
-          
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "?? No changes detected - skipping deployment"
-            echo "This means the build produced identical files to what's already committed"
-          else
-            echo "? Changes detected - proceeding with deployment"
-            git commit -m "Deploy to GitHub Pages [skip ci]"
-            echo "?? Pushing to GitHub..."
-            git push
-            echo "? Successfully pushed to GitHub Pages!"
-            echo ""
-            echo "?? Your site will be updated at: https://rahul-a.in"
-            echo "? Allow 2-5 minutes for GitHub Pages to build and deploy"
-          fi
+        id: deployment
+        uses: actions/deploy-pages@v4
