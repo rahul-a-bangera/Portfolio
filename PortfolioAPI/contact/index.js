@@ -1,22 +1,27 @@
 "use strict";
+console.log('[CONTACT] Module loaded at', new Date().toISOString());
 module.exports = async function (context, req) {
-    context.log('=== Contact Function Started ===');
-    context.log('Method:', req.method);
-    if (req.method === "OPTIONS") {
-        context.log('Handling OPTIONS request (CORS preflight)');
-        context.res = {
-            status: 200,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type, Authorization"
-            }
-        };
-        context.log('OPTIONS response set, returning');
-        return;
-    }
+    console.log('[CONTACT] Function invoked at', new Date().toISOString());
+    console.log('[CONTACT] Request method:', req.method);
+    console.log('[CONTACT] Context object exists:', !!context);
+    console.log('[CONTACT] Context.log exists:', !!context.log);
     try {
-        context.log('Processing GET request...');
+        context.log('[CONTACT] Context.log works! Starting execution...');
+        context.log('[CONTACT] Method:', req.method);
+        if (req.method === "OPTIONS") {
+            context.log('[CONTACT] Handling OPTIONS request');
+            context.res = {
+                status: 200,
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type, Authorization"
+                }
+            };
+            context.log('[CONTACT] OPTIONS response set');
+            return;
+        }
+        context.log('[CONTACT] Processing GET request...');
         const contactInfo = {
             email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
             phone: process.env.CONTACT_PHONE || "+91 9663885365",
@@ -26,7 +31,7 @@ module.exports = async function (context, req) {
                 Twitter: process.env.CONTACT_TWITTER || ""
             }
         };
-        context.log('Contact info created successfully');
+        context.log('[CONTACT] Data created successfully');
         context.res = {
             status: 200,
             headers: {
@@ -37,11 +42,12 @@ module.exports = async function (context, req) {
             },
             body: contactInfo
         };
-        context.log('=== Contact Function Completed Successfully ===');
+        context.log('[CONTACT] Response set, status:', context.res.status);
+        context.log('[CONTACT] Function completed successfully');
     }
     catch (error) {
-        context.log('=== ERROR in Contact Function ===');
-        context.log('Error:', error.message);
+        console.error('[CONTACT] CATCH ERROR:', error);
+        context.log('[CONTACT] ERROR:', error?.message || 'Unknown error');
         context.res = {
             status: 500,
             headers: {
@@ -50,7 +56,7 @@ module.exports = async function (context, req) {
             },
             body: {
                 error: "Failed to fetch contact info",
-                details: error.message
+                details: error?.message || 'Unknown error'
             }
         };
     }
