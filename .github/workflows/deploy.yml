@@ -1,4 +1,4 @@
-name: Build and Deploy
+﻿name: Build and Deploy
 
 on:
   push:
@@ -11,13 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+contents: write
 
 jobs:
   build-and-deploy-github-pages:
@@ -87,11 +81,68 @@ jobs:
             echo "? CNAME file exists: $(cat docs/CNAME)"
           fi
       
-      - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/
+      - name: Show git status before deploy
+        run: |
+          echo "📊 Git Status Before Adding Files:"
+          git status
+          echo ""
+          echo "📝 Current HEAD commit:"
+          git log -1 --oneline
+          echo ""
+          
+      - name: Add docs folder to git
+        run: |
+          echo "➕ Adding docs/ folder to git..."
+          git add docs/
+          echo ""
+          echo "📊 Git Status After Adding:"
+          git status
+          echo ""
+          
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --cached --quiet; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "⚠️ No changes detected in docs/ folder"
+            echo "This means the build produced identical files to what's already committed"
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Changes detected in docs/ folder"
+            echo ""
+            echo "📝 Files that changed:"
+            git diff --cached --name-status docs/
+            echo ""
+            echo "📊 Diff stats:"
+            git diff --cached --stat docs/
+          fi
       
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          echo "🚀 Committing changes to docs/ folder..."
+          git commit -m "Deploy to GitHub Pages [skip ci]"
+          
+          echo "📤 Pushing to GitHub..."
+          git push
+          
+          echo ""
+          echo "✅ Successfully deployed to GitHub Pages!"
+          echo "🔗 Your site will be updated at: https://rahul-a.in"
+          echo "⏰ Allow 2-5 minutes for GitHub Pages to serve the new files"
+          echo ""
+          echo "📊 Latest commit:"
+          git log -1 --oneline
+      
+      - name: No deployment needed
+        if: steps.check_changes.outputs.changes == 'false'
+        run: |
+          echo "ℹ️ Skipping deployment - no changes to docs/ folder"
+          echo ""
+          echo "This is expected if:"
+          echo "  - The code hasn't changed"
+          echo "  - The environment files are the same"
+          echo "  - The build output is identical to previous build"
