@@ -1,6 +1,6 @@
 import { Context, HttpRequest } from "@azure/functions";
 
-export default async function (context: Context, req: HttpRequest): Promise<void> {
+module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('Resume function triggered');
     
     // Handle CORS preflight

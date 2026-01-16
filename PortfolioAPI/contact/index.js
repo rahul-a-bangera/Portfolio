@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = default_1;
-async function default_1(context, req) {
+module.exports = async function (context, req) {
     context.log('Contact function triggered');
     if (req.method === "OPTIONS") {
         context.res = {
@@ -46,4 +45,4 @@ async function default_1(context, req) {
             body: { error: "Failed to fetch contact info" }
         };
     }
-}
+};
