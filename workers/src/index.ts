@@ -38,7 +38,7 @@ export default {
       // Route requests to appropriate handlers
       if (path === '/contact' || path === '/api/contact') {
         return await handleContact(request, env, corsHeaders);
-      } else if (path === '/resume' || path === '/api/resume') {
+      } else if (path.startsWith('/resume') || path.startsWith('/api/resume')) {
         return await handleResume(request, env, corsHeaders);
       } else if (path.startsWith('/blog') || path.startsWith('/api/blog')) {
         return await handleBlog(request, env, corsHeaders);
