@@ -73,11 +73,11 @@ jobs:
       - name: Verify CNAME file
         run: |
           if [ ! -f "docs/CNAME" ]; then
-            echo "?? Warning: CNAME file not found in docs folder"
+            echo "⚠️ Warning: CNAME file not found in docs folder"
             echo "rahul-a.in" > docs/CNAME
-            echo "? Created CNAME file with rahul-a.in"
+            echo "✅ Created CNAME file with rahul-a.in"
           else
-            echo "? CNAME file exists: $(cat docs/CNAME)"
+            echo "✅ CNAME file exists: $(cat docs/CNAME)"
           fi
       
       - name: Show git status before deploy
