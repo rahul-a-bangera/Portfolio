@@ -1,4 +1,20 @@
-import { Context, HttpRequest } from '../types';
+interface Context {
+    log: any;
+    res?: {
+        status: number;
+        headers?: Record<string, string>;
+        body?: any;
+    };
+}
+
+interface HttpRequest {
+    method?: string;
+    url?: string;
+    headers?: Record<string, string>;
+    query?: Record<string, string>;
+    params?: Record<string, string>;
+    body?: any;
+}
 
 module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('=== Resume Function Started ===');

@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = async function (context, req) {
     context.log('=== Blog Function Started ===');
     context.log('Method:', req.method);
