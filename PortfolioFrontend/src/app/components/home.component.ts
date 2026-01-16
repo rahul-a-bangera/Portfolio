@@ -39,6 +39,7 @@ contactError = false;
 resumeData: ResumeData | null = null;
 isLoadingResume = false;
 resumeError = false;
+profileImageUrl: string | null = null;
 ambientSettings: AmbientSettings = {
   systemStats: true,
   clickSpark: true,
@@ -48,6 +49,7 @@ private scrollThreshold = 50;
 private lastScrollPosition = 0;
 private settingsSubscription?: Subscription;
 private contactSubscription?: Subscription;
+private resumeSubscription?: Subscription;
 private resumeSubscription?: Subscription;
 
 constructor(
@@ -64,6 +66,7 @@ ngOnInit(): void {
   this.lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
   this.loadContactInfo();
   this.loadResumeData();
+  this.loadProfileImage();
 }
 
 ngOnDestroy(): void {
@@ -94,13 +97,22 @@ ngOnDestroy(): void {
   }
 
   downloadCV(): void {
-    const link = document.createElement('a');
-    link.href = 'assets/resume.pdf';  // Generic filename
-    link.download = 'resume.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Fetch PDF from API instead of local assets
+    const apiUrl = 'https://portfolio-api.rahul-a-works.workers.dev/assets/resume';
+    console.log('[HOME] Downloading CV from API...');
+    window.open(apiUrl, '_blank');
+  }
+
+  private loadProfileImage(): void {
+    // Try to load profile picture from API
+    // If it fails, will fallback to initials avatar
+    this.profileImageUrl = 'https://portfolio-api.rahul-a-works.workers.dev/assets/profile';
+  }
+
+  onProfileImageError(): void {
+    // If profile image fails to load, set to null to show initials
+    console.log('[HOME] Profile image not available, showing initials');
+    this.profileImageUrl = null;
   }
 
   toggleContactPopup(): void {

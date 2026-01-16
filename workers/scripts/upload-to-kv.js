@@ -20,6 +20,17 @@ const resumeData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/resu
 const blogPosts = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/blog-posts.json'), 'utf8'));
 const contactInfo = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/contact.json'), 'utf8'));
 
+// Read assets file (if exists)
+let assetsData = null;
+const assetsPath = path.join(__dirname, '../data/assets.json');
+if (fs.existsSync(assetsPath)) {
+  assetsData = JSON.parse(fs.readFileSync(assetsPath, 'utf8'));
+  console.log('[INFO] Assets file found - will upload binary assets');
+} else {
+  console.log('[INFO] No assets file found - skipping binary assets upload');
+  console.log('       Run: node scripts/convert-assets-to-base64.js to generate');
+}
+
 const NAMESPACE = 'PORTFOLIO_DATA';
 
 /**
@@ -132,6 +143,31 @@ async function main() {
     failCount++;
   }
 
+  // Upload assets (resume PDF and profile picture)
+  if (assetsData) {
+    console.log('\n[INFO] Uploading assets...');
+    
+    // Upload resume PDF
+    if (assetsData.resume) {
+      console.log('  Uploading resume PDF...');
+      if (uploadToKV('assets:resume', assetsData.resume)) {
+        successCount++;
+      } else {
+        failCount++;
+      }
+    }
+    
+    // Upload profile picture
+    if (assetsData.profile) {
+      console.log('  Uploading profile picture...');
+      if (uploadToKV('assets:profile', assetsData.profile)) {
+        successCount++;
+      } else {
+        failCount++;
+      }
+    }
+  }
+
   console.log('\n' + '='.repeat(50));
   console.log(`[INFO] Upload complete!`);
   console.log(`[SUCCESS] Uploaded: ${successCount} items`);
@@ -148,6 +184,15 @@ async function main() {
   console.log('  - resume:experience (Experience tab)');
   console.log('  - resume:education (Education tab)');
   console.log('  - resume:data (complete data - backward compatibility)');
+  if (assetsData) {
+    console.log('\n[INFO] Assets uploaded:');
+    if (assetsData.resume) {
+      console.log(`  - assets:resume (${assetsData.resume.filename}, ${(assetsData.resume.size / 1024).toFixed(2)} KB)`);
+    }
+    if (assetsData.profile) {
+      console.log(`  - assets:profile (${assetsData.profile.filename}, ${(assetsData.profile.size / 1024).toFixed(2)} KB)`);
+    }
+  }
   console.log('\n[INFO] Next steps:');
   console.log('1. Verify uploads in Cloudflare Dashboard');
   console.log('2. Deploy workers: npm run deploy');

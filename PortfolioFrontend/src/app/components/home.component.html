@@ -8,7 +8,14 @@
   <mat-card class="home-card" *ngIf="resumeData && !isLoadingResume; else loadingResume">
     <div class="card-header">
       <div class="profile-image">
-        <div class="initials-avatar">{{ getInitials() }}</div>
+        <!-- Profile picture from API (if available) -->
+        <img *ngIf="profileImageUrl" 
+             [src]="profileImageUrl" 
+             alt="Profile Picture"
+             class="profile-picture"
+             (error)="onProfileImageError()" />
+        <!-- Fallback to initials avatar -->
+        <div *ngIf="!profileImageUrl" class="initials-avatar">{{ getInitials() }}</div>
       </div>
       <h1 class="profile-name">{{ resumeData.personalInfo.name }}</h1>
       <p class="profile-title">{{ resumeData.personalInfo.title }}</p>

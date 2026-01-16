@@ -184,13 +184,13 @@ export class ResumeComponent implements OnInit, OnDestroy {
   }
 
   downloadCV(): void {
-    const link = document.createElement('a');
-    link.href = 'assets/resume.pdf';
-    link.download = 'resume.pdf';
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Fetch PDF from API instead of local assets
+    const apiUrl = 'https://portfolio-api.rahul-a-works.workers.dev/assets/resume';
+    
+    console.log('[RESUME] Downloading CV from API...');
+    
+    // Open in new tab (browser will handle download/display)
+    window.open(apiUrl, '_blank');
   }
 
   getSummaryParagraphs(): string[] {

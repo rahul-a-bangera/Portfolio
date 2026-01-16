@@ -6,6 +6,7 @@
 import { handleContact } from './handlers/contact';
 import { handleResume } from './handlers/resume';
 import { handleBlog } from './handlers/blog';
+import { handleAssets } from './handlers/assets';
 
 // CORS headers configuration
 const corsHeaders = {
@@ -42,12 +43,14 @@ export default {
         return await handleResume(request, env, corsHeaders);
       } else if (path.startsWith('/blog') || path.startsWith('/api/blog')) {
         return await handleBlog(request, env, corsHeaders);
+      } else if (path.startsWith('/assets') || path.startsWith('/api/assets')) {
+        return await handleAssets(request, env, corsHeaders);
       } else {
         return new Response(
           JSON.stringify({
             error: 'Not Found',
             message: 'The requested endpoint does not exist',
-            availableEndpoints: ['/contact', '/resume', '/blog'],
+            availableEndpoints: ['/contact', '/resume', '/blog', '/assets'],
           }),
           {
             status: 404,
