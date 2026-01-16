@@ -4,6 +4,10 @@
   },
   "routes": [
     {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    },
+    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200
@@ -13,9 +17,21 @@
     "rewrite": "/index.html"
   },
   "globalHeaders": {
-    "content-security-policy": "default-src 'self' 'unsafe-inline' https://*.azurestaticapps.net",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "content-security-policy": "default-src 'self' 'unsafe-inline' https://*.azurestaticapps.net https://rahul-a.in",
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY"
+  },
+  "responseOverrides": {
+    "401": {
+      "statusCode": 401
+    },
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 404
+    }
   },
   "mimeTypes": {
     ".json": "application/json",
