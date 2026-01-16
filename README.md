@@ -146,17 +146,12 @@ Portfolio/
 │   ├── tsconfig.json                       # TypeScript config
 │   └── *.md                                # Documentation files
 │
-├── misc/                                   # Documentation
-│   ├── 00-DOCUMENTATION-INDEX.md
-│   ├── 01-TECHNICAL.md
-│   ├── 02-ARCHITECTURE.md
-│   ├── 03-THEME.md
-│   ├── 04-SETUP.md
-│   ├── 05-DEPLOYMENT.md
-│   ├── 06-RESPONSIVE.md
-│   ├── 07-BUILD.md
-│   ├── 08-AZURE-SETUP.md (deprecated)
-│   └── 09-CLOUDFLARE-WORKERS-SETUP.md     # NEW!
+├── misc/                                   # [ACTION] Project Documentation (5 files)
+│   ├── 00-INDEX.md                         # Quick reference and overview
+│   ├── 01-SETUP-AND-DEPLOYMENT.md         # Setup, deployment, blog guide
+│   ├── 02-TECHNICAL-ARCHITECTURE.md       # Tech stack, architecture, code quality
+│   ├── 03-DESIGN-SYSTEM.md                # Theme, responsive, UI patterns
+│   └── 04-BUILD-AND-TROUBLESHOOTING.md    # Build config, fixes, migrations
 │
 ├── .nojekyll                              # Disable Jekyll processing
 └── README.md                              # This file
@@ -300,20 +295,22 @@ npm run build
 
 ## 📚 Documentation
 
-### User Guides
-- [Deployment Checklist](misc/DEPLOYMENT_CHECKLIST.md)
-- [GitHub Pages Setup](misc/GITHUB_PAGES_DEPLOYMENT.md)
-- [Custom Domain Configuration](misc/CUSTOM_DOMAIN_SETUP.md)
+**All documentation has been consolidated into 5 comprehensive files in the `misc/` folder.**
 
-### Developer Guides
-- [Responsive Design Improvements](PortfolioFrontend/RESPONSIVE_DESIGN_IMPROVEMENTS.md)
-- [Responsive Quick Reference](PortfolioFrontend/RESPONSIVE_QUICK_REFERENCE.md)
-- [Mobile UX Fixes](PortfolioFrontend/MOBILE_UX_FIXES.md)
-- [Theme Consistency Guidelines](misc/THEME_CONSISTENCY.md)
+### [ACTION] Complete Documentation
 
-### Reports
-- [Production Readiness Report](PRODUCTION_READINESS_REPORT.md)
-- [Code Quality Report](misc/CODE_QUALITY_REPORT.md)
+1. **[00-INDEX.md](misc/00-INDEX.md)** - Quick reference, overview, common patterns
+2. **[01-SETUP-AND-DEPLOYMENT.md](misc/01-SETUP-AND-DEPLOYMENT.md)** - Setup, deployment, **blog management**
+3. **[02-TECHNICAL-ARCHITECTURE.md](misc/02-TECHNICAL-ARCHITECTURE.md)** - Tech stack, architecture, code quality
+4. **[03-DESIGN-SYSTEM.md](misc/03-DESIGN-SYSTEM.md)** - Theme, responsive design, UI patterns
+5. **[04-BUILD-AND-TROUBLESHOOTING.md](misc/04-BUILD-AND-TROUBLESHOOTING.md)** - Build config, fixes, migrations
+
+### Quick Links
+
+- **How to add a blog post?** → See [01-SETUP-AND-DEPLOYMENT.md#blog-management](misc/01-SETUP-AND-DEPLOYMENT.md#blog-management)
+- **Setup instructions?** → See [01-SETUP-AND-DEPLOYMENT.md](misc/01-SETUP-AND-DEPLOYMENT.md)
+- **Build failing?** → See [04-BUILD-AND-TROUBLESHOOTING.md](misc/04-BUILD-AND-TROUBLESHOOTING.md)
+- **Design guidelines?** → See [03-DESIGN-SYSTEM.md](misc/03-DESIGN-SYSTEM.md)
 
 ---
 

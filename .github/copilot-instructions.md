@@ -5,17 +5,13 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ## Documentation Structure
 
-**All documentation is consolidated into 8 files in the `misc/` folder:**
+**All documentation is consolidated into 5 files in the `misc/` folder:**
 
-1. **00-DOCUMENTATION-INDEX.md** - Documentation overview and consolidation history
-2. **01-TECHNICAL.md** - Code quality, tech stack, dependencies, performance metrics
-3. **02-ARCHITECTURE.md** - System architecture, component hierarchy, data flow
-4. **03-THEME.md** - Design system, colors, typography, component patterns
-5. **04-SETUP.md** - Installation and setup instructions
-6. **05-DEPLOYMENT.md** - Deployment process and configuration
-7. **06-RESPONSIVE.md** - Responsive design breakpoints and mobile optimization
-8. **07-BUILD.md** - Build configuration and troubleshooting
-9. **08-AZURE-SETUP.md** - Azure Static Web Apps API setup and configuration
+1. **00-INDEX.md** - Documentation overview, quick reference, common patterns
+2. **01-SETUP-AND-DEPLOYMENT.md** - Installation, setup, deployment, and blog management
+3. **02-TECHNICAL-ARCHITECTURE.md** - Tech stack, architecture, components, data flow
+4. **03-DESIGN-SYSTEM.md** - Colors, typography, responsive design, accessibility
+5. **04-BUILD-AND-TROUBLESHOOTING.md** - Build configuration, common issues, migrations
 
 **IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
@@ -23,7 +19,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 ### Documentation Files
 - **Root**: `README.md` only (main project documentation, public-facing)
-- **misc/**: All technical documentation (consolidated files: 00-07, 09, MIGRATION)
+- **misc/**: All technical documentation (consolidated files: 00-INDEX, 01-SETUP-AND-DEPLOYMENT, 02-TECHNICAL-ARCHITECTURE, 03-DESIGN-SYSTEM, 04-BUILD-AND-TROUBLESHOOTING)
 - **workers/**: `README.md` (Cloudflare Workers API documentation)
 - **.github/**: `copilot-instructions.md` (this file)
 
@@ -287,15 +283,15 @@ chore: Update Angular to version 19.1
 ## Documentation
 
 ### When to Update Documentation
-- **Code changes**: Update relevant file in `misc/` (01-08)
-- **New features**: Update 01-TECHNICAL.md
-- **Architecture changes**: Update 02-ARCHITECTURE.md
-- **Theme changes**: Update 03-THEME.md
-- **Setup changes**: Update 04-SETUP.md
-- **Deployment changes**: Update 05-DEPLOYMENT.md
-- **Responsive changes**: Update 06-RESPONSIVE.md
-- **Build changes**: Update 07-BUILD.md
-- **Azure/API changes**: Update 08-AZURE-SETUP.md
+- **Code changes**: Update relevant file in `misc/` (00-04)
+- **New features**: Update 02-TECHNICAL-ARCHITECTURE.md
+- **Architecture changes**: Update 02-TECHNICAL-ARCHITECTURE.md
+- **Theme changes**: Update 03-DESIGN-SYSTEM.md
+- **Setup changes**: Update 01-SETUP-AND-DEPLOYMENT.md
+- **Deployment changes**: Update 01-SETUP-AND-DEPLOYMENT.md
+- **Responsive changes**: Update 03-DESIGN-SYSTEM.md
+- **Build changes**: Update 04-BUILD-AND-TROUBLESHOOTING.md
+- **API changes**: Update 01-SETUP-AND-DEPLOYMENT.md (API Setup section)
 
 ### Documentation Rules
 1. **NEVER create new .md files** - Update existing consolidated files
