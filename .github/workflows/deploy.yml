@@ -48,23 +48,71 @@ jobs:
             echo "Error: index.html not found in docs folder!"
             exit 1
           fi
-          echo "Build output verified successfully!"
+          echo "? Build output verified successfully!"
+          echo ""
+          echo "?? Contents of docs folder:"
+          ls -lh docs/
+          echo ""
+          echo "?? JavaScript files in docs:"
+          ls -lh docs/*.js
+          echo ""
+          echo "?? Checking for API URL in main.*.js:"
+          if grep -q "gentle-moss-0d321ce00" docs/main.*.js; then
+            echo "? Found Azure API URL (gentle-moss) in main.js"
+          elif grep -q "localhost:5091" docs/main.*.js; then
+            echo "? ERROR: Found localhost:5091 in main.js - WRONG ENVIRONMENT!"
+            exit 1
+          else
+            echo "?? WARNING: Could not find either URL in main.js"
+          fi
       
       - name: Copy .nojekyll
         run: |
           cp .nojekyll docs/
+          echo "? Copied .nojekyll to docs/"
       
       - name: Verify CNAME file
         run: |
           if [ ! -f "docs/CNAME" ]; then
-            echo "Warning: CNAME file not found in docs folder"
+            echo "?? Warning: CNAME file not found in docs folder"
             echo "rahul-a.in" > docs/CNAME
+            echo "? Created CNAME file with rahul-a.in"
+          else
+            echo "? CNAME file exists: $(cat docs/CNAME)"
           fi
-          echo "CNAME file verified: $(cat docs/CNAME)"
+      
+      - name: Show git status before deploy
+        run: |
+          echo "?? Git Status:"
+          git status
+          echo ""
+          echo "?? Git Diff (unstaged):"
+          git diff --stat || echo "No unstaged changes"
+          echo ""
+          echo "?? Git Diff (staged after add):"
+          git add docs/
+          git diff --cached --stat || echo "No staged changes"
+          echo ""
+          echo "?? Detailed diff of docs/ folder:"
+          git diff --cached --name-status docs/ || echo "No changes in docs/"
       
       - name: Deploy to GitHub Pages
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Deploy to GitHub Pages [skip ci]" && git push)
+          
+          echo "?? Attempting to deploy..."
+          
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "?? No changes detected - skipping deployment"
+            echo "This means the build produced identical files to what's already committed"
+          else
+            echo "? Changes detected - proceeding with deployment"
+            git commit -m "Deploy to GitHub Pages [skip ci]"
+            echo "?? Pushing to GitHub..."
+            git push
+            echo "? Successfully pushed to GitHub Pages!"
+            echo ""
+            echo "?? Your site will be updated at: https://rahul-a.in"
+            echo "? Allow 2-5 minutes for GitHub Pages to build and deploy"
+          fi
