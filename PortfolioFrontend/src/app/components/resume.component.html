@@ -4,46 +4,43 @@
   <p class="resume-subtitle">Experience, Skills & Education</p>
 </div>
 
-<!-- Loading State -->
-<div *ngIf="isLoading" class="loading-container">
-  <mat-card class="loading-card">
-    <div class="loading-state">
-      <mat-icon>hourglass_empty</mat-icon>
-      <p>Loading resume data...</p>
-    </div>
-  </mat-card>
-</div>
-
-<!-- Error State -->
-<div *ngIf="hasError && !isLoading" class="error-container">
-  <mat-card class="error-card">
-    <div class="error-state">
-      <mat-icon>error_outline</mat-icon>
-      <p>Failed to load resume data. Please try again later.</p>
-    </div>
-  </mat-card>
-</div>
-
 <!-- Content -->
-<mat-tab-group *ngIf="!isLoading && !hasError && resumeData">
-    <!-- Summary Tab -->
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon>description</mat-icon>
-        Summary
-      </ng-template>
-      <div class="tab-content">
-        <mat-card class="content-card">
-          <mat-card-header>
-            <mat-card-title class="card-title">
-              <mat-icon>person</mat-icon>
-              Professional Summary
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="card-text" *ngFor="let paragraph of getSummaryParagraphs()">
-              {{ paragraph }}
-            </p>
+<mat-tab-group (selectedTabChange)="onTabChange($event)">
+  <!-- Summary Tab -->
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>description</mat-icon>
+      Summary
+    </ng-template>
+    <div class="tab-content">
+      <!-- Loading State -->
+      <mat-card class="content-card" *ngIf="loadingState.summary">
+        <div class="loading-state">
+          <mat-icon>hourglass_empty</mat-icon>
+          <p>Loading summary...</p>
+        </div>
+      </mat-card>
+
+      <!-- Error State -->
+      <mat-card class="content-card" *ngIf="errorState.summary && !loadingState.summary">
+        <div class="error-state">
+          <mat-icon>error_outline</mat-icon>
+          <p>Failed to load summary.</p>
+        </div>
+      </mat-card>
+
+      <!-- Content -->
+      <mat-card class="content-card" *ngIf="resumeData.summary && !loadingState.summary">
+        <mat-card-header>
+          <mat-card-title class="card-title">
+            <mat-icon>person</mat-icon>
+            Professional Summary
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="card-text" *ngFor="let paragraph of getSummaryParagraphs()">
+            {{ paragraph }}
+          </p>
             <div class="card-actions">
               <button mat-raised-button class="action-button" (click)="downloadCV()">
                 <mat-icon>download</mat-icon>
@@ -62,7 +59,24 @@
         Skills
       </ng-template>
       <div class="tab-content">
-        <mat-card class="content-card">
+        <!-- Loading State -->
+        <mat-card class="content-card" *ngIf="loadingState.skills">
+          <div class="loading-state">
+            <mat-icon>hourglass_empty</mat-icon>
+            <p>Loading skills...</p>
+          </div>
+        </mat-card>
+
+        <!-- Error State -->
+        <mat-card class="content-card" *ngIf="errorState.skills && !loadingState.skills">
+          <div class="error-state">
+            <mat-icon>error_outline</mat-icon>
+            <p>Failed to load skills.</p>
+          </div>
+        </mat-card>
+
+        <!-- Content -->
+        <mat-card class="content-card" *ngIf="resumeData.skills && !loadingState.skills">
           <mat-card-header>
             <mat-card-title class="card-title">
               <mat-icon>verified</mat-icon>
@@ -90,7 +104,24 @@
         Tools
       </ng-template>
       <div class="tab-content">
-        <mat-card class="content-card">
+        <!-- Loading State -->
+        <mat-card class="content-card" *ngIf="loadingState.tools">
+          <div class="loading-state">
+            <mat-icon>hourglass_empty</mat-icon>
+            <p>Loading tools...</p>
+          </div>
+        </mat-card>
+
+        <!-- Error State -->
+        <mat-card class="content-card" *ngIf="errorState.tools && !loadingState.tools">
+          <div class="error-state">
+            <mat-icon>error_outline</mat-icon>
+            <p>Failed to load tools.</p>
+          </div>
+        </mat-card>
+
+        <!-- Content -->
+        <mat-card class="content-card" *ngIf="resumeData.tools && !loadingState.tools">
           <mat-card-header>
             <mat-card-title class="card-title">
               <mat-icon>construction</mat-icon>
@@ -122,7 +153,24 @@
         Experience
       </ng-template>
       <div class="tab-content">
-        <mat-card class="content-card">
+        <!-- Loading State -->
+        <mat-card class="content-card" *ngIf="loadingState.experience">
+          <div class="loading-state">
+            <mat-icon>hourglass_empty</mat-icon>
+            <p>Loading experience...</p>
+          </div>
+        </mat-card>
+
+        <!-- Error State -->
+        <mat-card class="content-card" *ngIf="errorState.experience && !loadingState.experience">
+          <div class="error-state">
+            <mat-icon>error_outline</mat-icon>
+            <p>Failed to load experience.</p>
+          </div>
+        </mat-card>
+
+        <!-- Content -->
+        <mat-card class="content-card" *ngIf="resumeData.experience && !loadingState.experience">
           <mat-card-header>
             <mat-card-title class="card-title">
               <mat-icon>business_center</mat-icon>
@@ -154,7 +202,24 @@
         Education
       </ng-template>
       <div class="tab-content">
-        <mat-card class="content-card">
+        <!-- Loading State -->
+        <mat-card class="content-card" *ngIf="loadingState.education">
+          <div class="loading-state">
+            <mat-icon>hourglass_empty</mat-icon>
+            <p>Loading education...</p>
+          </div>
+        </mat-card>
+
+        <!-- Error State -->
+        <mat-card class="content-card" *ngIf="errorState.education && !loadingState.education">
+          <div class="error-state">
+            <mat-icon>error_outline</mat-icon>
+            <p>Failed to load education.</p>
+          </div>
+        </mat-card>
+
+        <!-- Content -->
+        <mat-card class="content-card" *ngIf="resumeData.education && !loadingState.education">
           <mat-card-header>
             <mat-card-title class="card-title">
               <mat-icon>school</mat-icon>
@@ -181,3 +246,4 @@
     </mat-tab>
   </mat-tab-group>
 </section>
+

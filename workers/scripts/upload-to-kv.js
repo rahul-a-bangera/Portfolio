@@ -52,7 +52,55 @@ async function main() {
   let successCount = 0;
   let failCount = 0;
 
-  console.log('[INFO] Uploading resume data...');
+  console.log('[INFO] Uploading resume data in separate sections...');
+  
+  // Upload personal info + short summary (for home page)
+  const resumePersonal = {
+    personalInfo: resumeData.personalInfo,
+    shortSummary: resumeData.shortSummary
+  };
+  if (uploadToKV('resume:personal', resumePersonal)) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Upload full summary (for resume page - Summary tab)
+  if (uploadToKV('resume:summary', { summary: resumeData.summary })) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Upload skills (for resume page - Skills tab)
+  if (uploadToKV('resume:skills', { skills: resumeData.skills })) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Upload tools (for resume page - Tools tab)
+  if (uploadToKV('resume:tools', { tools: resumeData.tools })) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Upload experience (for resume page - Experience tab)
+  if (uploadToKV('resume:experience', { experience: resumeData.experience })) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Upload education (for resume page - Education tab)
+  if (uploadToKV('resume:education', { education: resumeData.education })) {
+    successCount++;
+  } else {
+    failCount++;
+  }
+
+  // Also upload complete resume data for backward compatibility
   if (uploadToKV('resume:data', resumeData)) {
     successCount++;
   } else {
@@ -92,7 +140,15 @@ async function main() {
   }
   console.log('='.repeat(50) + '\n');
 
-  console.log('[INFO] Next steps:');
+  console.log('[INFO] Resume sections uploaded:');
+  console.log('  - resume:personal (for home page)');
+  console.log('  - resume:summary (Summary tab)');
+  console.log('  - resume:skills (Skills tab)');
+  console.log('  - resume:tools (Tools tab)');
+  console.log('  - resume:experience (Experience tab)');
+  console.log('  - resume:education (Education tab)');
+  console.log('  - resume:data (complete data - backward compatibility)');
+  console.log('\n[INFO] Next steps:');
   console.log('1. Verify uploads in Cloudflare Dashboard');
   console.log('2. Deploy workers: npm run deploy');
   console.log('3. Test API endpoints');

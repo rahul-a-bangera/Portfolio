@@ -1,5 +1,6 @@
 export interface ResumeData {
   personalInfo: PersonalInfo;
+  shortSummary: string;
   summary: string;
   skills: SkillsInfo;
   tools: Tool[];

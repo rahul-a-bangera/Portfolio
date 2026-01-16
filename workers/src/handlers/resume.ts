@@ -1,6 +1,7 @@
 /**
  * Resume API Handler
  * Fetches resume/CV data from Cloudflare KV
+ * Supports endpoints for different resume sections for optimized loading
  */
 
 export async function handleResume(
@@ -22,15 +23,38 @@ export async function handleResume(
   }
 
   try {
-    // Fetch resume data from KV
-    const resumeData = await env.PORTFOLIO_DATA.get('resume:data', 'json');
+    const url = new URL(request.url);
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const section = pathParts[pathParts.length - 1];
 
-    if (!resumeData) {
-      console.error('[ERROR] Resume data not found in KV');
+    let kvKey = 'resume:data';
+    let cacheMaxAge = 3600;
+
+    // Determine which section to fetch
+    if (section === 'personal') {
+      kvKey = 'resume:personal';
+    } else if (section === 'summary') {
+      kvKey = 'resume:summary';
+    } else if (section === 'skills') {
+      kvKey = 'resume:skills';
+    } else if (section === 'tools') {
+      kvKey = 'resume:tools';
+    } else if (section === 'experience') {
+      kvKey = 'resume:experience';
+    } else if (section === 'education') {
+      kvKey = 'resume:education';
+    }
+    // else defaults to 'resume:data' for full resume
+
+    // Fetch data from KV
+    const data = await env.PORTFOLIO_DATA.get(kvKey, 'json');
+
+    if (!data) {
+      console.error(`[ERROR] Resume data not found in KV: ${kvKey}`);
       return new Response(
         JSON.stringify({ 
           error: 'Not Found', 
-          message: 'Resume data not available. Please contact the administrator.' 
+          message: `Resume data not available: ${section}` 
         }),
         {
           status: 404,
@@ -42,11 +66,11 @@ export async function handleResume(
       );
     }
 
-    return new Response(JSON.stringify(resumeData), {
+    return new Response(JSON.stringify(data), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600, s-maxage=7200',
+        'Cache-Control': `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge * 2}`,
         ...corsHeaders,
       },
     });

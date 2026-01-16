@@ -13,10 +13,10 @@
       <h1 class="profile-name">{{ resumeData.personalInfo.name }}</h1>
       <p class="profile-title">{{ resumeData.personalInfo.title }}</p>
     </div>
-    <mat-card-content class="card-content">
-      <p class="card-description">
-        {{ resumeData.summary }}
-      </p>
+      <mat-card-content class="card-content">
+        <p class="card-description">
+          {{ resumeData.shortSummary }}
+        </p>
       <div class="card-actions">
         <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
           <mat-icon>download</mat-icon>

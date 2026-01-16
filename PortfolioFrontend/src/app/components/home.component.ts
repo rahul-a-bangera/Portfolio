@@ -160,14 +160,24 @@ ngOnDestroy(): void {
     this.isLoadingResume = true;
     this.resumeError = false;
     
-    this.resumeSubscription = this.resumeService.getResume().subscribe({
-      next: (data: ResumeData) => {
-        this.resumeData = data;
+    // Use getPersonalInfo() for faster home page load
+    this.resumeSubscription = this.resumeService.getPersonalInfo().subscribe({
+      next: (data: any) => {
+        // Transform personal info data to match ResumeData interface
+        this.resumeData = {
+          personalInfo: data.personalInfo,
+          shortSummary: data.shortSummary,
+          summary: '', // Not needed for home page
+          skills: { technical: [], frontend: [], backend: [], cloud: [], database: [], tools: [] },
+          tools: [],
+          experience: [],
+          education: []
+        };
         this.isLoadingResume = false;
-        console.log('[HOME] Resume data loaded successfully');
+        console.log('[HOME] Personal info loaded successfully');
       },
       error: (error) => {
-        console.error('[HOME] Failed to load resume data:', error);
+        console.error('[HOME] Failed to load personal info:', error);
         this.resumeError = true;
         this.isLoadingResume = false;
       }
