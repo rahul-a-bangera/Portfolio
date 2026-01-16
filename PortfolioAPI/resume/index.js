@@ -135,7 +135,7 @@ module.exports = async function (context, req) {
     }
     catch (error) {
         context.log.error('=== ERROR in Resume Function ===');
-        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error type:', error.constructor?.name);
         context.log.error('Error message:', error.message);
         context.log.error('Error stack:', error.stack);
         context.res = {

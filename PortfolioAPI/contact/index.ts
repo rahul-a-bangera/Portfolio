@@ -1,10 +1,8 @@
-import { Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from '../types';
 
 module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('=== Contact Function Started ===');
     context.log('Method:', req.method);
-    context.log('URL:', req.url);
-    context.log('Headers:', JSON.stringify(req.headers));
     
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
@@ -23,9 +21,6 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
 
     try {
         context.log('Processing GET request...');
-        context.log('Checking environment variables...');
-        context.log('CONTACT_EMAIL exists:', !!process.env.CONTACT_EMAIL);
-        context.log('CONTACT_PHONE exists:', !!process.env.CONTACT_PHONE);
         
         const contactInfo = {
             email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
@@ -37,8 +32,7 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
             }
         };
 
-        context.log('Contact info object created successfully');
-        context.log('Setting response...');
+        context.log('Contact info created successfully');
 
         context.res = {
             status: 200,
@@ -51,14 +45,10 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
             body: contactInfo
         };
         
-        context.log('Response set successfully');
-        context.log('Status:', context.res.status);
         context.log('=== Contact Function Completed Successfully ===');
-    } catch (error) {
-        context.log.error('=== ERROR in Contact Function ===');
-        context.log.error('Error type:', error.constructor.name);
-        context.log.error('Error message:', error.message);
-        context.log.error('Error stack:', error.stack);
+    } catch (error: any) {
+        context.log('=== ERROR in Contact Function ===');
+        context.log('Error:', error.message);
         
         context.res = {
             status: 500,
@@ -68,10 +58,8 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
             },
             body: { 
                 error: "Failed to fetch contact info",
-                details: error.message,
-                timestamp: new Date().toISOString()
+                details: error.message
             }
         };
-        context.log.error('Error response set');
     }
 }

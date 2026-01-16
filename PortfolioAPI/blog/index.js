@@ -88,7 +88,7 @@ module.exports = async function (context, req) {
             }
         ];
         context.log('Blog posts array created, count:', blogPosts.length);
-        const slug = req.params.slug;
+        const slug = req.params?.slug;
         context.log('Slug parameter:', slug || 'none (returning all posts)');
         if (slug) {
             context.log('Searching for specific post with slug:', slug);
@@ -138,7 +138,7 @@ module.exports = async function (context, req) {
     }
     catch (error) {
         context.log.error('=== ERROR in Blog Function ===');
-        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error type:', error.constructor?.name);
         context.log.error('Error message:', error.message);
         context.log.error('Error stack:', error.stack);
         context.res = {

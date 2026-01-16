@@ -1,4 +1,4 @@
-import { Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from '../types';
 
 module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('=== Blog Function Started ===');
@@ -95,7 +95,7 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
         context.log('Blog posts array created, count:', blogPosts.length);
 
         // Get slug from route parameters if provided
-        const slug = req.params.slug;
+        const slug = req.params?.slug;
         context.log('Slug parameter:', slug || 'none (returning all posts)');
 
         if (slug) {
@@ -147,9 +147,9 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
         
         context.log('Status:', context.res.status);
         context.log('=== Blog Function Completed Successfully ===');
-    } catch (error) {
+    } catch (error: any) {
         context.log.error('=== ERROR in Blog Function ===');
-        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error type:', error.constructor?.name);
         context.log.error('Error message:', error.message);
         context.log.error('Error stack:', error.stack);
         

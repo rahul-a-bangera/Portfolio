@@ -1,4 +1,4 @@
-import { Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from '../types';
 
 module.exports = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('=== Resume Function Started ===');
@@ -139,9 +139,9 @@ module.exports = async function (context: Context, req: HttpRequest): Promise<vo
         context.log('Response set successfully');
         context.log('Status:', context.res.status);
         context.log('=== Resume Function Completed Successfully ===');
-    } catch (error) {
+    } catch (error: any) {
         context.log.error('=== ERROR in Resume Function ===');
-        context.log.error('Error type:', error.constructor.name);
+        context.log.error('Error type:', error.constructor?.name);
         context.log.error('Error message:', error.message);
         context.log.error('Error stack:', error.stack);
         
