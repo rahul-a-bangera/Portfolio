@@ -28,15 +28,9 @@ jobs:
         with:
           node-version: '20'
       
-      - name: Build TypeScript API Functions
+      - name: Verify API functions exist
         run: |
-          cd PortfolioAPI
-          npm ci
-          npm run build
-      
-      - name: Verify compiled functions exist
-        run: |
-          echo "Checking for compiled JavaScript files..."
+          echo "Checking for JavaScript files..."
           ls -la PortfolioAPI/contact/
           ls -la PortfolioAPI/resume/
           ls -la PortfolioAPI/blog/
