@@ -1,26 +1,27 @@
-"use strict";
-
-module.exports = async function (context, req) {
-    context.log('=== Contact Function Started ===');
-    context.log('Method:', req.method);
-    context.log('URL:', req.url);
+const contactFunction = async function (context, req) {
+    const logPrefix = '[CONTACT]';
     
+    context.log(`${logPrefix} Function triggered`);
+    context.log(`${logPrefix} Method: ${req.method}`);
+    
+    // Handle CORS preflight
     if (req.method === "OPTIONS") {
-        context.log('Handling OPTIONS request (CORS preflight)');
+        context.log(`${logPrefix} Handling OPTIONS preflight`);
         context.res = {
             status: 200,
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
-            }
+            },
+            body: null
         };
-        context.log('OPTIONS response set, returning');
         return;
     }
 
+    // Handle GET request
     try {
-        context.log('Building contact info object...');
+        context.log(`${logPrefix} Processing GET request`);
         
         const contactInfo = {
             email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
@@ -32,8 +33,7 @@ module.exports = async function (context, req) {
             }
         };
 
-        context.log('Contact info object created successfully');
-        context.log('Setting response...');
+        context.log(`${logPrefix} Returning contact data`);
 
         context.res = {
             status: 200,
@@ -46,12 +46,10 @@ module.exports = async function (context, req) {
             body: contactInfo
         };
         
-        context.log('Response set successfully, status:', context.res.status);
-        context.log('=== Contact Function Completed ===');
+        context.log(`${logPrefix} Success`);
     } catch (error) {
-        context.log.error('=== Contact Function Error ===');
-        context.log.error('Error message:', error.message);
-        context.log.error('Error stack:', error.stack);
+        context.log.error(`${logPrefix} Error: ${error.message}`);
+        context.log.error(`${logPrefix} Stack: ${error.stack}`);
         
         context.res = {
             status: 500,
@@ -60,9 +58,11 @@ module.exports = async function (context, req) {
                 "Access-Control-Allow-Origin": "*"
             },
             body: { 
-                error: "Failed to fetch contact info",
-                details: error.message
+                error: "Internal server error",
+                message: error.message
             }
         };
     }
 };
+
+module.exports = contactFunction;

@@ -1,0 +1,17 @@
+*.js.map
+*.ts.map
+*.ts
+.git*
+.vscode
+local.settings.json
+test
+tsconfig.json
+.DS_Store
+node_modules
+.env
+.env.local
+.env.development
+README.md
+types.ts
+*.log
+npm-debug.log*
