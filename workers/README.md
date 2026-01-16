@@ -2,6 +2,8 @@
 
 This directory contains the Cloudflare Workers implementation for the Portfolio API endpoints.
 
+**Status:** Ready for deployment
+
 ## Structure
 
 ```
