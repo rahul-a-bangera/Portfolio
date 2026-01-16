@@ -68,6 +68,15 @@
   animation: profileGlow 3s ease-in-out infinite;
 }
 
+.initials-avatar {
+  font-size: 48px;
+  font-weight: 700;
+  color: #00ff96;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  text-shadow: 0 0 10px rgba(0, 255, 150, 0.8);
+  letter-spacing: 4px;
+}
+
 @keyframes profileGlow {
   0%, 100% {
     box-shadow: 
@@ -88,6 +97,45 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
+}
+
+.loading-card {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #00ff96;
+  animation: pulse 1.5s ease-in-out infinite;
+  margin-bottom: 16px;
+}
+
+.loading-state p {
+  color: rgba(0, 255, 150, 0.8);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
 }
 
 .profile-name {

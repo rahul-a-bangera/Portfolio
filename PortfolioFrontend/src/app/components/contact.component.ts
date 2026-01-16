@@ -30,6 +30,13 @@ export class ContactComponent implements OnInit {
     );
   }
 
+  getPhoneHref(): string {
+    if (!this.contactInfo?.phone) {
+      return '#';
+    }
+    return 'tel:' + this.contactInfo.phone.replace(/\s/g, '');
+  }
+
   getSocialLinks(): { name: string; url: string }[] {
     if (!this.contactInfo || !this.contactInfo.socialLinks) {
       return [];

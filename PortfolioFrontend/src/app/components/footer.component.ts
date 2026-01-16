@@ -1,9 +1,12 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Subscription } from 'rxjs';
 import { AmbientControlService, AmbientSettings } from '../services/ambient-control.service';
+import { ContactService } from '../services/contact.service';
+import { ContactInfo } from '../models/contact.model';
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +16,7 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
     <footer class="footer-container">
       <div class="footer-content">
         <div class="footer-left">
-          <span class="footer-text">© 2024 Rahul A. All rights reserved.</span>
+          <span class="footer-text">© 2024 {{ portfolioName }}. All rights reserved.</span>
         </div>
         
         <div class="footer-center">
@@ -59,10 +62,20 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
         </div>
         
         <div class="footer-right">
-          <a href="https://github.com/rahul-a-bangera" target="_blank" rel="noopener noreferrer" class="footer-link">
+          <a *ngIf="githubUrl" 
+             [href]="githubUrl" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="footer-link"
+             title="GitHub">
             <mat-icon>code</mat-icon>
           </a>
-          <a href="https://www.linkedin.com/in/rahul-bangera/" target="_blank" rel="noopener noreferrer" class="footer-link">
+          <a *ngIf="linkedinUrl" 
+             [href]="linkedinUrl" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="footer-link"
+             title="LinkedIn">
             <mat-icon>business</mat-icon>
           </a>
         </div>
@@ -388,7 +401,7 @@ import { AmbientControlService, AmbientSettings } from '../services/ambient-cont
     }
   `]
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit, OnDestroy {
   menuOpen = false;
   settings: AmbientSettings = {
     systemStats: true,
@@ -396,12 +409,29 @@ export class FooterComponent {
     dotGrid: true
   };
   isAllEnabled = true;
+  portfolioName = 'Portfolio';
+  githubUrl = '';
+  linkedinUrl = '';
+  private contactSubscription?: Subscription;
 
-  constructor(private ambientService: AmbientControlService) {
+  constructor(
+    private ambientService: AmbientControlService,
+    private contactService: ContactService
+  ) {
     this.ambientService.ambientSettings$.subscribe(settings => {
       this.settings = settings;
       this.isAllEnabled = this.ambientService.isAllEnabled();
     });
+  }
+
+  ngOnInit(): void {
+    this.loadContactInfo();
+  }
+
+  ngOnDestroy(): void {
+    if (this.contactSubscription) {
+      this.contactSubscription.unsubscribe();
+    }
   }
 
   toggleMenu(): void {
@@ -424,4 +454,30 @@ export class FooterComponent {
     const newState = !this.isAllEnabled;
     this.ambientService.toggleAll(newState);
   }
+
+  private loadContactInfo(): void {
+    this.contactSubscription = this.contactService.getContactInfo().subscribe({
+      next: (contactInfo: ContactInfo) => {
+        // Extract name from email or use default
+        if (contactInfo.email) {
+          const name = contactInfo.email.split('@')[0].split('.').map((part: string) => 
+            part.charAt(0).toUpperCase() + part.slice(1)
+          ).join(' ');
+          this.portfolioName = name;
+        }
+        
+        // Set social links
+        if (contactInfo.socialLinks) {
+          this.githubUrl = contactInfo.socialLinks['GitHub'] || '';
+          this.linkedinUrl = contactInfo.socialLinks['LinkedIn'] || '';
+        }
+      },
+      error: (error) => {
+        console.error('[FOOTER] Failed to load contact info:', error);
+        // Use defaults on error
+        this.portfolioName = 'Portfolio';
+      }
+    });
+  }
 }
+

@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <div class="contact-content">
+  <div class="contact-content" *ngIf="contactInfo; else loading">
     <div class="contact-info-section">
       <div class="info-card">
         <div class="info-icon">
@@ -15,9 +15,7 @@
         <div class="info-content">
           <p class="info-label">Email Address</p>
           <p class="info-value">
-            <a href="mailto:rahul.bangera.999&#64;gmail.com"
-              >rahul.bangera.999&#64;gmail.com</a
-            >
+            <a [href]="'mailto:' + contactInfo.email">{{ contactInfo.email }}</a>
           </p>
           <p class="info-description">Send me an email for any inquiries</p>
         </div>
@@ -30,7 +28,7 @@
         <div class="info-content">
           <p class="info-label">Phone Number</p>
           <p class="info-value">
-            <a href="tel:+919663885365">+91 9663 885 365</a>
+            <a [href]="getPhoneHref()">{{ contactInfo.phone }}</a>
           </p>
           <p class="info-description">Call me during business hours</p>
         </div>
@@ -42,9 +40,9 @@
         </div>
         <div class="info-content">
           <p class="info-label">Location</p>
-          <p class="info-value">Mangalore, Karnataka</p>
+          <p class="info-value">Available for Remote Work</p>
           <p class="info-description">
-            Based in Mangalore, India - Open to remote opportunities
+            Open to remote and on-site opportunities
           </p>
         </div>
       </div>
@@ -64,21 +62,44 @@
     </div>
   </div>
 
-  <div class="social-section">
+  <ng-template #loading>
+    <div class="contact-content">
+      <div class="loading-state">
+        <mat-icon>hourglass_empty</mat-icon>
+        <p>Loading contact information...</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="social-section" *ngIf="contactInfo && contactInfo.socialLinks">
     <h3 class="social-title">Connect With Me</h3>
     <div class="social-links">
-      <a href="#" class="social-link" title="GitHub">
+      <a *ngIf="contactInfo.socialLinks['GitHub']" 
+         [href]="contactInfo.socialLinks['GitHub']" 
+         class="social-link" 
+         target="_blank"
+         rel="noopener noreferrer"
+         title="GitHub">
         <mat-icon>code</mat-icon>
       </a>
-      <a href="#" class="social-link" title="LinkedIn">
+      <a *ngIf="contactInfo.socialLinks['LinkedIn']" 
+         [href]="contactInfo.socialLinks['LinkedIn']" 
+         class="social-link" 
+         target="_blank"
+         rel="noopener noreferrer"
+         title="LinkedIn">
         <mat-icon>business</mat-icon>
       </a>
-      <a href="#" class="social-link" title="Twitter">
+      <a *ngIf="contactInfo.socialLinks['Twitter']" 
+         [href]="contactInfo.socialLinks['Twitter']" 
+         class="social-link" 
+         target="_blank"
+         rel="noopener noreferrer"
+         title="Twitter">
         <mat-icon>share</mat-icon>
-      </a>
-      <a href="#" class="social-link" title="Portfolio">
-        <mat-icon>language</mat-icon>
       </a>
     </div>
   </div>
 </section>
+
+

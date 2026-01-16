@@ -1,42 +1,54 @@
 <section id="home" class="home-container">
-  <!-- Ambient Components -->
-  <app-dot-grid *ngIf="ambientSettings.dotGrid"></app-dot-grid>
-  <app-system-stats *ngIf="ambientSettings.systemStats"></app-system-stats>
-  <app-click-spark *ngIf="ambientSettings.clickSpark"></app-click-spark>
+<!-- Ambient Components -->
+<app-dot-grid *ngIf="ambientSettings.dotGrid"></app-dot-grid>
+<app-system-stats *ngIf="ambientSettings.systemStats"></app-system-stats>
+<app-click-spark *ngIf="ambientSettings.clickSpark"></app-click-spark>
 
-  <div class="home-card-wrapper">
-    <mat-card class="home-card">
-      <div class="card-header">
-        <div class="profile-image">
-          <img src="assets/profile.jpg" alt="Rahul A - Profile Picture" class="profile-pic">
-        </div>
-        <h1 class="profile-name">Rahul A</h1>
-        <p class="profile-title">Software Engineer | .NET & Azure Specialist</p>
+<div class="home-card-wrapper">
+  <mat-card class="home-card" *ngIf="resumeData && !isLoadingResume; else loadingResume">
+    <div class="card-header">
+      <div class="profile-image">
+        <div class="initials-avatar">{{ getInitials() }}</div>
       </div>
-      <mat-card-content class="card-content">
-        <p class="card-description">
-          Software Engineer with 4+ years of experience in .NET technologies including C#, .NET Core, and Azure cloud services.
-          Specialized in building retail POS applications, payment integrations, and microservices. Strong in problem-solving,
-          debugging, and delivering reliable solutions under tight timelines.
-        </p>
-        <div class="card-actions">
-          <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
-            <mat-icon>download</mat-icon>
-            Download CV
-          </button>
-        </div>
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/rahul-bangera/" target="_blank" rel="noopener noreferrer" class="social-link linkedin" title="Connect on LinkedIn">
-            <mat-icon>link</mat-icon>
-            <span class="social-label">LinkedIn</span>
-          </a>
-          <button mat-button class="social-link contact" title="Contact Information" (click)="toggleContactPopup()">
-            <mat-icon>email</mat-icon>
-            <span class="social-label">Contact</span>
-          </button>
-        </div>
-      </mat-card-content>
+      <h1 class="profile-name">{{ resumeData.personalInfo.name }}</h1>
+      <p class="profile-title">{{ resumeData.personalInfo.title }}</p>
+    </div>
+    <mat-card-content class="card-content">
+      <p class="card-description">
+        {{ resumeData.summary }}
+      </p>
+      <div class="card-actions">
+        <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
+          <mat-icon>download</mat-icon>
+          Download CV
+        </button>
+      </div>
+      <div class="social-links">
+        <a *ngIf="resumeData.personalInfo.linkedin" 
+           [href]="resumeData.personalInfo.linkedin" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="social-link linkedin" 
+           title="Connect on LinkedIn">
+          <mat-icon>link</mat-icon>
+          <span class="social-label">LinkedIn</span>
+        </a>
+        <button mat-button class="social-link contact" title="Contact Information" (click)="toggleContactPopup()">
+          <mat-icon>email</mat-icon>
+          <span class="social-label">Contact</span>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-template #loadingResume>
+    <mat-card class="home-card loading-card">
+      <div class="loading-state">
+        <mat-icon>hourglass_empty</mat-icon>
+        <p>Loading profile...</p>
+      </div>
     </mat-card>
+  </ng-template>
 
     <!-- Contact Info Popup -->
     <div class="contact-popup-overlay" *ngIf="showContactPopup" (click)="closeContactPopup()">
