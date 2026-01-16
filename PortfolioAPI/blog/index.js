@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const blogHandler = async function (context, req) {
+exports.default = default_1;
+async function default_1(context, req) {
+    context.log('Blog function triggered');
     if (req.method === "OPTIONS") {
         context.res = {
             status: 200,
@@ -90,7 +92,7 @@ const blogHandler = async function (context, req) {
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    body: { error: "Blog post not found" }
+                    body: JSON.stringify({ error: "Blog post not found" })
                 };
                 return;
             }
@@ -102,7 +104,7 @@ const blogHandler = async function (context, req) {
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: post
+                body: JSON.stringify(post)
             };
         }
         else {
@@ -114,7 +116,7 @@ const blogHandler = async function (context, req) {
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: blogPosts
+                body: JSON.stringify(blogPosts)
             };
         }
     }
@@ -126,8 +128,7 @@ const blogHandler = async function (context, req) {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch blog data" }
+            body: JSON.stringify({ error: "Failed to fetch blog data" })
         };
     }
-};
-exports.default = blogHandler;
+}

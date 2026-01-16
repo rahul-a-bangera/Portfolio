@@ -1,6 +1,8 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from "@azure/functions";
 
-const blogHandler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+export default async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log('Blog function triggered');
+    
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
         context.res = {
@@ -98,7 +100,7 @@ const blogHandler: AzureFunction = async function (context: Context, req: HttpRe
                         "Content-Type": "application/json",
                         "Access-Control-Allow-Origin": "*"
                     },
-                    body: { error: "Blog post not found" }
+                    body: JSON.stringify({ error: "Blog post not found" })
                 };
                 return;
             }
@@ -111,7 +113,7 @@ const blogHandler: AzureFunction = async function (context: Context, req: HttpRe
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: post
+                body: JSON.stringify(post)
             };
         } else {
             // Return all blog posts
@@ -123,7 +125,7 @@ const blogHandler: AzureFunction = async function (context: Context, req: HttpRe
                     "Access-Control-Allow-Methods": "GET, OPTIONS",
                     "Access-Control-Allow-Headers": "Content-Type, Authorization"
                 },
-                body: blogPosts
+                body: JSON.stringify(blogPosts)
             };
         }
     } catch (error) {
@@ -134,9 +136,7 @@ const blogHandler: AzureFunction = async function (context: Context, req: HttpRe
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch blog data" }
+            body: JSON.stringify({ error: "Failed to fetch blog data" })
         };
     }
-};
-
-export default blogHandler;
+}

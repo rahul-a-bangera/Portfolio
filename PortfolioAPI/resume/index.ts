@@ -1,6 +1,8 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from "@azure/functions";
 
-const resumeHandler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+export default async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log('Resume function triggered');
+    
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
         context.res = {
@@ -121,7 +123,7 @@ const resumeHandler: AzureFunction = async function (context: Context, req: Http
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            body: resumeData
+            body: JSON.stringify(resumeData)
         };
     } catch (error) {
         context.log.error("Error fetching resume data:", error);
@@ -131,9 +133,7 @@ const resumeHandler: AzureFunction = async function (context: Context, req: Http
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch resume data" }
+            body: JSON.stringify({ error: "Failed to fetch resume data" })
         };
     }
-};
-
-export default resumeHandler;
+}

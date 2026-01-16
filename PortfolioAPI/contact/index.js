@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const contactHandler = async function (context, req) {
+exports.default = default_1;
+async function default_1(context, req) {
+    context.log('Contact function triggered');
     if (req.method === "OPTIONS") {
         context.res = {
             status: 200,
@@ -14,11 +16,11 @@ const contactHandler = async function (context, req) {
     }
     try {
         const contactInfo = {
-            email: process.env.CONTACT_EMAIL || "",
-            phone: process.env.CONTACT_PHONE || "",
+            email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
+            phone: process.env.CONTACT_PHONE || "+91 9663885365",
             socialLinks: {
-                LinkedIn: process.env.CONTACT_LINKEDIN || "",
-                GitHub: process.env.CONTACT_GITHUB || "",
+                LinkedIn: process.env.CONTACT_LINKEDIN || "https://www.linkedin.com/in/rahul-bangera/",
+                GitHub: process.env.CONTACT_GITHUB || "https://github.com/rahul-a-bangera",
                 Twitter: process.env.CONTACT_TWITTER || ""
             }
         };
@@ -30,7 +32,7 @@ const contactHandler = async function (context, req) {
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            body: contactInfo
+            body: JSON.stringify(contactInfo)
         };
     }
     catch (error) {
@@ -41,8 +43,7 @@ const contactHandler = async function (context, req) {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch contact info" }
+            body: JSON.stringify({ error: "Failed to fetch contact info" })
         };
     }
-};
-exports.default = contactHandler;
+}

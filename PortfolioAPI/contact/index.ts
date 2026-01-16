@@ -1,6 +1,8 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { Context, HttpRequest } from "@azure/functions";
 
-const contactHandler: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+export default async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log('Contact function triggered');
+    
     // Handle CORS preflight
     if (req.method === "OPTIONS") {
         context.res = {
@@ -16,11 +18,11 @@ const contactHandler: AzureFunction = async function (context: Context, req: Htt
 
     try {
         const contactInfo = {
-            email: process.env.CONTACT_EMAIL || "",
-            phone: process.env.CONTACT_PHONE || "",
+            email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
+            phone: process.env.CONTACT_PHONE || "+91 9663885365",
             socialLinks: {
-                LinkedIn: process.env.CONTACT_LINKEDIN || "",
-                GitHub: process.env.CONTACT_GITHUB || "",
+                LinkedIn: process.env.CONTACT_LINKEDIN || "https://www.linkedin.com/in/rahul-bangera/",
+                GitHub: process.env.CONTACT_GITHUB || "https://github.com/rahul-a-bangera",
                 Twitter: process.env.CONTACT_TWITTER || ""
             }
         };
@@ -33,7 +35,7 @@ const contactHandler: AzureFunction = async function (context: Context, req: Htt
                 "Access-Control-Allow-Methods": "GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             },
-            body: contactInfo
+            body: JSON.stringify(contactInfo)
         };
     } catch (error) {
         context.log.error("Error fetching contact info:", error);
@@ -43,9 +45,7 @@ const contactHandler: AzureFunction = async function (context: Context, req: Htt
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: { error: "Failed to fetch contact info" }
+            body: JSON.stringify({ error: "Failed to fetch contact info" })
         };
     }
-};
-
-export default contactHandler;
+}
