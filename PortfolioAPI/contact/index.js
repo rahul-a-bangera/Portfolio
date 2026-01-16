@@ -1,9 +1,12 @@
-// Plain JavaScript for Azure Static Web Apps compatibility
+"use strict";
+
 module.exports = async function (context, req) {
-    context.log('[CONTACT] Function started');
+    context.log('=== Contact Function Started ===');
+    context.log('Method:', req.method);
+    context.log('URL:', req.url);
     
-    // Handle CORS preflight
     if (req.method === "OPTIONS") {
+        context.log('Handling OPTIONS request (CORS preflight)');
         context.res = {
             status: 200,
             headers: {
@@ -12,10 +15,13 @@ module.exports = async function (context, req) {
                 "Access-Control-Allow-Headers": "Content-Type, Authorization"
             }
         };
+        context.log('OPTIONS response set, returning');
         return;
     }
 
     try {
+        context.log('Building contact info object...');
+        
         const contactInfo = {
             email: process.env.CONTACT_EMAIL || "rahul.bangera.999@gmail.com",
             phone: process.env.CONTACT_PHONE || "+91 9663885365",
@@ -26,7 +32,8 @@ module.exports = async function (context, req) {
             }
         };
 
-        context.log('[CONTACT] Returning contact info');
+        context.log('Contact info object created successfully');
+        context.log('Setting response...');
 
         context.res = {
             status: 200,
@@ -38,8 +45,14 @@ module.exports = async function (context, req) {
             },
             body: contactInfo
         };
+        
+        context.log('Response set successfully, status:', context.res.status);
+        context.log('=== Contact Function Completed ===');
     } catch (error) {
-        context.log.error('[CONTACT] Error:', error);
+        context.log.error('=== Contact Function Error ===');
+        context.log.error('Error message:', error.message);
+        context.log.error('Error stack:', error.stack);
+        
         context.res = {
             status: 500,
             headers: {
