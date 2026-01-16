@@ -9,12 +9,18 @@ compatibility_flags = ["nodejs_compat"]
 # pattern = "api.rahul-a.in/*"
 # zone_name = "rahul-a.in"
 
+# KV Namespace for storing portfolio data
+[[kv_namespaces]]
+binding = "PORTFOLIO_DATA"
+id = "a67be4550dfb4a648ac1b7a71204f1ce"
+preview_id = "09a253a2f12f4561803091801b1297fb"
+
 # Environment Variables (Optional - can be set in Cloudflare Dashboard)
 [vars]
-CONTACT_EMAIL = "rahul.bangera.999@gmail.com"
-CONTACT_PHONE = "+91 9663885365"
-CONTACT_LINKEDIN = "https://www.linkedin.com/in/rahul-bangera/"
-CONTACT_GITHUB = "https://github.com/rahul-a-bangera"
+CONTACT_EMAIL = "contact@example.com"  # Placeholder - real data in KV
+CONTACT_PHONE = "+00 0000 000000"      # Placeholder - real data in KV
+CONTACT_LINKEDIN = "https://linkedin.com/in/yourname"  # Placeholder
+CONTACT_GITHUB = "https://github.com/username"          # Placeholder
 CONTACT_TWITTER = ""
 
 # Development configuration

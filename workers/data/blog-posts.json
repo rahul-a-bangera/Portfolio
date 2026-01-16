@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "slug": "getting-started-angular-19",
+    "title": "Getting Started with Angular 19",
+    "description": "Explore the new features and improvements in Angular 19, including standalone components, signals, and performance enhancements.",
+    "content": "Angular 19 brings exciting new features and improvements that make building web applications faster and more enjoyable. In this comprehensive guide, we'll explore the latest additions to the Angular framework...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2024-01-15",
+    "tags": ["Angular", "TypeScript", "Web Development"],
+    "imageUrl": "/assets/blog/angular-19.jpg",
+    "readTime": "8 min read",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "slug": "building-restful-apis-dotnet-core",
+    "title": "Building RESTful APIs with .NET Core",
+    "description": "Learn best practices for designing and implementing RESTful APIs using .NET Core and Entity Framework.",
+    "content": ".NET Core provides a robust framework for building modern, high-performance APIs. In this article, we'll cover the fundamentals of creating RESTful services...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2024-01-10",
+    "tags": [".NET", "API", "Backend Development"],
+    "imageUrl": "/assets/blog/dotnet-api.jpg",
+    "readTime": "12 min read",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "slug": "cloudflare-workers-migration",
+    "title": "Migrating to Cloudflare Workers",
+    "description": "A practical guide to migrating your serverless functions from Azure to Cloudflare Workers for better performance and cost savings.",
+    "content": "Cloudflare Workers offer incredible performance with global edge deployment. Learn how to migrate your existing serverless functions...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2024-01-05",
+    "tags": ["Cloudflare", "Serverless", "Cloud", "Migration"],
+    "imageUrl": "/assets/blog/cloudflare-migration.jpg",
+    "readTime": "15 min read",
+    "featured": false
+  },
+  {
+    "id": 4,
+    "slug": "css-grid-vs-flexbox",
+    "title": "CSS Grid vs Flexbox: When to Use Each",
+    "description": "Understanding the differences between CSS Grid and Flexbox and choosing the right layout system for your project.",
+    "content": "Both CSS Grid and Flexbox are powerful layout systems, but they excel in different scenarios. Let's explore when to use each...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2024-01-01",
+    "tags": ["CSS", "Frontend", "Web Design"],
+    "imageUrl": "/assets/blog/css-layout.jpg",
+    "readTime": "6 min read",
+    "featured": false
+  },
+  {
+    "id": 5,
+    "slug": "web-performance-optimization",
+    "title": "Web Performance Optimization Techniques",
+    "description": "Practical tips and techniques to improve your web application's performance and user experience.",
+    "content": "Performance is crucial for modern web applications. Learn proven techniques to optimize your site's speed and user experience...",
+    "author": "Rahul A Bangera",
+    "publishDate": "2023-12-28",
+    "tags": ["Performance", "Optimization", "Web Development"],
+    "imageUrl": "/assets/blog/performance.jpg",
+    "readTime": "10 min read",
+    "featured": false
+  }
+]
