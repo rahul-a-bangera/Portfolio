@@ -47,22 +47,27 @@ jobs:
             echo "Error: index.html not found in docs folder!"
             exit 1
           fi
-          echo "? Build output verified successfully!"
+          echo "✅ Build output verified successfully!"
           echo ""
-          echo "?? Contents of docs folder:"
+          echo "📂 Contents of docs folder:"
           ls -lh docs/
           echo ""
-          echo "?? JavaScript files in docs:"
-          ls -lh docs/*.js
+          echo "📦 JavaScript files in docs:"
+          ls -lh docs/*.js 2>/dev/null || echo "No .js files found yet"
           echo ""
-          echo "?? Checking for API URL in main.*.js:"
-          if grep -q "gentle-moss-0d321ce00" docs/main.*.js; then
-            echo "? Found Azure API URL (gentle-moss) in main.js"
-          elif grep -q "localhost:5091" docs/main.*.js; then
-            echo "? ERROR: Found localhost:5091 in main.js - WRONG ENVIRONMENT!"
-            exit 1
+          echo "🔍 Checking for API URL in main.*.js:"
+          if ls docs/main.*.js 1> /dev/null 2>&1; then
+            if grep -q "portfolio-api.rahul-a-works.workers.dev" docs/main.*.js; then
+              echo "✅ Found Cloudflare Workers API URL (portfolio-api.rahul-a-works.workers.dev) in main.js"
+            elif grep -q "localhost" docs/main.*.js; then
+              echo "❌ ERROR: Found localhost in main.js - WRONG ENVIRONMENT!"
+              exit 1
+            else
+              echo "⚠️ WARNING: Could not verify API URL in main.js"
+              echo "Build will continue, but please verify API endpoint manually"
+            fi
           else
-            echo "?? WARNING: Could not find either URL in main.js"
+            echo "⚠️ main.*.js not found, skipping API URL check"
           fi
       
       - name: Copy .nojekyll
