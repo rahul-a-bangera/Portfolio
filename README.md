@@ -1,4 +1,4 @@
-# 🚀 Portfolio Website
+﻿# Portfolio Website
 
 [![Deploy Status](https://img.shields.io/badge/Deploy-Automated-success?style=flat-square&logo=github-actions)](https://github.com/yourusername/Portfolio/actions)
 [![Live Site](https://img.shields.io/badge/Live-Demo-00ff96?style=flat-square)](https://yourwebsite.com)
@@ -14,28 +14,26 @@
 
 ---
 
----
+## Table of Contents
 
-## 📖 Table of Contents
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Quick Start](#-quick-start)
-- [Project Structure](#-project-structure)
-- [API Documentation](#-api-documentation)
-- [Deployment](#-deployment)
-- [Development](#-development)
-- [Documentation](#-documentation)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Contact](#-contact)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Deployment](#deployment)
+- [Development](#development)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ---
 
-## ✨ Features
+## Features
 
-### 🎨 Design & UI
+### Design & UI
 - **Terminal-Inspired Theme**: Cyberpunk aesthetic with terminal green (#00ff96) accents on dark backgrounds
 - **Responsive Layout**: Mobile-first design optimized for all devices (320px - 4K+)
 - **Material Design**: Angular Material components with custom theming
@@ -45,7 +43,7 @@
   - Glassmorphism cards with backdrop blur
   - Smooth scroll behavior and section transitions
 
-### 🧭 Core Sections
+### Core Sections
 
 | Section | Features |
 |---------|----------|
@@ -54,14 +52,14 @@
 | **Blog** | Dynamic posts, category filtering, tag system, pagination |
 | **Contact** | Contact form, social media links, copy-to-clipboard functionality |
 
-### 🚀 Performance & UX
+### Performance & UX
 - **Fast Load Times**: Optimized bundle size (~128 KB gzipped)
 - **Smart Caching**: API responses cached with configurable TTL
 - **Offline-Ready**: Service worker support for offline functionality
 - **Accessibility**: WCAG AA compliant, keyboard navigation, screen reader support
 - **SEO Optimized**: Meta tags, Open Graph, structured data
 
-### 🔧 Technical Features
+### Technical Features
 - **Standalone Components**: Modern Angular architecture without NgModules
 - **Lazy Loading**: Route-based code splitting
 - **State Management**: RxJS for reactive data flow
@@ -71,7 +69,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 ```
@@ -105,7 +103,7 @@ PowerShell       -           Automation scripts
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### System Overview
 
@@ -154,7 +152,7 @@ PowerShell       -           Automation scripts
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -205,7 +203,7 @@ npm start
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Portfolio/
@@ -307,7 +305,7 @@ Portfolio/
 
 ---
 
-## 🌐 API Documentation
+## API Documentation
 
 ### Base URL
 - **Production**: `https://your-api.workers.dev`
@@ -445,7 +443,7 @@ Returns binary assets (images, files).
 
 ---
 
-## 🚢 Deployment
+## Deployment
 
 ### Frontend (GitHub Pages)
 
@@ -513,7 +511,7 @@ export const environment = {
 
 ---
 
-## 💻 Development
+## Development
 
 ### Available Scripts
 
@@ -588,7 +586,7 @@ curl https://your-api.workers.dev/blog
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 All technical documentation is consolidated in the `misc/` folder:
 
@@ -607,7 +605,7 @@ All technical documentation is consolidated in the `misc/` folder:
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these guidelines:
 
@@ -656,13 +654,13 @@ Contributions are welcome! Please follow these guidelines:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 Contact
+## Contact
 
 **[Your Name]**
 
@@ -675,7 +673,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Angular Team** - Amazing framework and tooling
 - **Cloudflare** - Fast, reliable edge computing platform
@@ -685,7 +683,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📊 Project Stats
+## Project Stats
 
 - **Lines of Code**: ~15,000+ (TypeScript, HTML, CSS)
 - **Components**: 15+ Angular components
@@ -698,13 +696,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**⭐ Star this repo if you find it helpful!**
+** Star this repo if you find it helpful!**
 
 [![GitHub stars](https://img.shields.io/github/stars/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/network/members)
 [![GitHub watchers](https://img.shields.io/github/watchers/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/watchers)
 
-Made with ❤️ by [Your Name](https://yourwebsite.com)
+Made with  by [Your Name](https://yourwebsite.com)
 
 </div>
 
@@ -779,7 +777,7 @@ npm run build
 
 ---
 
-## 🎨 Design System
+## Design System
 
 ### Color Palette
 ```css
@@ -802,7 +800,7 @@ npm run build
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 **All documentation has been consolidated into 5 comprehensive files in the `misc/` folder.**
 
@@ -891,7 +889,7 @@ git push origin main
 
 ---
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 ### Bundle Sizes
 ```
@@ -910,7 +908,7 @@ Total         →  587.27 KB (128.61 KB gzipped)
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal portfolio project, but suggestions and feedback are welcome!
 
@@ -922,7 +920,7 @@ This is a personal portfolio project, but suggestions and feedback are welcome!
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -933,7 +931,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Rahul A**  
 *Software Engineer | .NET & Azure Specialist*
 
-- 🌐 Website: [rahul-a.in](https://rahul-a.in)
+-  Website: [rahul-a.in](https://rahul-a.in)
 - 💼 LinkedIn: [rahul-bangera](https://www.linkedin.com/in/rahul-bangera/)
 - 📧 Email: rahul.bangera.999@gmail.com
 - 📱 Mobile: +91 9663 885 365
@@ -941,7 +939,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Angular Team** - For the amazing framework
 - **Material Design** - For the component library
@@ -959,4 +957,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**⭐ If you like this project, please give it a star!**
+** If you like this project, please give it a star!**

@@ -1,8 +1,8 @@
-# ?? Personal Setup Template
+﻿# Personal Setup Template
 
 This file contains placeholders you need to replace with your personal information to customize this portfolio.
 
-## ?? Step 1: Update Personal Data Files
+## Step 1: Update Personal Data Files
 
 ### Create Data Files in `workers/data/`
 
@@ -67,7 +67,7 @@ These files are gitignored and should contain your REAL information.
 
 ---
 
-## ?? Step 2: Update Configuration Files
+##  Step 2: Update Configuration Files
 
 ### `wrangler.toml`
 
@@ -112,7 +112,7 @@ YOUR-DOMAIN.COM
 
 ---
 
-## ?? Step 3: Update GitHub Repository Settings
+##  Step 3: Update GitHub Repository Settings
 
 ### Repository Name
 1. Go to Settings ? General
@@ -130,7 +130,7 @@ YOUR-DOMAIN.COM
 
 ---
 
-## ?? Step 4: Update README.md
+##  Step 4: Update README.md
 
 Replace all placeholder URLs with your actual information:
 
@@ -143,7 +143,7 @@ Replace all placeholder URLs with your actual information:
 
 ---
 
-## ?? Step 5: Deploy
+##  Step 5: Deploy
 
 ### Deploy Cloudflare Workers
 
@@ -201,7 +201,7 @@ Visit `https://YOUR-DOMAIN.COM` and verify:
 
 ---
 
-## ?? Security Checklist
+##  Security Checklist
 
 Before making repository public:
 
@@ -216,7 +216,7 @@ Before making repository public:
 
 ---
 
-## ?? Additional Resources
+##  Additional Resources
 
 - **Data Management**: See `workers/DATA-MANAGEMENT.md`
 - **API Documentation**: See `workers/README.md`
@@ -225,7 +225,7 @@ Before making repository public:
 
 ---
 
-## ?? Need Help?
+##  Need Help?
 
 If you encounter issues:
 
