@@ -347,10 +347,10 @@ async copyToClipboard(text: string): Promise<void> {
 - **GitHub Pages**: https://pages.github.com
 
 ### Contact
-- **Developer**: Rahul A
-- **Email**: rahul.bangera.999@gmail.com
-- **LinkedIn**: https://www.linkedin.com/in/rahul-bangera/
-- **Portfolio**: https://rahul-a.in
+- **Developer**: [Your Name]
+- **Email**: your.email@example.com
+- **LinkedIn**: https://www.linkedin.com/in/yourprofile
+- **Portfolio**: https://yourwebsite.com
 
 ---
 

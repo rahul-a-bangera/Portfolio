@@ -647,5 +647,5 @@ const corsHeaders = {
 
 ---
 
-**Contact**: rahul.bangera.999@gmail.com  
-**Portfolio**: https://rahul-a.in
+**Contact**: your.email@example.com  
+**Portfolio**: https://yourwebsite.com

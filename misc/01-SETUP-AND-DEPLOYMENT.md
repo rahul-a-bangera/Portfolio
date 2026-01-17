@@ -22,7 +22,7 @@
 
 ```bash
 # Clone from GitHub
-git clone https://github.com/rahul-a-bangera/Portfolio.git
+git clone https://github.com/yourusername/Portfolio.git
 cd Portfolio
 ```
 

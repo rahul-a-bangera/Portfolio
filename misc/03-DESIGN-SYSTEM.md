@@ -601,5 +601,5 @@ All text meets **WCAG AA standards** (4.5:1 for normal text):
 
 ---
 
-**Contact**: rahul.bangera.999@gmail.com  
-**Portfolio**: https://rahul-a.in
+**Contact**: your.email@example.com  
+**Portfolio**: https://yourwebsite.com
