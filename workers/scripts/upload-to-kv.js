@@ -4,21 +4,31 @@
  * Upload Portfolio Data to Cloudflare KV
  * 
  * This script uploads all portfolio data (resume, blog posts, contact info) to Cloudflare KV.
- * Run this script to populate your KV namespace with real data.
+ * Only uploads values that have changed to optimize KV writes and reduce costs.
  * 
  * Usage: node upload-to-kv.js
+ * Options:
+ *   --force    Force upload all data, even if unchanged
  */
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('[INFO] Starting KV upload process...\n');
+const forceUpload = process.argv.includes('--force');
+
+console.log('[INFO] Starting KV upload process...');
+if (forceUpload) {
+  console.log('[INFO] Force mode enabled - will upload all data\n');
+} else {
+  console.log('[INFO] Smart mode - only uploading changed data\n');
+}
 
 // Read data files
 const resumeData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/resume.json'), 'utf8'));
 const blogPosts = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/blog-posts.json'), 'utf8'));
 const contactInfo = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/contact.json'), 'utf8'));
+const profileData = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/profile.json'), 'utf8'));
 
 // Read assets file (if exists)
 let assetsData = null;
@@ -34,11 +44,51 @@ if (fs.existsSync(assetsPath)) {
 const NAMESPACE = 'PORTFOLIO_DATA';
 
 /**
- * Upload a key-value pair to KV
+ * Get existing value from KV
+ */
+function getFromKV(key) {
+  try {
+    const command = `npx wrangler kv:key get --binding=${NAMESPACE} "${key}" --preview false`;
+    const result = execSync(command, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
+    return result.trim();
+  } catch (error) {
+    // Key doesn't exist or other error
+    return null;
+  }
+}
+
+/**
+ * Compare two values for equality
+ */
+function valuesAreEqual(existingValue, newValue) {
+  if (!existingValue) return false;
+  
+  try {
+    const existing = JSON.parse(existingValue);
+    const newVal = typeof newValue === 'string' ? JSON.parse(newValue) : newValue;
+    return JSON.stringify(existing) === JSON.stringify(newVal);
+  } catch (error) {
+    // If parsing fails, compare as strings
+    const newStr = typeof newValue === 'string' ? newValue : JSON.stringify(newValue);
+    return existingValue === newStr;
+  }
+}
+
+/**
+ * Upload a key-value pair to KV (only if changed)
  */
 function uploadToKV(key, value) {
   try {
     const jsonValue = typeof value === 'string' ? value : JSON.stringify(value);
+    
+    // Check if value has changed (unless force mode)
+    if (!forceUpload) {
+      const existingValue = getFromKV(key);
+      if (existingValue !== null && valuesAreEqual(existingValue, value)) {
+        console.log(`[SKIP] Unchanged: ${key}`);
+        return 'skipped';
+      }
+    }
     
     // Write to temporary file
     const tempFile = path.join(__dirname, `temp-${key.replace(/[:/]/g, '-')}.json`);
@@ -184,6 +234,8 @@ async function main() {
   console.log('  - resume:experience (Experience tab)');
   console.log('  - resume:education (Education tab)');
   console.log('  - resume:data (complete data - backward compatibility)');
+  console.log('\n[INFO] Profile data uploaded:');
+  console.log('  - profile:data (name and specialist content)');
   if (assetsData) {
     console.log('\n[INFO] Assets uploaded:');
     if (assetsData.resume) {

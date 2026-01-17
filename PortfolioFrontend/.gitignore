@@ -3,3 +3,9 @@ dist/
 *.log
 .DS_Store
 .env
+
+# Local development data (personal information - do not commit)
+src/assets/data/local/*.json
+!src/assets/data/local/.gitkeep
+!src/assets/data/local/README.md
+

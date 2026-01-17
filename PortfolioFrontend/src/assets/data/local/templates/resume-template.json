@@ -1,0 +1,51 @@
+{
+  "personalInfo": {
+    "name": "Your Full Name",
+    "title": "Your Professional Title",
+    "email": "your.email@example.com",
+    "phone": "+00 0000 000000",
+    "location": "Your City, Country",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourusername",
+    "website": "https://yoursite.com"
+  },
+  "shortSummary": "Brief 2-3 sentence summary for the home page.",
+  "summary": "Your full professional summary goes here. Describe your expertise, experience, and what makes you unique.",
+  "skills": {
+    "technical": ["Skill1", "Skill2"],
+    "frontend": ["Angular", "React", "TypeScript"],
+    "backend": [".NET Core", "Node.js"],
+    "cloud": ["Azure", "AWS"],
+    "database": ["SQL Server", "MongoDB"],
+    "tools": ["Git", "Docker"]
+  },
+  "tools": [
+    {
+      "category": "Development",
+      "items": ["VS Code", "Visual Studio", "Git"]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Company Name",
+      "position": "Job Title",
+      "location": "City, Country",
+      "startDate": "YYYY-MM",
+      "endDate": "Present",
+      "description": "Brief description",
+      "achievements": [
+        "Achievement 1",
+        "Achievement 2"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University Name",
+      "degree": "Degree Name",
+      "location": "City, Country",
+      "graduationDate": "YYYY-MM",
+      "gpa": "X.X/10"
+    }
+  ]
+}

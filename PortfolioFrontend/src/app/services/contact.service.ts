@@ -12,7 +12,9 @@ import { CacheService } from './cache.service';
 export class ContactService {
   private readonly CACHE_KEY = 'contact_info';
   private readonly CACHE_DURATION = 3600000; // 1 hour
-  private apiUrl = `${environment.apiUrl}/contact`;
+  private apiUrl = environment.useLocalData 
+    ? '/assets/data/local/contact.json'
+    : `${environment.apiUrl}/contact`;
 
   constructor(
     private http: HttpClient,

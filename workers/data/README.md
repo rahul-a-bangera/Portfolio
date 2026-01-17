@@ -50,6 +50,7 @@ node scripts/upload-to-kv.js
 ## Template Files
 
 All template files are in the `templates/` folder:
+- `profile-template.json` - Profile data (name and specialist content)
 - `resume-template.json` - Resume data structure
 - `blog-template.json` - Blog posts structure
 - `contact-template.json` - Contact info structure

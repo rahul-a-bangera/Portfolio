@@ -7,6 +7,7 @@ import { handleContact } from './handlers/contact';
 import { handleResume } from './handlers/resume';
 import { handleBlog } from './handlers/blog';
 import { handleAssets } from './handlers/assets';
+import { handleProfile } from './handlers/profile';
 
 // CORS headers configuration
 const corsHeaders = {

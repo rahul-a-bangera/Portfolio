@@ -5,57 +5,57 @@
 <app-click-spark *ngIf="ambientSettings.clickSpark"></app-click-spark>
 
 <div class="home-card-wrapper">
-  <mat-card class="home-card" *ngIf="resumeData && !isLoadingResume; else loadingResume">
-    <div class="card-header">
-      <div class="profile-image">
-        <!-- Profile picture from API (if available) -->
-        <img *ngIf="profileImageUrl" 
-             [src]="profileImageUrl" 
-             alt="Profile Picture"
-             class="profile-picture"
-             (error)="onProfileImageError()" />
-        <!-- Fallback to initials avatar -->
-        <div *ngIf="!profileImageUrl" class="initials-avatar">{{ getInitials() }}</div>
-      </div>
-      <h1 class="profile-name">{{ resumeData.personalInfo.name }}</h1>
-      <p class="profile-title">{{ resumeData.personalInfo.title }}</p>
+<mat-card class="home-card" *ngIf="profileData && resumeData && !isLoadingProfile && !isLoadingResume; else loadingState">
+  <div class="card-header">
+    <div class="profile-image">
+      <!-- Profile picture from API (if available) -->
+      <img *ngIf="profileImageUrl" 
+           [src]="profileImageUrl" 
+           alt="Profile Picture"
+           class="profile-picture"
+           (error)="onProfileImageError()" />
+      <!-- Fallback to initials avatar -->
+      <div *ngIf="!profileImageUrl" class="initials-avatar">{{ getInitials() }}</div>
     </div>
-      <mat-card-content class="card-content">
-        <p class="card-description">
-          {{ resumeData.shortSummary }}
-        </p>
-      <div class="card-actions">
-        <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
-          <mat-icon>download</mat-icon>
-          Download CV
-        </button>
-      </div>
-      <div class="social-links">
-        <a *ngIf="resumeData.personalInfo.linkedin" 
-           [href]="resumeData.personalInfo.linkedin" 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="social-link linkedin" 
-           title="Connect on LinkedIn">
-          <mat-icon>link</mat-icon>
-          <span class="social-label">LinkedIn</span>
-        </a>
-        <button mat-button class="social-link contact" title="Contact Information" (click)="toggleContactPopup()">
-          <mat-icon>email</mat-icon>
-          <span class="social-label">Contact</span>
-        </button>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <h1 class="profile-name">{{ profileData.name }}</h1>
+    <p class="profile-title">{{ profileData.specialistContent }}</p>
+  </div>
+    <mat-card-content class="card-content">
+      <p class="card-description">
+        {{ resumeData.shortSummary }}
+      </p>
+    <div class="card-actions">
+      <button mat-raised-button class="cta-button primary" (click)="downloadCV()">
+        <mat-icon>download</mat-icon>
+        Download CV
+      </button>
+    </div>
+    <div class="social-links">
+      <a *ngIf="resumeData.personalInfo.linkedin" 
+         [href]="resumeData.personalInfo.linkedin" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="social-link linkedin" 
+         title="Connect on LinkedIn">
+        <mat-icon>link</mat-icon>
+        <span class="social-label">LinkedIn</span>
+      </a>
+      <button mat-button class="social-link contact" title="Contact Information" (click)="toggleContactPopup()">
+        <mat-icon>email</mat-icon>
+        <span class="social-label">Contact</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-  <ng-template #loadingResume>
-    <mat-card class="home-card loading-card">
-      <div class="loading-state">
-        <mat-icon>hourglass_empty</mat-icon>
-        <p>Loading profile...</p>
-      </div>
-    </mat-card>
-  </ng-template>
+<ng-template #loadingState>
+  <mat-card class="home-card loading-card">
+    <div class="loading-state">
+      <mat-icon>hourglass_empty</mat-icon>
+      <p>Loading profile...</p>
+    </div>
+  </mat-card>
+</ng-template>
 
     <!-- Contact Info Popup -->
     <div class="contact-popup-overlay" *ngIf="showContactPopup" (click)="closeContactPopup()">

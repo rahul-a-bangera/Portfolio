@@ -15,6 +15,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 
 **IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
+
 ## File Organization
 
 ### Documentation Files
@@ -31,6 +32,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 - **NO EMOJIS** - Never use emojis in code, configuration files, workflows, or log messages
 - Use text markers instead: `[SUCCESS]`, `[ERROR]`, `[WARNING]`, `[INFO]`, `[ACTION]`
 - Emojis cause encoding issues in GitHub Actions and other CI/CD systems
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
 ### TypeScript/Angular
 - Use **standalone components** (no modules)
@@ -82,6 +84,7 @@ This is a modern, responsive portfolio website built with Angular 19 and deploye
 - **Body Text**: Segoe UI, Roboto, sans-serif
 - **Base Font Size**: 15px (desktop), 13-14px (mobile)
 - **Line Height**: 1.6-1.7 for body text, 1.3-1.4 for headings
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
 ### Spacing Scale
 Use multiples of 8px: `8px, 16px, 24px, 32px, 40px, 48px, 60px`
@@ -129,6 +132,7 @@ Use multiples of 8px: `8px, 16px, 24px, 32px, 40px, 48px, 60px`
 - Maintain readability: line-height stays 1.6+ on all screens
 
 ## Component Guidelines
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
 ### When Creating New Components
 1. Use standalone component decorator
@@ -281,6 +285,7 @@ chore: Update Angular to version 19.1
 5. Verify deployment at https://rahul-a.in
 
 ## Documentation
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
 ### When to Update Documentation
 - **Code changes**: Update relevant file in `misc/` (00-04)
@@ -386,6 +391,7 @@ onWindowScroll(): void {
 - Check viewport meta tag in `index.html`
 - Test with actual devices, not just DevTools
 - Verify touch target sizes (minimum 44x44px)
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**
 
 ### GitHub Pages Deployment
 - Check GitHub Actions logs
@@ -451,3 +457,4 @@ git push origin main        # Push to GitHub (triggers deployment)
 **Last Updated**: December 11, 2024  
 **Project Version**: 1.0.0  
 **Angular Version**: 19.0.0
+**IMPORTANT: Do NOT create new .md files. Update existing consolidated documentation files instead.**

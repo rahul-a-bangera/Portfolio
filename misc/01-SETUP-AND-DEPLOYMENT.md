@@ -408,9 +408,14 @@ curl -X POST https://portfolio-api.rahul-a-workers.workers.dev/api/contact \
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/contact` | POST | Submit contact form |
-| `/api/projects` | GET | Get project data |
-| `/api/health` | GET | Health check |
+| `/contact` | GET | Get contact information |
+| `/profile` | GET | Get profile data (name and specialist content) |
+| `/resume` | GET | Get complete resume data |
+| `/resume/personal` | GET | Get personal info only (optimized for home page) |
+| `/blog` | GET | Get all blog posts |
+| `/blog/:slug` | GET | Get specific blog post by slug |
+| `/assets/resume` | GET | Download resume PDF |
+| `/assets/profile` | GET | Get profile picture |
 
 ### KV Namespace Setup
 

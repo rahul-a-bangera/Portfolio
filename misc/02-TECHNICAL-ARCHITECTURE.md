@@ -212,6 +212,63 @@ AppComponent (Root)
 
 ---
 
+## Services Layer
+
+### Angular Services
+
+The application uses Angular services for data management and API communication:
+
+#### ProfileService
+- **File**: `services/profile.service.ts`
+- **Purpose**: Manage profile data (name and specialist content)
+- **Features**:
+  - Fetch from Cloudflare Workers API
+  - In-memory caching with BehaviorSubject
+  - LocalStorage caching (1 hour expiry)
+  - Automatic fallback to default values
+- **API Endpoint**: `GET /profile`
+- **Cache Strategy**: Memory + LocalStorage + CDN
+
+#### ContactService
+- **File**: `services/contact.service.ts`
+- **Purpose**: Fetch contact information
+- **Features**:
+  - API communication for contact data
+  - Observable-based data streaming
+- **API Endpoint**: `GET /contact`
+
+#### ResumeService
+- **File**: `services/resume.service.ts`
+- **Purpose**: Fetch resume data in sections
+- **Features**:
+  - Fetch complete resume or individual sections
+  - Optimized loading for different pages
+  - Section-based caching
+- **API Endpoints**: 
+  - `GET /resume` (complete data)
+  - `GET /resume/personal` (home page optimization)
+  - `GET /resume/skills`, `/experience`, etc.
+
+#### MarkdownBlogService
+- **File**: `services/markdown-blog.service.ts`
+- **Purpose**: Parse and render markdown blog posts
+- **Features**:
+  - Fetch .md files from assets
+  - Frontmatter parsing (yaml-front-matter)
+  - Markdown to HTML conversion (marked.js)
+  - Syntax highlighting (highlight.js)
+- **Data Source**: Local `assets/blog/*.md` files
+
+#### AmbientControlService
+- **File**: `services/ambient-control.service.ts`
+- **Purpose**: Manage ambient effects (system stats, click sparks, dot grid)
+- **Features**:
+  - Toggle ambient components on/off
+  - BehaviorSubject for reactive state
+  - Shared across components
+
+---
+
 ## Data Flow
 
 ### Static Data Flow (Current)
@@ -533,20 +590,27 @@ scrollToSection(sectionId: string): void {
 ```
 workers/
 ??? src/
-?   ??? index.ts               # Main entry point
+?   ??? index.ts               # Main entry point and router
 ?   ??? handlers/
-?       ??? contact.ts         # POST /api/contact
-?       ??? projects.ts        # GET /api/projects
-?       ??? health.ts          # GET /api/health
+?       ??? contact.ts         # GET /contact
+?       ??? profile.ts         # GET /profile
+?       ??? resume.ts          # GET /resume
+?       ??? blog.ts            # GET /blog
+?       ??? assets.ts          # GET /assets
 ```
 
 ### API Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/contact` | POST | Submit contact form |
-| `/api/projects` | GET | Get project data (future) |
-| `/api/health` | GET | Health check |
+| Endpoint | Method | Purpose | Caching |
+|----------|--------|---------|---------|
+| `/contact` | GET | Get contact information | 1 hour |
+| `/profile` | GET | Get profile data (name, specialist) | 1 hour |
+| `/resume` | GET | Get complete resume data | 1 hour |
+| `/resume/personal` | GET | Get personal info (home page) | 1 hour |
+| `/blog` | GET | Get all blog posts | 1 hour |
+| `/blog/:slug` | GET | Get specific blog post | 1 hour |
+| `/assets/resume` | GET | Download resume PDF | 24 hours |
+| `/assets/profile` | GET | Get profile picture | 24 hours |
 
 ### CORS Configuration
 

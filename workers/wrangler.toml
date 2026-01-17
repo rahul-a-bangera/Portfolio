@@ -1,7 +1,11 @@
 name = "portfolio-api"
 main = "src/index.ts"
-compatibility_date = "2024-01-15"
+compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
+
+# Observability (optional - enable for production monitoring)
+# [observability]
+# enabled = true
 
 # Using workers.dev subdomain (rahul-a-works.workers.dev)
 # If you want to use custom domain (api.rahul-a.in), uncomment routes below:
@@ -10,18 +14,29 @@ compatibility_flags = ["nodejs_compat"]
 # zone_name = "rahul-a.in"
 
 # KV Namespace for storing portfolio data
+# Stores: profile:data, resume:*, blog:*, contact:info, assets:*
 [[kv_namespaces]]
 binding = "PORTFOLIO_DATA"
 id = "a67be4550dfb4a648ac1b7a71204f1ce"
 preview_id = "09a253a2f12f4561803091801b1297fb"
 
-# Environment Variables (Optional - can be set in Cloudflare Dashboard)
+# Environment Variables (Optional - Legacy support)
+# Note: All data now stored in KV for better caching and management
 [vars]
 CONTACT_EMAIL = "contact@example.com"  # Placeholder - real data in KV
 CONTACT_PHONE = "+00 0000 000000"      # Placeholder - real data in KV
 CONTACT_LINKEDIN = "https://linkedin.com/in/yourname"  # Placeholder
 CONTACT_GITHUB = "https://github.com/username"          # Placeholder
 CONTACT_TWITTER = ""
+
+# API Endpoints:
+# GET /profile         - Name and specialist content (cached 1h)
+# GET /contact         - Contact information (cached 1h)
+# GET /resume          - Complete resume data (cached 1h)
+# GET /resume/:section - Resume sections (cached 1h)
+# GET /blog            - All blog posts (cached 1h)
+# GET /blog/:slug      - Specific blog post (cached 1h)
+# GET /assets/:type    - Binary assets (cached 24h)
 
 # Development configuration
 [env.development]

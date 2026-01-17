@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Spark {
@@ -8,24 +8,27 @@ interface Spark {
   angle: number;
   velocity: number;
   startTime: number;
+  transform?: string;
+  opacity?: number;
 }
 
 @Component({
-  selector: 'app-click-spark',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div class="click-spark-container">
-      <div 
-        *ngFor="let spark of activeParks" 
-        class="spark"
-        [style.left.px]="spark.x"
-        [style.top.px]="spark.y"
-        [style.transform]="getSparkTransform(spark)"
-        [style.opacity]="getSparkOpacity(spark)">
-      </div>
+selector: 'app-click-spark',
+standalone: true,
+imports: [CommonModule],
+changeDetection: ChangeDetectionStrategy.OnPush,
+template: `
+  <div class="click-spark-container">
+    <div 
+      *ngFor="let spark of activeParks" 
+      class="spark"
+      [style.left.px]="spark.x"
+      [style.top.px]="spark.y"
+      [style.transform]="spark.transform"
+      [style.opacity]="spark.opacity">
     </div>
-  `,
+  </div>
+`,
   styles: [`
     .click-spark-container {
       position: fixed;
@@ -71,7 +74,10 @@ export class ClickSparkComponent implements OnInit, OnDestroy {
   private readonly DURATION = 400; // milliseconds
   private readonly EXTRA_SCALE = 1;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.isDestroyed = false;
@@ -121,7 +127,9 @@ export class ClickSparkComponent implements OnInit, OnDestroy {
         y: y,
         angle: angle,
         velocity: velocity,
-        startTime: now
+        startTime: now,
+        transform: `translate(0px, 0px) scale(${this.EXTRA_SCALE})`,
+        opacity: 1
       });
     }
 
@@ -143,34 +151,24 @@ export class ClickSparkComponent implements OnInit, OnDestroy {
       spark => now - spark.startTime < this.DURATION
     );
 
+    // Update transform and opacity for all active sparks
+    this.activeParks.forEach(spark => {
+      const elapsed = now - spark.startTime;
+      const progress = Math.min(elapsed / this.DURATION, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      
+      const distance = easeOut * spark.velocity;
+      const translateX = Math.cos(spark.angle) * distance;
+      const translateY = Math.sin(spark.angle) * distance;
+      const scale = (1 - progress) * this.EXTRA_SCALE;
+      
+      spark.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+      spark.opacity = 1 - progress;
+    });
+
+    // Trigger change detection
+    this.cdr.detectChanges();
+
     this.animationId = requestAnimationFrame(() => this.animate());
-  }
-
-  getSparkTransform(spark: Spark): string {
-    const now = performance.now();
-    const elapsed = now - spark.startTime;
-    const progress = Math.min(elapsed / this.DURATION, 1);
-
-    // Ease-out function
-    const easeOut = 1 - Math.pow(1 - progress, 3);
-
-    // Calculate position
-    const distance = easeOut * spark.velocity;
-    const translateX = Math.cos(spark.angle) * distance;
-    const translateY = Math.sin(spark.angle) * distance;
-
-    // Calculate scale (starts at EXTRA_SCALE, ends at 0)
-    const scale = (1 - progress) * this.EXTRA_SCALE;
-
-    return `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-  }
-
-  getSparkOpacity(spark: Spark): number {
-    const now = performance.now();
-    const elapsed = now - spark.startTime;
-    const progress = Math.min(elapsed / this.DURATION, 1);
-
-    // Fade out
-    return 1 - progress;
   }
 }

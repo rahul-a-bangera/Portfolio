@@ -9,6 +9,7 @@ import { ClickSparkComponent } from './ambient/click-spark.component';
 import { DotGridComponent } from './ambient/dot-grid.component';
 import { ContactService } from '../services/contact.service';
 import { ResumeService } from '../services/resume.service';
+import { ProfileService, ProfileData } from '../services/profile.service';
 import { AmbientControlService, AmbientSettings } from '../services/ambient-control.service';
 import { ContactInfo } from '../models/contact.model';
 import { ResumeData } from '../models/resume.model';
@@ -40,6 +41,8 @@ resumeData: ResumeData | null = null;
 isLoadingResume = false;
 resumeError = false;
 profileImageUrl: string | null = null;
+profileData: ProfileData | null = null;
+isLoadingProfile = false;
 ambientSettings: AmbientSettings = {
   systemStats: true,
   clickSpark: true,
@@ -50,11 +53,13 @@ private lastScrollPosition = 0;
 private settingsSubscription?: Subscription;
 private contactSubscription?: Subscription;
 private resumeSubscription?: Subscription;
+private profileSubscription?: Subscription;
 
 constructor(
   private ambientService: AmbientControlService,
   private contactService: ContactService,
-  private resumeService: ResumeService
+  private resumeService: ResumeService,
+  private profileService: ProfileService
 ) {
   this.settingsSubscription = this.ambientService.ambientSettings$.subscribe(settings => {
     this.ambientSettings = settings;
@@ -63,6 +68,7 @@ constructor(
 
 ngOnInit(): void {
   this.lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+  this.loadProfileData();
   this.loadContactInfo();
   this.loadResumeData();
   this.loadProfileImage();
@@ -77,6 +83,9 @@ ngOnDestroy(): void {
   }
   if (this.resumeSubscription) {
     this.resumeSubscription.unsubscribe();
+  }
+  if (this.profileSubscription) {
+    this.profileSubscription.unsubscribe();
   }
 }
 
@@ -139,14 +148,34 @@ ngOnDestroy(): void {
   }
 
   getInitials(): string {
-    if (!this.resumeData?.personalInfo?.name) {
+    // Try profile data first, then resume data
+    const name = this.profileData?.name || this.resumeData?.personalInfo?.name;
+    
+    if (!name) {
       return '?';
     }
-    return this.resumeData.personalInfo.name
+    return name
       .split(' ')
       .map((n: string) => n[0])
       .join('')
       .toUpperCase();
+  }
+
+  private loadProfileData(): void {
+    this.isLoadingProfile = true;
+    
+    this.profileSubscription = this.profileService.getProfile().subscribe({
+      next: (data: ProfileData) => {
+        this.profileData = data;
+        this.isLoadingProfile = false;
+        console.log('[HOME] Profile data loaded successfully:', data);
+      },
+      error: (error) => {
+        console.error('[HOME] Failed to load profile data:', error);
+        this.isLoadingProfile = false;
+        // Keep fallback data set by service
+      }
+    });
   }
 
   private loadContactInfo(): void {

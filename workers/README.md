@@ -22,9 +22,11 @@ workers/
 ## API Endpoints
 
 - `GET /contact` - Returns contact information
+- `GET /profile` - Returns profile data (name and specialist content)
 - `GET /resume` - Returns resume/CV data
 - `GET /blog` - Returns all blog posts
 - `GET /blog/:slug` - Returns specific blog post by slug
+- `GET /assets/:type` - Returns binary assets (resume PDF, profile picture)
 
 ## Local Development
 
