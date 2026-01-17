@@ -3,9 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Observability (optional - enable for production monitoring)
-# [observability]
-# enabled = true
+# Observability - Enable detailed logging for production monitoring
+[observability]
+[observability.logs]
+enabled = true
+invocation_logs = true
 
 # Using workers.dev subdomain (rahul-a-works.workers.dev)
 # If you want to use custom domain (api.rahul-a.in), uncomment routes below:

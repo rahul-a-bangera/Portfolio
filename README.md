@@ -1,100 +1,207 @@
-# 🚀 Rahul A - Portfolio Website
+# 🚀 Portfolio - Rahul A Bangera
 
 [![Deploy Status](https://github.com/rahul-a-bangera/Portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/rahul-a-bangera/Portfolio/actions)
-[![Live Site](https://img.shields.io/badge/Live-rahul--a.in-00ff96)](https://rahul-a.in)
-[![Angular](https://img.shields.io/badge/Angular-19.0-red)](https://angular.io/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Live Site](https://img.shields.io/badge/Live-rahul--a.in-00ff96?style=flat-square)](https://rahul-a.in)
+[![Angular](https://img.shields.io/badge/Angular-19.0.0-DD0031?style=flat-square&logo=angular)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare)](https://workers.cloudflare.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-A modern, fully responsive single-page portfolio website built with Angular 19, featuring a cyberpunk terminal-inspired design with Material Design components. Deployed on GitHub Pages with a custom domain.
+> A modern, high-performance portfolio website showcasing professional experience, skills, and projects. Built with Angular 19, powered by Cloudflare Workers API, and deployed on GitHub Pages with a custom domain.
 
-## 🌐 Live Site
+**Live Site**: [https://rahul-a.in](https://rahul-a.in)  
+**API**: [https://portfolio-api.rahul-a-works.workers.dev](https://portfolio-api.rahul-a-works.workers.dev)
 
-**Primary URL**: [https://rahul-a.in](https://rahul-a.in)  
-**GitHub Pages**: [https://rahul-a-bangera.github.io/Portfolio/](https://rahul-a-bangera.github.io/Portfolio/)
-**API Documentation**: [https://gentle-moss-0d321ce00.2.azurestaticapps.net](https://gentle-moss-0d321ce00.2.azurestaticapps.net)
+---
+
+---
+
+## 📖 Table of Contents
+
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [API Documentation](#-api-documentation)
+- [Deployment](#-deployment)
+- [Development](#-development)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
 ---
 
 ## ✨ Features
 
-### 🎨 Design & Theme
-- **Cyberpunk Terminal Theme**: Dark background with terminal green (#00ff96) accents
-- **Animated Background**: Dynamic grid pattern with floating particles
-- **Glassmorphism Effects**: Frosted glass cards with backdrop blur
-- **Smooth Animations**: GPU-accelerated transitions and hover effects
+### 🎨 Design & UI
+- **Terminal-Inspired Theme**: Cyberpunk aesthetic with terminal green (#00ff96) accents on dark backgrounds
+- **Responsive Layout**: Mobile-first design optimized for all devices (320px - 4K+)
+- **Material Design**: Angular Material components with custom theming
+- **Ambient Effects**: 
+  - Animated grid background with floating particles
+  - Click spark effects with GPU-accelerated animations
+  - Glassmorphism cards with backdrop blur
+  - Smooth scroll behavior and section transitions
 
-### 📱 Responsive Design
-- **Mobile-First Approach**: Optimized for all screen sizes (320px - 2560px+)
-- **Touch-Friendly**: 44x44px minimum touch targets (iOS guidelines)
-- **Icon Navigation**: Icon-only navigation on mobile devices
-- **Auto-Closing Modals**: Smart popup behavior on scroll
+### 🧭 Core Sections
 
-### 🧭 Sections
+| Section | Features |
+|---------|----------|
+| **Home** | Profile card, CV download, contact popup, social links |
+| **Resume** | 5-tab interface: Summary, Skills, Tools, Experience, Education |
+| **Blog** | Dynamic posts, category filtering, tag system, pagination |
+| **Contact** | Contact form, social media links, copy-to-clipboard functionality |
 
-#### **Home**
-- Profile card with animated border glow
-- CV download functionality
-- Contact information popup with copy-to-clipboard
-- LinkedIn profile link
-- Social media integration
+### 🚀 Performance & UX
+- **Fast Load Times**: Optimized bundle size (~128 KB gzipped)
+- **Smart Caching**: API responses cached with configurable TTL
+- **Offline-Ready**: Service worker support for offline functionality
+- **Accessibility**: WCAG AA compliant, keyboard navigation, screen reader support
+- **SEO Optimized**: Meta tags, Open Graph, structured data
 
-#### **Resume**
-- **Tabbed Interface** with 5 sections:
-  - Summary & Introduction
-  - Technical Skills (grid layout)
-  - Tools & Technologies
-  - Professional Experience (timeline)
-  - Education
-- Horizontal scroll with visible navigation buttons
-- Responsive skill badges with hover effects
-
-#### **Blog**
-- Dynamic blog post cards
-- Category filtering
-- Tag system
-- Read time estimation
-- Pagination support
-
-#### **Contact**
-- Contact information cards
-- Interactive contact form
-- Social media links
-- Email and phone display with hover effects
-
-### 🎯 User Experience Features
-- **Smooth Scroll Navigation**: Auto-scroll to sections
-- **Sticky Header**: Always accessible navigation
-- **Copy to Clipboard**: Quick copy for email and phone
-- **Download CV**: One-click PDF download
-- **External Links**: Open in new tabs with security attributes
+### 🔧 Technical Features
+- **Standalone Components**: Modern Angular architecture without NgModules
+- **Lazy Loading**: Route-based code splitting
+- **State Management**: RxJS for reactive data flow
+- **Environment Config**: Separate dev/prod configurations
+- **Local Development**: JSON templates for development without API
+- **Error Handling**: Comprehensive error boundaries and fallbacks
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Angular** | 19.0.0 | Frontend framework |
-| **TypeScript** | 5.7.0 | Type-safe JavaScript |
-| **Angular Material** | 19.0.0 | UI component library |
-| **RxJS** | 7.8.0 | Reactive programming |
-| **CSS3** | Latest | Styling with custom properties |
+```
+Angular          19.0.0      Modern web framework
+TypeScript       5.7.0       Type-safe JavaScript
+Angular Material 19.0.0      UI component library
+RxJS             7.8.0       Reactive programming
+Marked           17.0.1      Markdown parsing
+```
+
+### Backend API (Cloudflare Workers)
+```
+TypeScript       5.7.2       Worker scripts
+Wrangler         4.59.2      Cloudflare CLI
+Workers KV       -           Key-value storage
+```
 
 ### Build & Deployment
-| Tool | Purpose |
-|------|---------|
-| **Angular CLI** | Build and development server |
-| **GitHub Actions** | CI/CD pipeline |
-| **GitHub Pages** | Static site hosting |
-| **Custom Domain** | DNS configuration (rahul-a.in) |
+```
+Angular CLI      19.0.0      Build tooling
+GitHub Actions   -           CI/CD pipeline
+GitHub Pages     -           Static hosting
+Cloudflare       -           Edge API hosting
+```
 
-### Performance
-- **Bundle Size**: 128.61 KB (gzipped)
-- **Build Time**: ~15-20 seconds
-- **Deploy Time**: ~2-3 minutes
-- **First Load**: < 3 seconds
+### Development Tools
+```
+Concurrently     8.2.2       Multi-process runner
+PowerShell       -           Automation scripts
+```
+
+---
+
+## 🏗️ Architecture
+
+### System Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         User Browser                         │
+└────────────┬────────────────────────────────┬───────────────┘
+             │                                │
+             ▼                                ▼
+    ┌────────────────┐              ┌─────────────────┐
+    │  GitHub Pages  │              │   Cloudflare    │
+    │  (Static SPA)  │              │    Workers      │
+    │  rahul-a.in    │              │  (Edge API)     │
+    └────────────────┘              └────────┬────────┘
+             │                               │
+             │                               ▼
+             │                      ┌─────────────────┐
+             │                      │   Workers KV    │
+             │                      │  (Data Store)   │
+             │                      └─────────────────┘
+             │
+             ▼
+    ┌────────────────────────┐
+    │  Local Development     │
+    │  JSON Templates        │
+    │  (Dev Mode Only)       │
+    └────────────────────────┘
+```
+
+### Data Flow
+
+**Production Mode:**
+1. User visits `https://rahul-a.in`
+2. GitHub Pages serves static Angular app
+3. Angular app makes API calls to `portfolio-api.rahul-a-works.workers.dev`
+4. Cloudflare Workers fetches data from Workers KV
+5. Cached responses returned to client (1 hour TTL)
+
+**Development Mode:**
+1. User runs `npm start` locally
+2. Angular dev server starts on `localhost:4200`
+3. App loads data from `assets/data/local/templates/*.json`
+4. Hot module replacement for instant updates
+
+---
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+```bash
+# Required
+Node.js >= 18.0.0
+npm >= 9.0.0
+
+# Optional (for backend development)
+.NET SDK >= 8.0
+Azure Functions Core Tools >= 4.x
+```
+
+### Installation & Setup
+
+**Clone the repository:**
+```bash
+git clone https://github.com/rahul-a-bangera/Portfolio.git
+cd Portfolio
+```
+
+**Option 1: Quick Start (Recommended)**
+```bash
+# Windows PowerShell
+.\scripts\quick-start.ps1
+
+# Linux/Mac
+./scripts/setup-local-dev.sh
+```
+
+**Option 2: Manual Setup**
+```bash
+# Install all dependencies
+npm run install:all
+
+# Start frontend only
+npm run start:frontend-only
+
+# Start all services (frontend + backend + API)
+npm start
+```
+
+### Access the Application
+
+- **Frontend**: http://localhost:4200
+- **Backend API**: http://localhost:5091 (if started)
+- **Azure Functions**: http://localhost:7071 (if started)
 
 ---
 
@@ -102,102 +209,502 @@ A modern, fully responsive single-page portfolio website built with Angular 19, 
 
 ```
 Portfolio/
-├── .github/
-│   └── workflows/
-│       ├── deploy.yml              # GitHub Pages deployment
-│       └── deploy-workers.yml      # Cloudflare Workers deployment
 │
-├── workers/                        # Cloudflare Workers API
-│   ├── src/
-│   │   ├── index.ts               # Main router
-│   │   └── handlers/
-│   │       ├── contact.ts         # Contact endpoint
-│   │       ├── resume.ts          # Resume endpoint
-│   │       └── blog.ts            # Blog endpoint
-│   ├── wrangler.toml              # Workers configuration
-│   ├── package.json               # Dependencies
-│   └── README.md                  # API documentation
-│
-├── docs/                           # Build output (GitHub Pages)
-│   ├── assets/
-│   │   ├── profile.jpg            # Profile picture
-│   │   └── Rahul-A-Resume.pdf     # CV PDF
-│   ├── CNAME                      # Custom domain configuration
-│   ├── index.html                 # Main HTML file
-│   └── *.js, *.css               # Built bundles
-│
-├── PortfolioFrontend/             # Angular application
+├── 📂 PortfolioFrontend/          # Angular 19 SPA
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── components/
-│   │   │   │   ├── header.component.*      # Navigation header
-│   │   │   │   ├── home.component.*        # Home/Landing section
-│   │   │   │   ├── resume.component.*      # Resume with tabs
-│   │   │   │   ├── blog.component.*        # Blog posts
-│   │   │   │   └── contact.component.*     # Contact form
-│   │   │   └── app.component.*             # Root component
-│   │   ├── assets/                         # Images and files
-│   │   ├── styles.css                      # Global styles
-│   │   ├── index.html                      # HTML template
-│   │   ├── main.ts                         # Entry point
-│   │   └── CNAME                           # Domain config
-│   ├── angular.json                        # Angular configuration
-│   ├── package.json                        # Dependencies
-│   ├── tsconfig.json                       # TypeScript config
-│   └── *.md                                # Documentation files
+│   │   │   ├── components/       # UI Components
+│   │   │   │   ├── header.component.*
+│   │   │   │   ├── home.component.*
+│   │   │   │   ├── resume.component.*
+│   │   │   │   ├── blog.component.*
+│   │   │   │   ├── blog-detail.component.*
+│   │   │   │   ├── contact.component.*
+│   │   │   │   ├── footer.component.*
+│   │   │   │   ├── main-layout.component.*
+│   │   │   │   └── ambient/      # Ambient effects
+│   │   │   │       ├── animated-background.component.*
+│   │   │   │       ├── click-spark.component.*
+│   │   │   │       └── floating-particles.component.*
+│   │   │   ├── services/         # Business logic
+│   │   │   │   ├── profile.service.ts
+│   │   │   │   ├── resume.service.ts
+│   │   │   │   ├── blog.service.ts
+│   │   │   │   ├── contact.service.ts
+│   │   │   │   └── cache.service.ts
+│   │   │   └── models/           # TypeScript interfaces
+│   │   ├── assets/
+│   │   │   ├── data/local/       # Development JSON templates
+│   │   │   ├── images/           # Static images
+│   │   │   └── documents/        # PDFs, etc.
+│   │   ├── environments/         # Environment configs
+│   │   ├── styles.css            # Global styles
+│   │   └── index.html            # App shell
+│   ├── angular.json              # Angular workspace config
+│   ├── package.json
+│   └── tsconfig.json
 │
-├── misc/                                   # [ACTION] Project Documentation (5 files)
-│   ├── 00-INDEX.md                         # Quick reference and overview
-│   ├── 01-SETUP-AND-DEPLOYMENT.md         # Setup, deployment, blog guide
-│   ├── 02-TECHNICAL-ARCHITECTURE.md       # Tech stack, architecture, code quality
-│   ├── 03-DESIGN-SYSTEM.md                # Theme, responsive, UI patterns
-│   └── 04-BUILD-AND-TROUBLESHOOTING.md    # Build config, fixes, migrations
+├── 📂 workers/                    # Cloudflare Workers API
+│   ├── src/
+│   │   ├── index.ts              # Main router & CORS
+│   │   └── handlers/             # API endpoints
+│   │       ├── profile.ts        # GET /profile
+│   │       ├── contact.ts        # GET /contact
+│   │       ├── resume.ts         # GET /resume/*
+│   │       ├── blog.ts           # GET /blog/*
+│   │       └── assets.ts         # GET /assets/*
+│   ├── scripts/                  # Utility scripts
+│   │   ├── upload-to-kv.js       # Upload data to Workers KV
+│   │   └── convert-assets-to-base64.js
+│   ├── data/                     # Source data
+│   │   ├── profile.json
+│   │   ├── contact.json
+│   │   ├── resume.json
+│   │   └── blog/
+│   ├── wrangler.toml             # Cloudflare config
+│   ├── package.json
+│   └── README.md                 # API documentation
 │
-├── .nojekyll                              # Disable Jekyll processing
-└── README.md                              # This file
+├── 📂 docs/                       # GitHub Pages output
+│   ├── assets/                   # Built assets
+│   ├── CNAME                     # Custom domain
+│   └── index.html                # Built app
+│
+├── 📂 scripts/                    # Development scripts
+│   ├── quick-start.ps1           # Quick start (Windows)
+│   ├── quick-start.bat           # Quick start batch
+│   ├── setup-local-dev.ps1       # Full setup (Windows)
+│   ├── setup-local-dev.sh        # Full setup (Linux/Mac)
+│   ├── start-dev.ps1             # Start all services
+│   ├── start-backend.ps1         # Start backend only
+│   ├── test-api.ps1              # Basic API tests
+│   ├── test-profile-api.ps1      # Profile endpoint tests
+│   ├── test-all-api-endpoints.ps1 # Full API tests
+│   └── README.md                 # Scripts documentation
+│
+├── 📂 misc/                       # Consolidated documentation
+│   ├── 00-INDEX.md               # Quick reference
+│   ├── 01-SETUP-AND-DEPLOYMENT.md
+│   ├── 02-TECHNICAL-ARCHITECTURE.md
+│   ├── 03-DESIGN-SYSTEM.md
+│   └── 04-BUILD-AND-TROUBLESHOOTING.md
+│
+├── 📂 .github/
+│   ├── workflows/
+│   │   ├── deploy.yml            # Frontend deployment
+│   │   └── deploy-workers.yml    # API deployment
+│   └── copilot-instructions.md   # AI coding guidelines
+│
+├── 📂 PortfolioBackend/           # .NET API (optional)
+├── 📂 PortfolioAPI/               # Azure Functions (optional)
+│
+├── package.json                  # Root workspace config
+├── README.md                     # This file
+├── .gitignore
+└── LICENSE
+
 ```
 
 ---
 
-## 🚀 Quick Start
+## 🌐 API Documentation
 
-**NEW: Start all services (Frontend + Backend + Azure Functions) with one command!**
+### Base URL
+- **Production**: `https://portfolio-api.rahul-a-works.workers.dev`
+- **Protocol**: HTTPS only
+- **CORS**: Enabled for all origins (`Access-Control-Allow-Origin: *`)
 
-See [QUICKSTART.md](QUICKSTART.md) for detailed instructions.
+### Endpoints
 
-### ⚡ One-Command Setup
+#### `GET /profile`
+Returns profile name and specialist content.
 
-```powershell
-# Option 1: Use PowerShell script (recommended)
-.\start-dev.ps1
+**Response:**
+```json
+{
+  "name": "Rahul A Bangera",
+  "specialistContent": "Software Developer | .NET & Azure Specialist"
+}
+```
+**Cache**: 1 hour
 
-# Option 2: Use npm directly
+---
+
+#### `GET /contact`
+Returns all contact information.
+
+**Response:**
+```json
+{
+  "email": "rahul.bangera.999@gmail.com",
+  "phone": "+91 XXXXX XXXXX",
+  "linkedin": "https://www.linkedin.com/in/rahul-bangera/",
+  "github": "https://github.com/rahul-a-bangera",
+  "location": "Bangalore, India"
+}
+```
+**Cache**: 1 hour
+
+---
+
+#### `GET /resume`
+Returns complete resume data.
+
+**Response:**
+```json
+{
+  "personalInfo": { ... },
+  "shortSummary": "...",
+  "summary": "...",
+  "skills": [ ... ],
+  "tools": [ ... ],
+  "experience": [ ... ],
+  "education": [ ... ]
+}
+```
+**Cache**: 1 hour
+
+---
+
+#### `GET /resume/{section}`
+Returns specific resume section.
+
+**Sections**: `summary`, `skills`, `tools`, `experience`, `education`, `personal`
+
+**Example**: `GET /resume/skills`
+
+---
+
+#### `GET /blog`
+Returns all blog posts.
+
+**Response:**
+```json
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "...",
+      "slug": "...",
+      "excerpt": "...",
+      "content": "...",
+      "date": "2024-01-15",
+      "category": "Technology",
+      "tags": ["angular", "typescript"],
+      "readTime": 5
+    }
+  ]
+}
+```
+**Cache**: 1 hour
+
+---
+
+#### `GET /blog/{slug}`
+Returns specific blog post by slug.
+
+**Example**: `GET /blog/my-first-post`
+
+---
+
+#### `GET /assets/{type}`
+Returns binary assets (images, files).
+
+**Types**: `profile-image`, `resume-pdf`, etc.
+
+**Cache**: 24 hours
+
+---
+
+### Error Responses
+
+**404 Not Found:**
+```json
+{
+  "error": "Not Found",
+  "message": "The requested endpoint does not exist",
+  "availableEndpoints": ["/profile", "/contact", "/resume", "/blog", "/assets"]
+}
+```
+
+**500 Internal Server Error:**
+```json
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred"
+}
+```
+
+### Rate Limiting
+- No rate limits currently enforced
+- Cloudflare Workers KV provides global edge caching
+
+### Authentication
+- Public API, no authentication required
+- POST endpoints require CSRF protection (future)
+
+---
+
+## 🚢 Deployment
+
+### Frontend (GitHub Pages)
+
+**Automatic Deployment:**
+- Push to `main` branch triggers GitHub Actions
+- Angular app builds to `docs/` folder
+- GitHub Pages serves from `docs/` directory
+- Custom domain: `rahul-a.in`
+
+**Manual Deployment:**
+```bash
+cd PortfolioFrontend
+npm run build
+# Commit docs/ folder
+git add docs/
+git commit -m "Deploy: Update frontend"
+git push origin main
+```
+
+**GitHub Actions Workflow:** `.github/workflows/deploy.yml`
+
+---
+
+### Backend API (Cloudflare Workers)
+
+**Automatic Deployment:**
+- Push to `main` branch triggers Workers deployment
+- Wrangler deploys to Cloudflare Edge network
+
+**Manual Deployment:**
+```bash
+cd workers
+npm run deploy
+```
+
+**Upload Data to Workers KV:**
+```bash
+cd workers
+node scripts/upload-to-kv.js
+```
+
+**GitHub Actions Workflow:** `.github/workflows/deploy-workers.yml`
+
+---
+
+### Environment Configuration
+
+**Development** (`environment.ts`):
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: '',
+  useLocalData: true  // Load from JSON templates
+};
+```
+
+**Production** (`environment.prod.ts`):
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://portfolio-api.rahul-a-works.workers.dev',
+  useLocalData: false  // Use Cloudflare Workers API
+};
+```
+
+---
+
+## 💻 Development
+
+### Available Scripts
+
+**Root Workspace:**
+```bash
+npm start                    # Start all services
+npm run start:frontend-only  # Frontend only
+npm run start:backend-only   # Backend only (.NET)
+npm run start:api-only       # Azure Functions only
+npm run install:all          # Install all dependencies
+npm run build:all            # Build frontend + API
+npm run test:api             # Run API tests
+```
+
+**Frontend:**
+```bash
+cd PortfolioFrontend
+npm start                    # Dev server (localhost:4200)
+npm run build                # Production build
+```
+
+**Workers API:**
+```bash
+cd workers
+npm run dev                  # Local dev server
+npm run deploy               # Deploy to Cloudflare
+npm run tail                 # View live logs
+```
+
+### Local Development Modes
+
+**Mode 1: Frontend Only (Recommended for UI work)**
+```bash
+npm run start:frontend-only
+# Uses JSON templates from assets/data/local/
+```
+
+**Mode 2: Full Stack (Frontend + API)**
+```bash
+# Terminal 1: Start Workers API
+cd workers
+npm run dev
+
+# Terminal 2: Start Frontend
+cd PortfolioFrontend
+# Update environment.ts: useLocalData = false
 npm start
 ```
 
-This will start:
-- **Frontend**: http://localhost:4200 (Angular)
-- **Backend**: http://localhost:5091 (.NET Core API)
-- **Azure Functions**: http://localhost:7071 (Serverless API)
+### Testing
 
-### 📋 Prerequisites
+**API Endpoint Tests:**
+```powershell
+# Test all endpoints
+.\scripts\test-all-api-endpoints.ps1
 
-- **Node.js**: v18.0.0 or higher
-- **.NET SDK**: v8.0 or higher
-- **Azure Functions Core Tools**: v4.x (optional)
+# Test specific endpoint
+.\scripts\test-profile-api.ps1
+```
 
-### 🔧 Manual Setup (Alternative)
+**Manual Testing:**
+```bash
+# Profile endpoint
+curl https://portfolio-api.rahul-a-works.workers.dev/profile
 
-<details>
-<summary>Click to expand traditional setup instructions</summary>
+# Resume endpoint
+curl https://portfolio-api.rahul-a-works.workers.dev/resume
 
-#### Installation
+# Blog endpoint
+curl https://portfolio-api.rahul-a-works.workers.dev/blog
+```
 
-1. **Clone the repository**
+---
+
+## 📚 Documentation
+
+All technical documentation is consolidated in the `misc/` folder:
+
+| File | Description |
+|------|-------------|
+| **00-INDEX.md** | Quick reference, common patterns, troubleshooting |
+| **01-SETUP-AND-DEPLOYMENT.md** | Installation, setup, deployment guides |
+| **02-TECHNICAL-ARCHITECTURE.md** | Tech stack, architecture, data flow |
+| **03-DESIGN-SYSTEM.md** | Colors, typography, responsive design |
+| **04-BUILD-AND-TROUBLESHOOTING.md** | Build config, common issues, fixes |
+
+**Additional Documentation:**
+- `scripts/README.md` - Development scripts guide
+- `workers/README.md` - Cloudflare Workers API documentation
+- `.github/copilot-instructions.md` - AI coding guidelines
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+### Development Workflow
+
+1. **Fork the repository**
+2. **Create a feature branch**
    ```bash
-   git clone https://github.com/rahul-a-bangera/Portfolio.git
-   cd Portfolio
+   git checkout -b feature/amazing-feature
    ```
+3. **Make your changes**
+   - Follow coding conventions in `.github/copilot-instructions.md`
+   - Use terminal green theme (#00ff96)
+   - Maintain responsive design
+   - Add tests if applicable
+4. **Commit your changes**
+   ```bash
+   git commit -m "feat: Add amazing feature"
+   ```
+   Use conventional commits: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, `chore:`
+5. **Push to your fork**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+6. **Open a Pull Request**
+
+### Code Style
+
+- **NO EMOJIS** in code, configs, or log messages
+- Use text markers: `[SUCCESS]`, `[ERROR]`, `[WARNING]`, `[INFO]`
+- TypeScript: Strict mode, PascalCase for classes, camelCase for properties
+- CSS: Use CSS custom properties, BEM-like naming, rem/em units
+- Components: Standalone components, no NgModules
+- Follow Angular 19 best practices
+
+### Testing Checklist
+
+- [ ] Test on Chrome, Safari, Firefox, Edge
+- [ ] Test on mobile (iPhone, Android)
+- [ ] Test on tablet (iPad)
+- [ ] Verify responsive design (320px - 4K)
+- [ ] Check accessibility (keyboard nav, screen readers)
+- [ ] Run API tests (`npm run test:api`)
+- [ ] Build succeeds without errors
+- [ ] No console errors
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📞 Contact
+
+**Rahul A Bangera**
+
+- **Website**: [https://rahul-a.in](https://rahul-a.in)
+- **Email**: rahul.bangera.999@gmail.com
+- **LinkedIn**: [linkedin.com/in/rahul-bangera](https://www.linkedin.com/in/rahul-bangera/)
+- **GitHub**: [github.com/rahul-a-bangera](https://github.com/rahul-a-bangera)
+
+---
+
+## 🙏 Acknowledgments
+
+- **Angular Team** - Amazing framework and tooling
+- **Cloudflare** - Fast, reliable edge computing platform
+- **Material Design** - Beautiful, accessible UI components
+- **GitHub** - Free hosting and CI/CD
+- **Community** - Open source contributors and supporters
+
+---
+
+## 📊 Project Stats
+
+- **Lines of Code**: ~15,000+ (TypeScript, HTML, CSS)
+- **Components**: 15+ Angular components
+- **API Endpoints**: 5 main endpoints with sub-routes
+- **Deployment Time**: ~2-3 minutes (automated)
+- **Bundle Size**: ~128 KB (gzipped)
+- **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you find it helpful!**
+
+[![GitHub stars](https://img.shields.io/github/stars/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/watchers)
+
+Made with ❤️ by [Rahul A Bangera](https://rahul-a.in)
+
+</div>
 
 2. **Install all dependencies**
    ```bash
