@@ -2,7 +2,24 @@
 
 This directory contains the Cloudflare Workers implementation for the Portfolio API endpoints.
 
-**Status:** Ready for deployment
+**Status:** ? Ready for deployment  
+**Data Source:** Cloudflare Workers KV (Key-Value Store)
+
+## ?? Documentation
+
+- **[DATA-MANAGEMENT.md](DATA-MANAGEMENT.md)** - **IMPORTANT**: Data security, KV upload, and management guide
+- **[upload-to-kv.js](scripts/upload-to-kv.js)** - Script to upload data to Workers KV
+
+## ?? Security Note
+
+**All personal data must be stored in Workers KV, not hardcoded in source files.**
+
+- ? Data is fetched from KV at runtime
+- ? No personal info in source code
+- ? No fallback data with real information
+- ? Never commit personal data to git
+
+See [DATA-MANAGEMENT.md](DATA-MANAGEMENT.md) for complete guidelines.
 
 ## Structure
 

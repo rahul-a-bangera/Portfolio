@@ -32,21 +32,20 @@ export async function handleProfile(
     if (!data) {
       console.error(`[ERROR] Profile data not found in KV: ${kvKey}`);
       
-      // Return default fallback data
-      const fallbackData = {
-        name: 'Rahul A Bangera',
-        specialistContent: 'Software Developer | .NET & Azure Specialist'
-      };
-
-      return new Response(JSON.stringify(fallbackData), {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, max-age=300, s-maxage=600', // Short cache for fallback
-          'X-Data-Source': 'fallback',
-          ...corsHeaders,
-        },
-      });
+      // Return error instead of hardcoded fallback
+      return new Response(
+        JSON.stringify({
+          error: 'Not Found',
+          message: 'Profile data not found. Please upload data to Workers KV.'
+        }),
+        {
+          status: 404,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders,
+          },
+        }
+      );
     }
 
     return new Response(JSON.stringify(data), {
