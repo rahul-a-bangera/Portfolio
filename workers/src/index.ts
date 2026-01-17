@@ -38,7 +38,9 @@ export default {
 
     try {
       // Route requests to appropriate handlers
-      if (path === '/contact' || path === '/api/contact') {
+      if (path === '/profile' || path === '/api/profile') {
+        return await handleProfile(request, env, corsHeaders);
+      } else if (path === '/contact' || path === '/api/contact') {
         return await handleContact(request, env, corsHeaders);
       } else if (path.startsWith('/resume') || path.startsWith('/api/resume')) {
         return await handleResume(request, env, corsHeaders);
@@ -51,7 +53,7 @@ export default {
           JSON.stringify({
             error: 'Not Found',
             message: 'The requested endpoint does not exist',
-            availableEndpoints: ['/contact', '/resume', '/blog', '/assets'],
+            availableEndpoints: ['/profile', '/contact', '/resume', '/blog', '/assets'],
           }),
           {
             status: 404,
