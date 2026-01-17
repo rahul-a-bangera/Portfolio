@@ -1,7 +1,7 @@
-# 🚀 Portfolio - Rahul A Bangera
+# 🚀 Portfolio Website
 
-[![Deploy Status](https://github.com/rahul-a-bangera/Portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/rahul-a-bangera/Portfolio/actions)
-[![Live Site](https://img.shields.io/badge/Live-rahul--a.in-00ff96?style=flat-square)](https://rahul-a.in)
+[![Deploy Status](https://img.shields.io/badge/Deploy-Automated-success?style=flat-square&logo=github-actions)](https://github.com/yourusername/Portfolio/actions)
+[![Live Site](https://img.shields.io/badge/Live-Demo-00ff96?style=flat-square)](https://yourwebsite.com)
 [![Angular](https://img.shields.io/badge/Angular-19.0.0-DD0031?style=flat-square&logo=angular)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare)](https://workers.cloudflare.com/)
@@ -9,8 +9,8 @@
 
 > A modern, high-performance portfolio website showcasing professional experience, skills, and projects. Built with Angular 19, powered by Cloudflare Workers API, and deployed on GitHub Pages with a custom domain.
 
-**Live Site**: [https://rahul-a.in](https://rahul-a.in)  
-**API**: [https://portfolio-api.rahul-a-works.workers.dev](https://portfolio-api.rahul-a-works.workers.dev)
+**Live Site**: [https://yourwebsite.com](https://yourwebsite.com)  
+**API**: [https://your-api.workers.dev](https://your-api.workers.dev)
 
 ---
 
@@ -310,7 +310,7 @@ Portfolio/
 ## 🌐 API Documentation
 
 ### Base URL
-- **Production**: `https://portfolio-api.rahul-a-works.workers.dev`
+- **Production**: `https://your-api.workers.dev`
 - **Protocol**: HTTPS only
 - **CORS**: Enabled for all origins (`Access-Control-Allow-Origin: *`)
 
@@ -322,8 +322,8 @@ Returns profile name and specialist content.
 **Response:**
 ```json
 {
-  "name": "Rahul A Bangera",
-  "specialistContent": "Software Developer | .NET & Azure Specialist"
+  "name": "Your Full Name",
+  "specialistContent": "Your Title | Your Specialization"
 }
 ```
 **Cache**: 1 hour
@@ -336,11 +336,11 @@ Returns all contact information.
 **Response:**
 ```json
 {
-  "email": "rahul.bangera.999@gmail.com",
-  "phone": "+91 XXXXX XXXXX",
-  "linkedin": "https://www.linkedin.com/in/rahul-bangera/",
-  "github": "https://github.com/rahul-a-bangera",
-  "location": "Bangalore, India"
+  "email": "your.email@example.com",
+  "phone": "+1 234 567 8900",
+  "linkedin": "https://www.linkedin.com/in/yourprofile",
+  "github": "https://github.com/yourusername",
+  "location": "Your City, Country"
 }
 ```
 **Cache**: 1 hour
@@ -577,13 +577,13 @@ npm start
 **Manual Testing:**
 ```bash
 # Profile endpoint
-curl https://portfolio-api.rahul-a-works.workers.dev/profile
+curl https://your-api.workers.dev/profile
 
 # Resume endpoint
-curl https://portfolio-api.rahul-a-works.workers.dev/resume
+curl https://your-api.workers.dev/resume
 
 # Blog endpoint
-curl https://portfolio-api.rahul-a-works.workers.dev/blog
+curl https://your-api.workers.dev/blog
 ```
 
 ---
@@ -664,12 +664,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-**Rahul A Bangera**
+**[Your Name]**
 
-- **Website**: [https://rahul-a.in](https://rahul-a.in)
-- **Email**: rahul.bangera.999@gmail.com
-- **LinkedIn**: [linkedin.com/in/rahul-bangera](https://www.linkedin.com/in/rahul-bangera/)
-- **GitHub**: [github.com/rahul-a-bangera](https://github.com/rahul-a-bangera)
+- **Website**: [https://yourwebsite.com](https://yourwebsite.com)
+- **Email**: your.email@example.com
+- **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
+- **GitHub**: [github.com/yourusername](https://github.com/yourusername)
+
+> **Note**: Contact information is displayed dynamically on the live site from Workers KV. Update `workers/data/contact.json` and upload to KV.
 
 ---
 
@@ -698,11 +700,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repo if you find it helpful!**
 
-[![GitHub stars](https://img.shields.io/github/stars/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/network/members)
-[![GitHub watchers](https://img.shields.io/github/watchers/rahul-a-bangera/Portfolio?style=social)](https://github.com/rahul-a-bangera/Portfolio/watchers)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/Portfolio?style=social)](https://github.com/yourusername/Portfolio/watchers)
 
-Made with ❤️ by [Rahul A Bangera](https://rahul-a.in)
+Made with ❤️ by [Your Name](https://yourwebsite.com)
 
 </div>
 
