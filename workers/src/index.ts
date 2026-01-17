@@ -3,11 +3,11 @@
  * Main entry point for all API endpoints
  */
 
-import { handleContact } from './handlers/contact';
-import { handleResume } from './handlers/resume';
-import { handleBlog } from './handlers/blog';
-import { handleAssets } from './handlers/assets';
-import { handleProfile } from './handlers/profile';
+import { handleContact } from './handlers/contact.js';
+import { handleResume } from './handlers/resume.js';
+import { handleBlog } from './handlers/blog.js';
+import { handleAssets } from './handlers/assets.js';
+import { handleProfile } from './handlers/profile.js';
 
 // CORS headers configuration
 const corsHeaders = {
